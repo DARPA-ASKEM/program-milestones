@@ -6,7 +6,7 @@ Directory for TA1 delivarables.
 
 1. Search result for "SIR age" from xDD leads to https://www.nature.com/articles/s41598-021-94609-3 
 
-2. Figure 1 comes from data in reference 15, "Prem, K. & Cook, A. R. Projecting social contact matrices in 152 countries using contact surveys and demographic data. PLoS Comput. Biol. 13, 20 (2017)." (https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005697). Figure 1 was converted into a CSV at figure1-10.1038-s41598-021-94609-3.csv
+2. Figure 1 comes from data in reference 15, "Prem, K. & Cook, A. R. Projecting social contact matrices in 152 countries using contact surveys and demographic data. PLoS Comput. Biol. 13, 20 (2017)." (https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005697). Figure 1 was converted into a CSV at figure1-10.1038-s41598-021-94609-3.csv. This article was independently found as one of the top hits via a direct xDD query (https://xdd.wisc.edu/api/articles?term=contact%20matrix%20population%20country&match=true&max=10&include_highlights=true)
 
 3. The reference included additional supporting information: 
 https://doi.org/10.1371/journal.pcbi.1005697.s001 PDF explaining the data.
@@ -19,8 +19,13 @@ https://doi.org/10.1371/journal.pcbi.1005697.s002 Zip file of multiple Excel spr
 
 6. We stopped here.  Note that potentially the weights could be played with for the UK dataset to see how close one can get to the UK during-pandemic surveys.
 
-## Data from UK
+## Contact Matrix from UK
 
 1. h2020_cm_imputed.csv is from https://github.com/jarvisc1/comix_covid-19-first_wave and is used in
 the following paper https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-020-01597-8
 
+## Other datasets
+
+1. Searched for "vaccination" in Terarium found a link to
+   https://data.cdc.gov/Vaccinations/Archive-COVID-19-Vaccination-and-Case-Trends-by-Ag/gxj9-t96f/data
+  and converted this to usa-vaccination-case-by-age-group.csv 
