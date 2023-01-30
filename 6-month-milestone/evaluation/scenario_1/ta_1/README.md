@@ -19,8 +19,13 @@ https://doi.org/10.1371/journal.pcbi.1005697.s002 Zip file of multiple Excel spr
 
 6. We stopped here.  Note that potentially the weights could be played with for the UK dataset to see how close one can get to the UK during-pandemic surveys.
 
-## Data from UK
+## Contact Matrix from UK
 
 1. h2020_cm_imputed.csv is from https://github.com/jarvisc1/comix_covid-19-first_wave and is used in
 the following paper https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-020-01597-8
 
+## Other datasets
+
+1. Searched for "vaccination" in Terarium found a link to
+   https://data.cdc.gov/Vaccinations/Archive-COVID-19-Vaccination-and-Case-Trends-by-Ag/gxj9-t96f/data
+  and converted this to usa-vaccination-case-by-age-group.csv 
