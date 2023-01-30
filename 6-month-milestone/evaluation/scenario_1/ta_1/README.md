@@ -1,6 +1,16 @@
 Directory for TA1 delivarables.
 
-- `xdd_query_reults`: JSON files that contain the results of the information seeking queries for scenario 1. This will be the basis for the text extraction pipelines for MIT and Arizona.
+## xdd_query_reults
+
+ JSON files that contain the results of the information seeking queries for scenario 1. This will be the basis for the text extraction pipelines for MIT and Arizona.
+
+## commented_sources
+
+Python sources originally provided by MITRE and augmented with source code comments for mention linking by the SKEMA team
+
+## Text Extractions
+- `scenario1_mit_extractions.xlsx`: Parameter extractions by MIT's reading pipeline
+- `scenario1_skema_extractions.xlsx`: Parameter extractions by SKEMA's reading pipeline
 
 ## Contact matrices
 
