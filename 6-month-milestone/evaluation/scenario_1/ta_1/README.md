@@ -6,7 +6,7 @@ Directory for TA1 delivarables.
 
 1. Search result for "SIR age" from xDD leads to https://www.nature.com/articles/s41598-021-94609-3 
 
-2. Figure 1 comes from data in reference 15, "Prem, K. & Cook, A. R. Projecting social contact matrices in 152 countries using contact surveys and demographic data. PLoS Comput. Biol. 13, 20 (2017)." (https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005697). Figure 1 was converted into a CSV at figure1-10.1038-s41598-021-94609-3.csv
+2. Figure 1 comes from data in reference 15, "Prem, K. & Cook, A. R. Projecting social contact matrices in 152 countries using contact surveys and demographic data. PLoS Comput. Biol. 13, 20 (2017)." (https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005697). Figure 1 was converted into a CSV at figure1-10.1038-s41598-021-94609-3.csv. This article was independently found as one of the top hits via a direct xDD query (https://xdd.wisc.edu/api/articles?term=contact%20matrix%20population%20country&match=true&max=10&include_highlights=true)
 
 3. The reference included additional supporting information: 
 https://doi.org/10.1371/journal.pcbi.1005697.s001 PDF explaining the data.
