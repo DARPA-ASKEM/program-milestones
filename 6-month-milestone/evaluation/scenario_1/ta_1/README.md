@@ -29,3 +29,6 @@ the following paper https://bmcmedicine.biomedcentral.com/articles/10.1186/s1291
 1. Searched for "vaccination" in Terarium found a link to
    https://data.cdc.gov/Vaccinations/Archive-COVID-19-Vaccination-and-Case-Trends-by-Ag/gxj9-t96f/data
   and converted this to usa-vaccination-case-by-age-group.csv 
+
+2. Found mortality data at https://www.cdc.gov/nchs/nvss/covid-19.htm and exported weekly data to
+   the Provisional_COVID-19_Death_Counts_by_Week_Ending_Date_and_State.csv 
