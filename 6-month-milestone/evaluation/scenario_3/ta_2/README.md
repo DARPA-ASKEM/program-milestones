@@ -11,7 +11,7 @@ These models can be used donwstream using the following exports in this folder:
 - scenario3_biomd958.json: Petri net JSON export of the Ndairou2020 model from MIRA
 - scenario3_biomd958_mira.json: MIRA template model JSON export of the Ndairou2020 model from MIRA
 - scenario3_biomd960.json: Petri net JSON export of the Paiva2020 model from MIRA
-- scenario3_biomd960_mira.json: MIRA template model JSON export of the Ndairou2020 model from MIRA
+- scenario3_biomd960_mira.json: MIRA template model JSON export of the Paiva2020 model from MIRA
 
 The MIRA structural comparison of the two models (using MIRA's internal
 visualization, not the more sophisticated HMI) is available in
