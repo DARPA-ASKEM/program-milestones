@@ -21,4 +21,6 @@ Steps followed
    (https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf) and then processed
    using datatable to group each case into the month it was reported and whether it resulted in a
    hospitalization. Checked in as hospitalization-rate-by-month.csv  
-
+2. Using same dataset, also stratified by age group and generated age-stratified-by-month-hosp-cases-deaths.csv.
+   Code for both parts is in cdc-case-data/process.py
+3. Hazard rates conditioned on vaccination is derived from https://data.cdc.gov/Public-Health-Surveillance/Rates-of-COVID-19-Cases-or-Deaths-by-Age-Group-and/3rge-nu2a and checked in as vaccination-hazard-rates-age-month.csv. Note: This data has also be stratified by age.
