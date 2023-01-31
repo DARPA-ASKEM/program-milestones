@@ -16,8 +16,10 @@ SIDARTHE-params-t#.json: is the parameters for unit test 1 and unit test 2. t1 i
 
 ## Connection between Artifacts
 
-SIDARTHE-params-dkg.txt: is the connection between the parameters extracted from paper text and the DKG terms.
+SIDARTHE-extracted-vars.txt: is the list of variables and their definitions extracted by MIT from the [SIDARTHE paper text](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7175834/pdf/41591_2020_Article_883.pdf) (paper PDF was pre-processed through COSMOS to get raw text).
 
-SIDARTHE-latex-params.txt is the connection between the latex extract from paper formula and the parameters extracted from paper text.
+SIDARTHE-params-dkg.txt: is the connection between the variables extracted from paper text and the DKG terms.
+
+SIDARTHE-latex-params.txt is the connection between the latex extract from paper formula and the variables extracted from paper text.
 
 
