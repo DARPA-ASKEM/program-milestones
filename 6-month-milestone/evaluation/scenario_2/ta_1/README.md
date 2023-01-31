@@ -14,3 +14,10 @@ SIDARTHE-ic-unit1.json: is the initial concentrations for the unit tests
 
 SIDARTHE-params-t#.json: is the parameters for unit test 1 and unit test 2. t1 is  for unit test 1 and the first of the parameter value for unit test 2. The remaining ones are for the time dependence of the parameters for unit test 2. 
 
+## Connection between Artifacts
+
+SIDARTHE-params-dkg.txt: is the connection between the parameters extracted from paper text and the DKG terms.
+
+SIDARTHE-latex-params.txt is the connection between the latex extract from paper formula and the parameters extracted from paper text.
+
+
