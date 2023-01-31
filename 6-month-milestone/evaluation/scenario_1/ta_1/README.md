@@ -20,8 +20,7 @@
 
 ### Model to Metadata Alignment
 1. Code comments explicitly describe that `alpha` is `death rate`
-2. Structurally: the meaning of `alpha` can be inferred from its location within the ODEs
-3. Code variable `alpha` -> to paper variable name based on string matching
+2. Code variable `alpha` -> to paper variable name based on embedding similarity
 3. A human in the loop can assist in annotating the meaning of `alpha`
 
 ### xdd_query_reults
