@@ -10,8 +10,10 @@ We therefore remapped some groundings to use consistent DKG terms, thereby impro
 These models can be used donwstream using the following exports in this folder:
 - scenario3_biomd958.json: Petri net JSON export of the Ndairou2020 model from MIRA
 - scenario3_biomd958_mira.json: MIRA template model JSON export of the Ndairou2020 model from MIRA
+- scenario3_biomd958_rate_law_subs.json: Petri net JSON export of Ndairou2020 after MIRA's template and rate law simplification and parameter formula simplification (substitute formulas over multiple parameters and introduce a new parameter with the substituted value) to make clean mass-action representations.
 - scenario3_biomd960.json: Petri net JSON export of the Paiva2020 model from MIRA
 - scenario3_biomd960_mira.json: MIRA template model JSON export of the Paiva2020 model from MIRA
+- scenario3_biomd960_rate_law_subs.json: Petri net JSON export of Paiva2020 after MIRA's template and rate law simplification and parameter formula simplification (substitute formulas over multiple parameters and introduce a new parameter with the substituted value) to make clean mass-action representations.
 
 The MIRA structural comparison of the two models (using MIRA's internal
 visualization, not the more sophisticated HMI) is available in
