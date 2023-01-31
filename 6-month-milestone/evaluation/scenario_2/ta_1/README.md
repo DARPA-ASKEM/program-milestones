@@ -22,4 +22,6 @@ SIDARTHE-params-dkg.txt: is the connection between the variables extracted from 
 
 SIDARTHE-latex-params.txt is the connection between the latex extract from paper formula and the variables extracted from paper text.
 
+## Enriched Gromets
+The Gromet FNs for the SIDARTHE sources with text extraction metadata attached inside the `gromet_fn` directory
 

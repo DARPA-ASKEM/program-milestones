@@ -35,6 +35,9 @@ Python sources originally provided by MITRE and augmented with source code comme
 - `scenario1_mit_extractions.xlsx`: Parameter extractions by MIT's reading pipeline
 - `scenario1_skema_extractions.xlsx`: Parameter extractions by SKEMA's reading pipeline
 
+### Enriched Gromet
+The Gromet FN for the SIR with text extraction metadata attached
+
 ### Contact matrices
 
 1. Search result for "SIR age" from xDD leads to https://www.nature.com/articles/s41598-021-94609-3 
