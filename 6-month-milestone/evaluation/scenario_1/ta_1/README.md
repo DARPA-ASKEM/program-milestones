@@ -12,7 +12,6 @@
 * Metadata extrated by TA1 will be provided to TA4 directly so that a user in the HMI workbench has appropriate context to support their modeling task. 
 * Example metadata may include things like species/compartment descriptions. E.g. "**Ailing** means symptomatic, infected, and undetected"
 
-
 ## Issues
 
 * Clearly defined format of what is needed by TA2/TA3, in what format, and how it will be used
