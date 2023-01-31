@@ -39,3 +39,10 @@ the following paper https://bmcmedicine.biomedcentral.com/articles/10.1186/s1291
 1. Searched for "vaccination" in Terarium found a link to
    https://data.cdc.gov/Vaccinations/Archive-COVID-19-Vaccination-and-Case-Trends-by-Ag/gxj9-t96f/data
   and converted this to usa-vaccination-case-by-age-group.csv 
+
+
+## model py-ascet and model parameters
+
+1. The model py-ascet is sir-py-ascet.json
+2. The most up to date model parameters are sir_params_v3.json which is the non-normalized parameters, and the sir_parama_concentrations.json are the normalized parameters
+3. sir_ic.json is the initial conditions for the un-normalized parameters, while the sir_ic_concentrations.json is the initial conditions for the normalized parameters
