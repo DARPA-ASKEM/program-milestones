@@ -81,6 +81,12 @@ This looks very good and matches the original data, confirming that the inverse 
 
 #### Application to Real Data from TA1
 
+* Expect time series data on I + R
+* Start with an assumption on the recovery
+* Possible additoinal: alternative measure for recovery rate
+* Modeling assumption: use total infections from 2 weeks ago as R0, determine I0 and S0 from that
+* Need time series for total population of US over time
+
 ## Question 2: Add Hospitalizations and Deaths
 
 Question 2 involves doing the same analysis as question one but on the SIR model with hopsitalizations and deaths included.
@@ -139,6 +145,15 @@ plot!(t_test, data_test[3][2])
 
 This checks out.
 
+#### Data Ask
+
+* Daily time series on number of patients admitted to the hospital all US
+* time series for mortality
+* 10 gig file on whether hospitalized or not => percentage for the difference in parameters
+    * Plot the percentage over time by month, see if a constant assumption is okay or not,
+    * If not, need to use the time series
+* Any factor for underreporting estimate? Wastewater time series
+
 ### Evaluate Model Forecasts
 
 In order to evaluate the model forecasts, we developed a functional which does the forecasting part with multiple models
@@ -193,17 +208,40 @@ The unit test analysis code is as follows:
 
 ```
 
+#### Data Asks
+
+* Time series of vaccinations
+* Hospitalization rate difference due to vaccination?
+* Recovery rate difference due to vaccination?
+* Mortality rate difference due to vaccination? Hospitalized and not hospitalized
+
 ## Question 4: Age-Stratified Model
 
 Question 4 is the same analysis as questions 1, 2, and 3 on a model with age-stratification added. In order to build unit tests for
 the analysis and functionality, we started by building the model with vaccine by hand, awaiting a swap to the version from
 TA2.
 
+#### Data
+
+* Previous data that is age stratified is cases, and hospitalizations
+* 10 stratifications, by 10 years each
+* Underreporting over time?
+* Data for assumption on recovery rate with respect to age
+* Aggregated contact matrix for beta over age, from Scenario 1
+
 ## Question 5: Add Reinfection
 
 Question 5 is the same analysis as questions 1, 2, 3, and 4 on a model with reinfection added. In order to build unit tests for
 the analysis and functionality, we started by building the model with vaccine by hand, awaiting a swap to the version from
 TA2.
+
+#### Data Asks
+
+* Change in hospitalization for people who are reinfected
+* State of new york, people who reinfected?
+* Median time to reinfection
+* It may require R -> S ===> R -> S2
+* Maybe model recovered as vaccinated S?
 
 ## Question 6: New Data
 
