@@ -1,0 +1,113 @@
+{
+ "S": [
+  {
+   "sname": "S",
+   "mira_ids": "[('identity', 'ido:0000514')]",
+   "mira_context": "[]"
+  },
+  {
+   "sname": "I",
+   "mira_ids": "[('identity', 'ido:0000511')]",
+   "mira_context": "[]"
+  },
+  {
+   "sname": "R",
+   "mira_ids": "[('identity', 'apollosv:00000163')]",
+   "mira_context": "[]"
+  },
+  {
+   "sname": "H",
+   "mira_ids": "[('identity', 'ncit:C25179')]",
+   "mira_context": "[]"
+  },
+  {
+   "sname": "D",
+   "mira_ids": "[('identity', 'ncit:C28554')]",
+   "mira_context": "[]"
+  }
+ ],
+ "T": [
+  {
+   "tname": "t1",
+   "template_type": "ControlledConversion",
+   "parameter_name": "p_petri_1",
+   "parameter_value": null
+  },
+  {
+   "tname": "t2",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_2",
+   "parameter_value": null
+  },
+  {
+   "tname": "t3",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_3",
+   "parameter_value": null
+  },
+  {
+   "tname": "t4",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_4",
+   "parameter_value": null
+  },
+  {
+   "tname": "t5",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_5",
+   "parameter_value": null
+  }
+ ],
+ "I": [
+  {
+   "is": 2,
+   "it": 1
+  },
+  {
+   "is": 1,
+   "it": 1
+  },
+  {
+   "is": 2,
+   "it": 2
+  },
+  {
+   "is": 2,
+   "it": 3
+  },
+  {
+   "is": 4,
+   "it": 4
+  },
+  {
+   "is": 4,
+   "it": 5
+  }
+ ],
+ "O": [
+  {
+   "os": 2,
+   "ot": 1
+  },
+  {
+   "os": 2,
+   "ot": 1
+  },
+  {
+   "os": 3,
+   "ot": 2
+  },
+  {
+   "os": 4,
+   "ot": 3
+  },
+  {
+   "os": 3,
+   "ot": 4
+  },
+  {
+   "os": 5,
+   "ot": 5
+  }
+ ]
+}
