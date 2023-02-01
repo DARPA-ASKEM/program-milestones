@@ -8,6 +8,8 @@ SIDARTHE-MIT_a.json: is the MIT un-annotated py-ascet from the code version a
 
 SIDARTHE-MIT_a.json: is the MIT un-annotated py-ascet from the code version b
 
+SKEMA_SIDARTHE_PN.json: This is the extraction of the equations to the PN done by SKEMA, it is a full PN. 
+
 ## Initial Conditions and Parameters
 
 SIDARTHE-ic-unit1.json: is the initial concentrations for the unit tests
