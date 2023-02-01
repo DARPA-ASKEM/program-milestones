@@ -17,4 +17,4 @@ These models can be used donwstream using the following exports in this folder:
 
 The MIRA structural comparison of the two models (using MIRA's internal
 visualization, not the more sophisticated HMI) is available in
-sc3_model_958_960_delta_corrected.png.
+scenario3_model_958_960_delta.png.
