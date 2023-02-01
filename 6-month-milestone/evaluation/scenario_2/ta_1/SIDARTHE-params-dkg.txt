@@ -1,0 +1,1159 @@
+
+S: Susceptible
+
+looking up Susceptible
+[['ido:0000514', 'susceptible population'], ['pato:0001152', 'susceptible toward'], ['apollosv:00000205', 'susceptible organism'], ['ido:0000659', 'susceptible organism'], ['apollosv:00000234', 'susceptible population'], ['cemo:susceptible_individuals', 'susceptible individuals'], ['apollosv:00000549', 'Susceptible-Infected-Resistant model'], ['apollosv:00000548', 'Susceptible-Infected-Susceptible model'], ['apollosv:00000551', 'Susceptible-Exposed-Infectious-Recovered model'], ['cido:0000040', 'has susceptible host'], ['apollosv:00000553', 'two-strain Susceptible-Infectious-Resistant model'], ['cido:0000391', 'susceptible to infection of'], ['cido:0000030', 'susceptible to adverse event'], ['apollosv:00000087', 'count of susceptible population'], ['vido:0001266', 'virus adhesion susceptible cell'], ['idocovid19:0001268', 'SARS-COV-2 adhesion susceptible cell'], ['apollosv:00000072', 'simulation of susceptible organism'], ['cido:0000392', 'susceptible to lethal infection of'], ['apollosv:00000018', 'count of simulated susceptible population']]
+-----------
+
+I: Infected
+
+looking up Infected
+[['ido:0000511', 'infected population'], ['efo:0001460', 'uninfected'], ['vsmo:0000268', 'infected'], ['doid:13117', 'paronychia'], ['idomal:0001129', 'RESA-155'], ['idomal:0000745', 'infected blood'], ['apollosv:00000209', 'infected organism'], ['ido:0000460', 'infected organism'], ['idomal:0000743', 'infected mosquito'], ['doid:9911', 'infected hydrocele'], ['apollosv:00000233', 'infected population'], ['ido:0000461', 'co-infected organism'], ['apollosv:00000549', 'Susceptible-Infected-Resistant model'], ['apollosv:00000548', 'Susceptible-Infected-Susceptible model'], ['hp:0003095', 'Septic arthritis'], ['idomal:0001130', 'RESA-like protein'], ['oae:0007041', 'infected bite AE'], ['oae:0007042', 'infected cyst AE'], ['oae:0007028', 'eczema infected AE'], ['oae:0007013', 'blister infected AE'], ['oae:0008948', 'dermatitis infected AE'], ['doid:9389', 'infectious anterior uveitis'], ['oae:0008887', 'infected skin ulcer AE'], ['cido:0000290', 'human infected with pathogen'], ['cido:0000292', 'human infected by SARS-CoV-2']]
+-----------
+
+D: Diagnosed
+
+looking up Diagnosed
+[['symp:0000527', 'undiagnosed cardiac murmur'], ['ndfrt:N0000003966', 'Mental Disorders Diagnosed in Childhood [Disease/Finding]'], ['opmi:0000551', 'condition to be diagnosed by procedure status']]
+-----------
+
+A: Ailing
+
+looking up Ailing
+[]
+-----------
+
+R: Recognized
+
+looking up Recognized
+[]
+-----------
+
+T: Threatened
+
+looking up Threatened
+[]
+-----------
+
+H: Healed
+
+looking up Healed
+[]
+-----------
+
+E: Extinct
+
+looking up Extinct
+[['hp:0000550', 'Undetectable electroretinogram']]
+-----------
+
+Susceptible: susceptible to infection
+
+looking up Susceptible
+[['ido:0000514', 'susceptible population'], ['pato:0001152', 'susceptible toward'], ['apollosv:00000205', 'susceptible organism'], ['ido:0000659', 'susceptible organism'], ['apollosv:00000234', 'susceptible population'], ['cemo:susceptible_individuals', 'susceptible individuals'], ['apollosv:00000549', 'Susceptible-Infected-Resistant model'], ['apollosv:00000548', 'Susceptible-Infected-Susceptible model'], ['apollosv:00000551', 'Susceptible-Exposed-Infectious-Recovered model'], ['cido:0000040', 'has susceptible host'], ['apollosv:00000553', 'two-strain Susceptible-Infectious-Resistant model'], ['cido:0000391', 'susceptible to infection of'], ['cido:0000030', 'susceptible to adverse event'], ['apollosv:00000087', 'count of susceptible population'], ['vido:0001266', 'virus adhesion susceptible cell'], ['idocovid19:0001268', 'SARS-COV-2 adhesion susceptible cell'], ['apollosv:00000072', 'simulation of susceptible organism'], ['cido:0000392', 'susceptible to lethal infection of'], ['apollosv:00000018', 'count of simulated susceptible population']]
+-----------
+
+Exposed: exposed to infection
+
+looking up Exposed
+[['ncit:C71551', 'Exposed Population'], ['cemo:exposed_contacts', 'exposed contacts'], ['apollosv:00000154', 'exposed population'], ['cemo:exposed_individuals', 'exposed individuals'], ['ncit:C71552', 'Unexposed Population'], ['apollosv:00000551', 'Susceptible-Exposed-Infectious-Recovered model'], ['cemo:initial_exposed_case', 'initial exposed case'], ['pato:0001646', 'protruding out of'], ['hp:0007603', 'Freckles in sun-exposed areas'], ['apollosv:00000038', 'simulation of exposed organism'], ['hp:0005586', 'Hyperpigmentation in sun-exposed areas'], ['apollosv:00000019', 'count of simulated exposed population'], ['vsmo:0001685', 'exposed simple Vent-Axia suction trap'], ['hp:0007623', 'Pigmentation anomalies of sun-exposed skin'], ['hp:0007511', 'Mottled pigmentation of photoexposed areas'], ['hp:0001074', 'Atypical nevi in non-sun exposed areas'], ['vsmo:0001684', 'exposed suction trap of Johnson and Taylor'], ['cemo:number_of_cases_exposed_by_international_travel', 'number of cases exposed by international travel'], ['cemo:number_of_cases_exposed_by_local_unknown_exposure', 'number of cases exposed by local unknown exposure'], ['cemo:number_of_cases_exposed_by_local_one_or_cluster_case', 'number of cases exposed by local (one or cluster) case']]
+-----------
+
+Infectious: infected with the virus
+
+looking up Infectious
+[['ido:0000621', 'acquired immunity to infectious agent'], ['ido:0000597', 'host exposure to environment containing infectious agent'], ['ido:0000569', 'asymptomatic host of infectious agent'], ['vsmo:0000269', 'infectious'], ['apollosv:00000404', 'infectiousness'], ['ncbitaxon:180255', 'Iltovirus'], ['doid:2312', 'nocardiosis'], ['doid:10079', 'cysticercosis'], ['doid:1079', 'setariasis'], ['doid:888', 'fasciolopsiasis'], ['doid:2326', 'gastroenteritis'], ['doid:11379', 'gnathomiasis'], ['doid:11102', 'bartonellosis'], ['symp:0000197', 'abortion'], ['doid:882', 'heterophyiasis'], ['doid:10074', 'hymenolepiasis'], ['doid:0050596', 'taeniasis'], ['doid:14422', 'dipetalonemiasis'], ['doid:12385', 'shigellosis'], ['doid:9065', 'leishmaniasis'], ['doid:1082', 'dirofilariasis'], ['doid:11055', 'pasteurellosis'], ['doid:12384', 'dysentery'], ['doid:11263', 'chlamydia'], ['doid:7551', 'gonorrhea']]
+-----------
+
+Removed: recovered from the virus
+
+looking up Removed
+[['iao:0000226', 'placeholder removed'], ['cemo:percentage_cases_removed', 'percentage cases removed'], ['iao:0000002', 'example to be eventually removed'], ['pr:000018931', 'angiotensinogen, signal peptide removed form'], ['cemo:total_number_of_cases_removed_from_isolation', 'total number of cases removed from isolation'], ['pr:000050264', 'ORF8 protein, signal peptide removed form (SARS-CoV-2)'], ['pr:000050265', 'ORF7a protein, signal peptide removed form (SARS-CoV-2)'], ['pr:000050266', 'spike glycoprotein, signal peptide removed form (SARS-CoV-2)'], ['cemo:number_of_cases_removed_from_isolation_this_week', 'number of cases removed from isolation this week']]
+-----------
+
+Risk Perception: the effect of risk perception on the spread of the virus
+
+looking up Risk Perception
+[]
+-----------
+
+Cumulative Cases: the total number of cases
+
+looking up Cumulative Cases
+[['cemo:cumulative_cases', 'cumulative cases']]
+-----------
+
+Dead Individuals: individuals who have died from the virus
+
+looking up Dead Individuals
+[]
+-----------
+
+Clinical Severity: the clinical severity of COVID-19
+
+looking up Clinical Severity
+[]
+-----------
+
+Stochastic Transmission: transmission dynamics of the virus
+
+looking up Stochastic Transmission
+[]
+-----------
+
+Basic Reproduction Number: estimated number of transmissions
+
+-----------
+
+SIR model: model for human-to-human transmission
+
+looking up SIR model
+[]
+-----------
+
+SEIR model: model considering risk perception and cumulative number of cases
+
+looking up SEIR model
+[]
+-----------
+
+SIDARTHE model: model predicting the evolution of epidemics
+
+looking up SIDARTHE model
+[]
+-----------
+
+Lockdown: strategy to contain the spread of the infection
+
+looking up Lockdown
+[]
+-----------
+
+Testing: important to detect undetected infected people
+
+looking up Testing
+[['cemo:testing_rate', 'testing rate'], ['maxo:0000925', 'Apgar testing'], ['maxo:0000127', 'genetic testing'], ['maxo:0000609', 'serology testing'], ['maxo:0000811', 'varicella testing'], ['maxo:0000604', 'endocrine testing'], ['maxo:0000816', 'gonorrhea testing'], ['maxo:0000147', 'hematology testing'], ['maxo:0000125', 'audiometric testing'], ['maxo:0000814', 'HIV screening'], ['maxo:0000809', 'syphilis screening'], ['maxo:0000745', 'cytogenetic analysis'], ['maxo:0000607', 'D-dimer assessment'], ['maxo:0000003', 'diagnostic procedure'], ['maxo:0000149', 'hematocrit assessment'], ['maxo:0000144', 'histological procedure'], ['maxo:0000606', 'procalcitonin assessment'], ['maxo:0000610', 'clinical ELISA testing'], ['maxo:0000778', 'liver function testing'], ['maxo:0000886', 'kidney function testing'], ['maxo:0000529', 'prenatal genetic testing'], ['maxo:0000075', 'digestive system testing'], ['maxo:0000538', 'fetal fibronectin testing'], ['maxo:0000533', 'molecular genetic testing'], ['maxo:0000817', 'hepatitis C screening']]
+-----------
+
+R0: basic reproduction number
+
+-----------
+
+S: susceptible (uninfected)
+
+-----------
+
+I: infected (asymptomatic or pauci-symptomatic infected, undetected)
+
+-----------
+
+D: diagnosed (asymptomatic infected, detected)
+
+-----------
+
+A: ailing (symptomatic infected, undetected)
+
+-----------
+
+R: recognized (symptomatic infected, detected)
+
+-----------
+
+T: threatened (infected with life-threatening symptoms, detected)
+
+-----------
+
+H: healed (recovered)
+
+-----------
+
+E: extinct (dead)
+
+-----------
+
+R0: basic reproduction number
+
+-----------
+
+R1.66: social distancing, awareness of the epidemic, hygiene and behavioral recommendations
+
+-----------
+
+R1.80: screening focused on symptomatic individuals
+
+-----------
+
+R1.60: partially incomplete lockdown effectiveness
+
+-----------
+
+None
+
+-----------
+
+R0: Reproduction number of the virus
+
+-----------
+
+SOI: Severity of Infection classification
+
+looking up SOI
+[['chebi:107432', '(3R,3aS,7R,7aS)-3-[4-[4-(dimethylamino)phenyl]-2-fluorophenyl]-7-methyl-2-(phenylmethyl)-3a,6,7,7a-tetrahydro-3H-isoindol-1-one'], ['ncit:C41261', 'White'], ['hp:0040183', 'Encopresis'], ['chebi:140592', 'onalespib'], ['chebi:24897', 'isoindoles'], ['vsmo:0002613', 'Liponyssoides'], ['uberon:0003909', 'sinusoid'], ['pato:0000947', 'elliptic'], ['doid:4175', 'Rh isoimmunization'], ['vsmo:0001992', 'Liponyssoides sanguineus'], ['ncbitaxon:40355', 'Fonsecaea pedrosoi'], ['uberon:0001281', 'hepatic sinusoid'], ['uberon:0014399', 'sinusoidal space'], ['doid:1098', 'fetal erythroblastosis'], ['doid:11294', 'arteriovenous malformation'], ['idomal:0000681', 'subsoil drainage'], ['uberon:0014400', 'hepatic sinusoidal space'], ['uberon:0022357', 'mesentery of ileum'], ['cl:0002262', 'endothelial cell of sinusoid'], ['uberon:0009744', 'lymph node medullary sinus'], ['doid:12043', 'kernicterus due to isoimmunization'], ['vsmo:0001516', 'soil sample egg extractor'], ['vsmo:0001518', 'soil washing machine of Salt-Hollick'], ['idomal:0002336', 'response to soil surface characteristic'], ['vsmo:0001517', 'soil washing machine of Horsfall']]
+-----------
+
+CFR: Case Fatality Rate
+
+looking up CFR
+[['pr:000002065', 'mast/stem cell growth factor receptor'], ['go:0005173', 'stem cell factor receptor binding'], ['pr:P10721', 'mast/stem cell growth factor receptor Kit (human)'], ['pr:P05532', 'mast/stem cell growth factor receptor Kit (mouse)']]
+-----------
+
+None
+
+-----------
+
+Cumulative infected: Total number of infected people
+
+looking up Cumulative infected
+[]
+-----------
+
+Current total infected: Number of currently infected people
+
+-----------
+
+Recovered: Number of people who have recovered from the virus
+
+looking up Recovered
+[['ncit:C173781', 'Recovered Rate'], ['apollosv:00000302', 'recovered organism'], ['apollosv:00000163', 'recovered population'], ['apollosv:00000551', 'Susceptible-Exposed-Infectious-Recovered model'], ['apollosv:00000041', 'simulation of recovered organism']]
+-----------
+
+Deaths: Number of people who have died from the virus
+
+looking up Deaths
+[['cemo:daily_deaths', 'daily deaths'], ['cemo:number_of_deaths_new_this_week', 'number of deaths new this week']]
+-----------
+
+Diagnosed cumulative infected: Total number of people diagnosed as infected
+
+-----------
+
+Diagnosed current total infected: Number of people currently diagnosed as infected
+
+-----------
+
+Diagnosed recovered: Number of people who have been diagnosed as recovered
+
+looking up Diagnosed recovered
+[]
+-----------
+
+CFR: Ratio of deaths to total number of infected people
+
+looking up CFR
+[['pr:000002065', 'mast/stem cell growth factor receptor'], ['go:0005173', 'stem cell factor receptor binding'], ['pr:P10721', 'mast/stem cell growth factor receptor Kit (human)'], ['pr:P05532', 'mast/stem cell growth factor receptor Kit (mouse)']]
+-----------
+
+CFR: mortality coefficient
+
+looking up CFR
+[['pr:000002065', 'mast/stem cell growth factor receptor'], ['go:0005173', 'stem cell factor receptor binding'], ['pr:P10721', 'mast/stem cell growth factor receptor Kit (human)'], ['pr:P05532', 'mast/stem cell growth factor receptor Kit (mouse)']]
+looking up mortality coefficient
+[]
+-----------
+
+ICUs: insufficient number of ICUs
+
+looking up ICUs
+[['doid:2841', 'asthma'], ['uberon:0002298', 'brainstem'], ['uberon:0007118', 'umbilicus'], ['pato:0002281', 'biscupidate'], ['pato:0005021', 'unicuspidate'], ['pato:0002257', 'multicuspidate'], ['vsmo:0002459', 'Culex pullus'], ['vsmo:0000620', 'Culex pipiens'], ['vsmo:0000706', 'Culex sitiens'], ['vsmo:0002624', 'Culex erraticus'], ['ncbitaxon:29930', 'Ixodes pacificus'], ['vsmo:0000546', 'Ixodes pacificus'], ['vsmo:0002460', 'Culex australicus'], ['ncbitaxon:1491', 'Clostridium botulinum'], ['vsmo:0000704', 'Culex bitaeniorhynchus'], ['uberon:0005432', 'aortic sac'], ['vsmo:0002342', 'Culicoides circumscriptus'], ['ncbitaxon:9685', 'Felis catus'], ['uberon:0003098', 'optic stalk'], ['uberon:0001152', 'cystic duct'], ['uberon:0002426', 'chest muscle'], ['vsmo:0002237', 'Aedes caspius'], ['ncbitaxon:9031', 'Gallus gallus'], ['uberon:0001322', 'sciatic nerve'], ['uberon:0001971', 'gastric juice']]
+-----------
+
+lockdown measures: control measures of varying strength and nature
+
+looking up lockdown measures
+[]
+-----------
+
+transmission rate: estimated transmission rate
+
+looking up transmission rate
+[['askemo:0000005', 'effective contact rate'], ['apollosv:00000413', 'transmission rate of pathogen to human from Wolbachia-infected mosquito bites']]
+-----------
+
+diagnosis campaigns: campaigns to detect SARS-CoV-2 immunoglobulins IgM and IgG
+
+looking up diagnosis campaigns
+[]
+-----------
+
+Mortality rate: number of deaths in the whole population
+
+looking up Mortality rate
+[['apollosv:00000445', 'mortality rate'], ['stato:0000414', 'mortality rate'], ['sdgio:00020030', 'neonatal mortality rate'], ['idocovid19:0001273', 'COVID-19 mortality rate'], ['ido:0000489', 'infectious disease mortality rate'], ['apollosv:00000418', 'Wolbachia effect on egg mortality rate in mosquito population'], ['apollosv:00000419', 'Wolbachia effect on adult mortality rate in mosquito population'], ['apollosv:00000420', 'Wolbachia effect on larval mortality rate in mosquito population']]
+-----------
+
+CFR: number of deaths in the infected population
+
+looking up CFR
+[['pr:000002065', 'mast/stem cell growth factor receptor'], ['go:0005173', 'stem cell factor receptor binding'], ['pr:P10721', 'mast/stem cell growth factor receptor Kit (human)'], ['pr:P05532', 'mast/stem cell growth factor receptor Kit (mouse)']]
+-----------
+
+Social restriction: measures that reduce the spread of SARS-CoV-2
+
+looking up Social restriction
+[]
+-----------
+
+Testing: extent of social restriction and testing
+
+looking up Testing
+[['cemo:testing_rate', 'testing rate'], ['maxo:0000925', 'Apgar testing'], ['maxo:0000127', 'genetic testing'], ['maxo:0000609', 'serology testing'], ['maxo:0000811', 'varicella testing'], ['maxo:0000604', 'endocrine testing'], ['maxo:0000816', 'gonorrhea testing'], ['maxo:0000147', 'hematology testing'], ['maxo:0000125', 'audiometric testing'], ['maxo:0000814', 'HIV screening'], ['maxo:0000809', 'syphilis screening'], ['maxo:0000745', 'cytogenetic analysis'], ['maxo:0000607', 'D-dimer assessment'], ['maxo:0000003', 'diagnostic procedure'], ['maxo:0000149', 'hematocrit assessment'], ['maxo:0000144', 'histological procedure'], ['maxo:0000606', 'procalcitonin assessment'], ['maxo:0000610', 'clinical ELISA testing'], ['maxo:0000778', 'liver function testing'], ['maxo:0000886', 'kidney function testing'], ['maxo:0000529', 'prenatal genetic testing'], ['maxo:0000075', 'digestive system testing'], ['maxo:0000538', 'fetal fibronectin testing'], ['maxo:0000533', 'molecular genetic testing'], ['maxo:0000817', 'hepatitis C screening']]
+-----------
+
+New drugs and vaccines: ongoing innovations
+
+looking up ongoing innovations
+[]
+-----------
+
+Case fatality: excess case fatality
+
+looking up Case fatality
+[['ncit:C173779', 'Case Fatality Rate'], ['cemo:case_fatality_rate', 'case fatality rate']]
+-----------
+
+S: fraction of population in susceptible stage
+
+-----------
+
+I: fraction of population in infected stage
+
+-----------
+
+D: fraction of population in diagnosed stage
+
+-----------
+
+A: fraction of population in ailing stage
+
+-----------
+
+R: fraction of population in recognized stage
+
+-----------
+
+T: fraction of population in threatened stage
+
+-----------
+
+H: fraction of population in hospitalized stage
+
+-----------
+
+E: fraction of population in expired stage
+
+-----------
+
+α: transmission rate due to contacts between a susceptible subject and an infected subject
+
+-----------
+
+β: transmission rate due to contacts between a susceptible subject and a diagnosed subject
+
+-----------
+
+γ: transmission rate due to contacts between a susceptible subject and an ailing subject
+
+-----------
+
+δ: transmission rate due to contacts between a susceptible subject and a recognized subject
+
+-----------
+
+ε: probability rate of detection of asymptomatic cases
+
+-----------
+
+ζ: probability rate at which an infected subject not aware of being infected develops clinically relevant symptoms
+
+-----------
+
+η: probability rate at which an infected subject aware of being infected develops clinically relevant symptoms
+
+-----------
+
+θ: probability rate of detection of symptomatic cases
+
+-----------
+
+λ: probability rate at which an infected subject not aware of being infected is diagnosed
+
+-----------
+
+ρ: probability rate at which an infected subject aware of being infected is diagnosed
+
+-----------
+
+μ: probability rate at which an ailing subject is recognized
+
+-----------
+
+κ: probability rate at
+
+-----------
+
+μ: rate at which undetected infected subjects develop life-threatening symptoms
+
+-----------
+
+ν: rate at which detected infected subjects develop life-threatening symptoms
+
+-----------
+
+τ: mortality rate for infected subjects with life-threatening symptoms
+
+-----------
+
+λ: rate of recovery for infected subjects
+
+-----------
+
+κ: rate of recovery for infected subjects
+
+-----------
+
+ξ: rate of recovery for infected subjects
+
+-----------
+
+ρ: rate of recovery for infected subjects
+
+-----------
+
+σ: rate of recovery for infected subjects
+
+-----------
+
+H(t): cumulative variable that depends on other variables and its own initial conditions
+
+-----------
+
+E(t): cumulative variable that depends on other variables and its own initial conditions
+
+-----------
+
+None
+
+-----------
+
+S: Susceptible individuals
+
+looking up Susceptible individuals
+[['cemo:susceptible_individuals', 'susceptible individuals']]
+-----------
+
+I: Infected individuals
+
+looking up Infected individuals
+[]
+-----------
+
+D: Infected individuals
+
+looking up Infected individuals
+[]
+-----------
+
+A: Infected individuals
+
+looking up Infected individuals
+[]
+-----------
+
+R: Infected individuals
+
+looking up Infected individuals
+[]
+-----------
+
+T: Infected individuals
+
+looking up Infected individuals
+[]
+-----------
+
+H: Healed individuals
+
+looking up Healed individuals
+[]
+-----------
+
+E: Deceased individuals
+
+looking up Deceased individuals
+[]
+-----------
+
+u: Feedback signal
+
+looking up Feedback signal
+[]
+-----------
+
+S(t): The number of susceptible individuals at time t
+
+-----------
+
+I(t): The number of infected individuals at time t
+
+-----------
+
+D(t): The number of diagnosed individuals at time t
+
+-----------
+
+A(t): The number of asymptomatic individuals at time t
+
+-----------
+
+R(t): The number of recovered individuals at time t
+
+-----------
+
+T(t): The number of deceased individuals at time t
+
+-----------
+
+F: Constant
+
+looking up Constant
+[['hp:0100515', 'Pollakisuria'], ['hp:0031713', 'Constant exotropia'], ['wikidata:Q122894', 'Planck constant'], ['wikidata:Q1515261', 'magnetic constant'], ['wikidata:Q5962', 'Boltzmann constant'], ['doid:9945', 'constant exophthalmos'], ['wikidata:Q18373', 'gravitational constant'], ['hp:0031759', 'Basic constant esotropia'], ['hp:0032010', 'Basic constant exotropia'], ['oae:0002275', 'constant irritability AE'], ['hp:0031761', 'Infantile constant esotropia'], ['hp:0032009', 'Infantile constant exotropia'], ['hp:0031765', 'Partially accomodative esotropia']]
+-----------
+
+b: Constant
+
+looking up Constant
+[['hp:0100515', 'Pollakisuria'], ['hp:0031713', 'Constant exotropia'], ['wikidata:Q122894', 'Planck constant'], ['wikidata:Q1515261', 'magnetic constant'], ['wikidata:Q5962', 'Boltzmann constant'], ['doid:9945', 'constant exophthalmos'], ['wikidata:Q18373', 'gravitational constant'], ['hp:0031759', 'Basic constant esotropia'], ['hp:0032010', 'Basic constant exotropia'], ['oae:0002275', 'constant irritability AE'], ['hp:0031761', 'Infantile constant esotropia'], ['hp:0032009', 'Infantile constant exotropia'], ['hp:0031765', 'Partially accomodative esotropia']]
+-----------
+
+R0: Reproduction number
+
+looking up Reproduction number
+[['apollosv:00000043', 'reproduction number'], ['askemo:0000006', 'basic reproduction number'], ['apollosv:00000002', 'basic reproduction number'], ['askemo:0000007', 'effective reproduction number'], ['cemo:effective_reproduction_number', 'effective reproduction number'], ['cido:0000589', 'basic reproduction number of infection']]
+-----------
+
+f0: Constant
+
+looking up Constant
+[['hp:0100515', 'Pollakisuria'], ['hp:0031713', 'Constant exotropia'], ['wikidata:Q122894', 'Planck constant'], ['wikidata:Q1515261', 'magnetic constant'], ['wikidata:Q5962', 'Boltzmann constant'], ['doid:9945', 'constant exophthalmos'], ['wikidata:Q18373', 'gravitational constant'], ['hp:0031759', 'Basic constant esotropia'], ['hp:0032010', 'Basic constant exotropia'], ['oae:0002275', 'constant irritability AE'], ['hp:0031761', 'Infantile constant esotropia'], ['hp:0032009', 'Infantile constant exotropia'], ['hp:0031765', 'Partially accomodative esotropia']]
+-----------
+
+M(t): Actual CFR
+
+looking up Actual CFR
+[]
+-----------
+
+P(t): Perceived CFR
+
+looking up Perceived CFR
+[]
+-----------
+
+ε: Constant
+
+looking up Constant
+[['hp:0100515', 'Pollakisuria'], ['hp:0031713', 'Constant exotropia'], ['wikidata:Q122894', 'Planck constant'], ['wikidata:Q1515261', 'magnetic constant'], ['wikidata:Q5962', 'Boltzmann constant'], ['doid:9945', 'constant exophthalmos'], ['wikidata:Q18373', 'gravitational constant'], ['hp:0031759', 'Basic constant esotropia'], ['hp:0032010', 'Basic constant exotropia'], ['oae:0002275', 'constant irritability AE'], ['hp:0031761', 'Infantile constant esotropia'], ['hp:0032009', 'Infantile constant exotropia'], ['hp:0031765', 'Partially accomodative esotropia']]
+-----------
+
+θ: Constant
+
+looking up Constant
+[['hp:0100515', 'Pollakisuria'], ['hp:0031713', 'Constant exotropia'], ['wikidata:Q122894', 'Planck constant'], ['wikidata:Q1515261', 'magnetic constant'], ['wikidata:Q5962', 'Boltzmann constant'], ['doid:9945', 'constant exophthalmos'], ['wikidata:Q18373', 'gravitational constant'], ['hp:0031759', 'Basic constant esotropia'], ['hp:0032010', 'Basic constant exotropia'], ['oae:0002275', 'constant irritability AE'], ['hp:0031761', 'Infantile constant esotropia'], ['hp:0032009', 'Infantile constant exotropia'], ['hp:0031765', 'Partially accomodative esotropia']]
+-----------
+
+μ: Constant
+
+looking up Constant
+[['hp:0100515', 'Pollakisuria'], ['hp:0031713', 'Constant exotropia'], ['wikidata:Q122894', 'Planck constant'], ['wikidata:Q1515261', 'magnetic constant'], ['wikidata:Q5962', 'Boltzmann constant'], ['doid:9945', 'constant exophthalmos'], ['wikidata:Q18373', 'gravitational constant'], ['hp:0031759', 'Basic constant esotropia'], ['hp:0032010', 'Basic constant exotropia'], ['oae:0002275', 'constant irritability AE'], ['hp:0031761', 'Infantile constant esotropia'], ['hp:0032009', 'Infantile constant exotropia'], ['hp:0031765', 'Partially accomodative esotropia']]
+-----------
+
+D(t): number of currently infected individuals with different SOI (asymptomatic or pauci-symptomatic, quarantined at home
+
+-----------
+
+R(t): symptomatic and hospitalized
+
+-----------
+
+T(t): symptomatic in life-threatening conditions, admitted to ICUs
+
+-----------
+
+E(t): number of deaths
+
+-----------
+
+ρD:
+
+-----------
+
+ξR:
+
+-----------
+
+σT:
+
+-----------
+
+ϕ(t):
+
+-----------
+
+I: number of diagnosed individuals who recovered
+
+-----------
+
+I: fraction of the population in each stage at day 1
+
+-----------
+
+D: fraction of the population in each stage at day 1
+
+-----------
+
+A: fraction of the population in each stage at day 1
+
+-----------
+
+R: fraction of the population in each stage at day 1
+
+-----------
+
+T: fraction of the population in each stage at day 1
+
+-----------
+
+H: fraction of the population in each stage at day 1
+
+-----------
+
+E: fraction of the population in each stage at day 1
+
+-----------
+
+S: fraction of the population in each stage at day 1
+
+-----------
+
+α: parameter magnitude of relative epidemiological information
+
+-----------
+
+β: parameter magnitude of relative epidemiological information
+
+-----------
+
+δ: parameter magnitude of relative epidemiological information
+
+-----------
+
+γ: parameter magnitude of relative epidemiological information
+
+-----------
+
+ε: parameter magnitude of relative epidemiological information
+
+-----------
+
+θ: parameter magnitude of relative epidemiological information
+
+-----------
+
+ζ: parameter magnitude of relative epidemiological information
+
+-----------
+
+η: parameter magnitude of relative epidemiological information
+
+-----------
+
+μ: parameter magnitude of relative epidemiological information
+
+-----------
+
+ν: parameter magnitude of relative epidemiological information
+
+-----------
+
+τ: parameter magnitude of relative epidemiological information
+
+-----------
+
+λ: parameter magnitude of relative epidemiological information
+
+-----------
+
+ρ: parameter magnitude of relative epidemiological information
+
+-----------
+
+κ: parameter magnitude of relative epidemiological information
+
+-----------
+
+ξ: parameter magnitude of
+
+-----------
+
+α: Infection rate
+
+looking up Infection rate
+[['vsmo:0000090', 'minimum infection rate'], ['vsmo:0000089', 'infection rate for pooled samples'], ['vsmo:0000091', 'maximum likelihood estimate infection rate'], ['cemo:hospital-wide_patient_infection_rate_per_100_admissions', 'hospital-wide patient infection rate per 100 admissions'], ['cemo:hospital-wide_nosocomial_infection_rate_per_100_admissions', 'hospital-wide nosocomial infection rate per 100 admissions']]
+-----------
+
+β: Transmission rate
+
+looking up Transmission rate
+[['askemo:0000005', 'effective contact rate'], ['apollosv:00000413', 'transmission rate of pathogen to human from Wolbachia-infected mosquito bites']]
+-----------
+
+γ: Recovery rate
+
+looking up Recovery rate
+[['askemo:0000013', 'recovery rate'], ['oae:0001869', 'AE recovery rate']]
+-----------
+
+δ: Transmission rate
+
+looking up Transmission rate
+[['askemo:0000005', 'effective contact rate'], ['apollosv:00000413', 'transmission rate of pathogen to human from Wolbachia-infected mosquito bites']]
+-----------
+
+ε: Infection rate
+
+looking up Infection rate
+[['vsmo:0000090', 'minimum infection rate'], ['vsmo:0000089', 'infection rate for pooled samples'], ['vsmo:0000091', 'maximum likelihood estimate infection rate'], ['cemo:hospital-wide_patient_infection_rate_per_100_admissions', 'hospital-wide patient infection rate per 100 admissions'], ['cemo:hospital-wide_nosocomial_infection_rate_per_100_admissions', 'hospital-wide nosocomial infection rate per 100 admissions']]
+-----------
+
+θ: Testing parameter
+
+looking up Testing parameter
+[]
+-----------
+
+ζ: Testing parameter
+
+looking up Testing parameter
+[]
+-----------
+
+η: Testing parameter
+
+looking up Testing parameter
+[]
+-----------
+
+μ: Testing parameter
+
+looking up Testing parameter
+[]
+-----------
+
+ν: Testing parameter
+
+looking up Testing parameter
+[]
+-----------
+
+λ: Healing parameter
+
+looking up Healing parameter
+[]
+-----------
+
+ρ: Healing parameter
+
+looking up Healing parameter
+[]
+-----------
+
+κ: Healing parameter
+
+looking up Healing parameter
+[]
+-----------
+
+ξ: Healing parameter
+
+looking up Healing parameter
+[]
+-----------
+
+σ: Healing parameter
+
+looking up Healing parameter
+[]
+-----------
+
+τ: Healing parameter
+
+looking up Healing parameter
+[]
+-----------
+
+α: Social-distancing countermeasures
+
+-----------
+
+γ: Social-distancing countermeasures
+
+-----------
+
+R0: Transmission rate
+
+looking up Transmission rate
+[['askemo:0000005', 'effective contact rate'], ['apollosv:00000413', 'transmission rate of pathogen to human from Wolbachia-infected mosquito bites']]
+-----------
+
+CFR: Ratio between the number of deaths ascribed to the infection and the number of diagnosed cases
+
+looking up CFR
+[['pr:000002065', 'mast/stem cell growth factor receptor'], ['go:0005173', 'stem cell factor receptor binding'], ['pr:P10721', 'mast/stem cell growth factor receptor Kit (human)'], ['pr:P05532', 'mast/stem cell growth factor receptor Kit (mouse)']]
+-----------
+
+α: Transmission parameters, related to lockdown measures
+
+-----------
+
+β: Transmission parameters, related to lockdown measures
+
+-----------
+
+γ: Transmission parameters, related to lockdown measures
+
+-----------
+
+δ: Transmission parameters, related to lockdown measures
+
+-----------
+
+None
+
+-----------
+
+α: Increases all the curves
+
+-----------
+
+β: Increases all the curves
+
+-----------
+
+γ: Increases all the curves
+
+-----------
+
+δ: Increases all the curves
+
+-----------
+
+ε: Decreases all the curves
+
+-----------
+
+θ: Decreases all the curves
+
+-----------
+
+ζ: Decreases final number of infected and recovered, increases number of deaths
+
+-----------
+
+η: Decreases final number of infected and recovered, increases number of deaths
+
+-----------
+
+μ: Decreases final number of infected and recovered, increases number of deaths
+
+-----------
+
+ν: Decreases final number of infected and recovered, increases number of deaths
+
+-----------
+
+λ: Decreases all the curves, apart from the curve of recovered patients
+
+-----------
+
+ρ: Decreases all the curves
+
+-----------
+
+κ: Decreases all the curves
+
+-----------
+
+ξ: Decreases all the curves
+
+-----------
+
+σ: Decreases all the curves
+
+-----------
+
+τ: Leaves all the curves almost unaffected
+
+-----------
+
+α: Infection coefficient
+
+looking up Infection coefficient
+[]
+-----------
+
+β: Infection coefficient
+
+looking up Infection coefficient
+[]
+-----------
+
+γ: Infection coefficient
+
+looking up Infection coefficient
+[]
+-----------
+
+δ: Infection coefficient
+
+looking up Infection coefficient
+[]
+-----------
+
+CFR: Case fatality rate
+
+looking up CFR
+[['pr:000002065', 'mast/stem cell growth factor receptor'], ['go:0005173', 'stem cell factor receptor binding'], ['pr:P10721', 'mast/stem cell growth factor receptor Kit (human)'], ['pr:P05532', 'mast/stem cell growth factor receptor Kit (mouse)']]
+-----------
+
+G.G., F.B. and P.C.: Authors who proposed the model and performed the mathematical derivations, the fitting and the simulations.
+
+-----------
+
+R.B., A.D.F., A.D.M. and M.C.: Authors who provided first-hand insight into the disease evolution and provided the clinical contextualization and interpretation of the results.
+
+-----------
+
+None
+
+-----------
+
+ECU residents: People living in the ECU area.
+
+looking up ECU residents
+[]
+-----------
+
+Intensive care unit: People in the intensive care unit.
+
+-----------
+
+Paediatric unit: People in the paediatric unit.
+
+looking up Paediatric unit
+[]
+-----------
+
+Virology staff: Staff members in the virology department.
+
+looking up Virology staff
+[]
+-----------
+
+Virology technical staff: Technical staff in the virology department.
+
+-----------
+
+Virology residents: Residents in the virology department.
+
+looking up Virology residents
+[]
+-----------
+
+Pharmacy unit: People in the pharmacy unit.
+
+looking up Pharmacy unit
+[]
+-----------
+
+Hospital Leadership: Leaders of the hospital.
+
+looking up Hospital Leadership
+[]
+-----------
+
+Data unit: People in the data unit.
+
+looking up Data unit
+[]
+-----------
+
+χ: rate at which immunity is lost
+
+-----------
+
+α: transmission coefficient
+
+looking up transmission coefficient
+[['apollosv:00000191', 'transmission coefficient'], ['askemo:0000005', 'effective contact rate']]
+-----------
+
+β: transmission coefficient
+
+looking up transmission coefficient
+[['apollosv:00000191', 'transmission coefficient'], ['askemo:0000005', 'effective contact rate']]
+-----------
+
+α: Transmission coefficient
+
+looking up Transmission coefficient
+[['apollosv:00000191', 'transmission coefficient'], ['askemo:0000005', 'effective contact rate']]
+-----------
+
+γ: Transmission coefficient
+
+looking up Transmission coefficient
+[['apollosv:00000191', 'transmission coefficient'], ['askemo:0000005', 'effective contact rate']]
+-----------
+
+δ: Transmission coefficient
+
+looking up Transmission coefficient
+[['apollosv:00000191', 'transmission coefficient'], ['askemo:0000005', 'effective contact rate']]
+-----------
+
+ε: Testing coefficient
+
+looking up Testing coefficient
+[]
+-----------
+
+θ: Testing coefficient
+
+looking up Testing coefficient
+[]
+-----------
+
+ζ: worsening coefficients leading to clinically relevant symptoms
+
+-----------
+
+η: worsening coefficients leading to clinically relevant symptoms
+
+-----------
+
+μ: worsening coefficients leading to life-threatening symptoms
+
+-----------
+
+ν: worsening coefficients leading to life-threatening symptoms
+
+-----------
+
+λ: healing coefficient
+
+looking up healing coefficient
+[]
+-----------
+
+ρ: healing coefficients
+
+looking up healing coefficients
+[]
+-----------
+
+κ: healing coefficients
+
+looking up healing coefficients
+[]
+-----------
+
+ξ: healing coefficients
+
+looking up healing coefficients
+[]
+-----------
+
+σ: healing coefficients
+
+looking up healing coefficients
+[]
+-----------
+
+τ: mortality coefficient
+
+looking up mortality coefficient
+[]
+-----------
+
+None
+
+-----------
+
+Cohen's d: effect size
+
+looking up effect size
+[['stato:0000085', 'effect size estimate']]
+-----------
+
+Pearson's r: effect size
+
+looking up effect size
+[['stato:0000085', 'effect size estimate']]
+-----------
+
+Matlab R2017b: software
+
+looking up software
+[['iao:0000010', 'software'], ['iao:0000591', 'software method'], ['iao:0000592', 'software module'], ['iao:0000595', 'software script'], ['apollosv:00000535', 'software license'], ['iao:0000593', 'software library'], ['apollosv:00000524', 'compiling software'], ['obo:OBIws_0000050', 'software execution'], ['apollosv:00000109', 'software identifier'], ['apollosv:00000008', 'software development'], ['iao:0000065', 'software interpreter'], ['iao:0000594', 'software application'], ['apollosv:00000539', 'software license URL'], ['apollosv:00000799', 'data service software'], ['apollosv:00000525', 'compiled software code'], ['apollosv:00000108', 'software version identifier'], ['apollosv:00000538', 'software license identifier'], ['apollosv:00000106', 'complete software identifier'], ['apollosv:00000105', 'software developer identifier'], ['apollosv:00000592', 'metagenomics analysis software'], ['apollosv:00000007', 'simulation software application'], ['apollosv:00000537', 'software license version identifier'], ['apollosv:00000561', 'disease transmission model software'], ['apollosv:00000536', 'complete software license identifier']]
+-----------
+
+Italian Ministry of Health: data source
+
+looking up data source
+[]
+-----------
+
+ChIP-seq: method
+
+looking up method
+[['iao:0000317', 'methods section'], ['iao:0000591', 'software method'], ['idomal:0000223', 'molecular method'], ['idomal:0000217', 'serological method'], ['idomal:0000216', 'immunological method'], ['idomal:0000219', 'pLDH detection method'], ['idomal:0000220', 'HRP-2 detection method'], ['iao:0000704', 'measurement methods section'], ['vsmo:0001311', 'determination of ovariolar dilatations'], ['cido:0001203', 'SARS-CoV-2 Nucleic Acid Detection Kit (double amplification method) (WUHAN ZHONGZHI BIOTECHNOLOGIES INC.)'], ['cido:0001224', 'SARS-CoV-2 Nucleic Acid Detection Kit (isothermal amplification-real-time fluorescence method) (Ustar Biotechnologies (Hangzhou) Ltd.)'], ['cido:0001219', 'SARS-CoV-2 Nucleic Acid Detection Kit (RNA capture probe method) (Shanghai Rendu BIOTECHNOLOGY Co., Ltd.)'], ['cido:0001220', 'SARS-CoV-2 Nucleic Acid Detection Kit (hybrid capture immunofluorescence method)) (Anbio (Xiamen) Biotechnology Co., Ltd.)'], ['cido:0001225', 'Respiratory Virus Nucleic Acid Detection Kit (Isothermal Amplification Chip Method) (Chengdu Capitalbio Jinxin Bio-Technology Co., Ltd.)'], ['cido:0001222', 'SARS-CoV-2 Nucleic Acid Detection Kit RNA (combined probe-anchored polymerization sequencing method) (BGI BIOTECHNOLOGY (WUHAN) Co., Ltd.)'], ['cido:0001223', 'SARS-CoV-2 Nucleic Acid Detection Kit (Integrated Isothermal Amplification Chip Method) (Chengdu Capitalbio Jinxin Bio-Technology Co., Ltd.)']]
+-----------
+
+Flow cytometry: Technique for analyzing and sorting particles, such as cells, by measuring their light scattering and fluorescent characteristics.
+
+looking up Flow cytometry
+[['hp:0031550', 'Abnormal flow cytometry test result']]
+-----------
+
+Palaeontology: Study of fossils and the history of life on Earth.
+
+looking up Palaeontology
+[]
+-----------
+
+MRI-based neuroimaging: Technique for imaging the structure and function of the brain using magnetic resonance imaging.
+
+-----------
+
+Animals and other organisms: Living organisms studied in research.
+
+-----------
+
+Human research participants: People who take part in research studies.
+
+-----------
+
+Clinical data: Data collected from medical records and other sources related to patient care.
+
+looking up Clinical data
+[['ncit:C51870', 'Secondary CDUS Contact'], ['ncit:C65168', 'Clinical Data Interchange Standards Consortium']]

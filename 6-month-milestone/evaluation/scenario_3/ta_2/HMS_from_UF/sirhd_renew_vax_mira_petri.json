@@ -1,0 +1,372 @@
+{
+ "S": [
+  {
+   "sname": "S_U",
+   "mira_ids": "[('identity', \"identifiers:{'ido': '0000514'}\")]",
+   "mira_context": "[('vaccination_status', 'unvaccinated')]",
+   "mira_concept": "{\"name\": \"S_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}"
+  },
+  {
+   "sname": "I_U",
+   "mira_ids": "[('identity', \"identifiers:{'ido': '0000511'}\")]",
+   "mira_context": "[('vaccination_status', 'unvaccinated')]",
+   "mira_concept": "{\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}"
+  },
+  {
+   "sname": "S_V",
+   "mira_ids": "[('identity', \"identifiers:{'ido': '0000514'}\")]",
+   "mira_context": "[('vaccination_status', 'vaccinated')]",
+   "mira_concept": "{\"name\": \"S_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}"
+  },
+  {
+   "sname": "I_V",
+   "mira_ids": "[('identity', \"identifiers:{'ido': '0000511'}\")]",
+   "mira_context": "[('vaccination_status', 'vaccinated')]",
+   "mira_concept": "{\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}"
+  },
+  {
+   "sname": "R_U",
+   "mira_ids": "[('identity', \"identifiers:{'apollosv': '00000163'}\")]",
+   "mira_context": "[('vaccination_status', 'unvaccinated')]",
+   "mira_concept": "{\"name\": \"R_U\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}"
+  },
+  {
+   "sname": "R_V",
+   "mira_ids": "[('identity', \"identifiers:{'apollosv': '00000163'}\")]",
+   "mira_context": "[('vaccination_status', 'vaccinated')]",
+   "mira_concept": "{\"name\": \"R_V\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}"
+  },
+  {
+   "sname": "H_U",
+   "mira_ids": "[('identity', \"identifiers:{'ncit': 'C25179'}\")]",
+   "mira_context": "[('vaccination_status', 'unvaccinated')]",
+   "mira_concept": "{\"name\": \"H_U\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}"
+  },
+  {
+   "sname": "H_V",
+   "mira_ids": "[('identity', \"identifiers:{'ncit': 'C25179'}\")]",
+   "mira_context": "[('vaccination_status', 'vaccinated')]",
+   "mira_concept": "{\"name\": \"H_V\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}"
+  },
+  {
+   "sname": "D_U",
+   "mira_ids": "[('identity', \"identifiers:{'ncit': 'C28554'}\")]",
+   "mira_context": "[('vaccination_status', 'unvaccinated')]",
+   "mira_concept": "{\"name\": \"D_U\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C28554\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}"
+  },
+  {
+   "sname": "D_V",
+   "mira_ids": "[('identity', \"identifiers:{'ncit': 'C28554'}\")]",
+   "mira_context": "[('vaccination_status', 'vaccinated')]",
+   "mira_concept": "{\"name\": \"D_V\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C28554\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}"
+  }
+ ],
+ "T": [
+  {
+   "tname": "t1",
+   "template_type": "ControlledConversion",
+   "parameter_name": "p_petri_1",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"ControlledConversion\", \"controller\": {\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"subject\": {\"name\": \"S_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t2",
+   "template_type": "ControlledConversion",
+   "parameter_name": "p_petri_2",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"ControlledConversion\", \"controller\": {\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"subject\": {\"name\": \"S_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"outcome\": {\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t3",
+   "template_type": "ControlledConversion",
+   "parameter_name": "p_petri_3",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"ControlledConversion\", \"controller\": {\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"subject\": {\"name\": \"S_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t4",
+   "template_type": "ControlledConversion",
+   "parameter_name": "p_petri_4",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"ControlledConversion\", \"controller\": {\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"subject\": {\"name\": \"S_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"outcome\": {\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t5",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_5",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"S_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"S_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t6",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_6",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t7",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_7",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"R_U\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"R_V\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t8",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_8",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"H_U\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"H_V\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t9",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_9",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"R_U\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t10",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_10",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"I_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"H_U\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t11",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_11",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"H_U\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"R_U\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t12",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_12",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"H_U\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"D_U\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C28554\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t13",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_13",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"R_U\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"outcome\": {\"name\": \"S_U\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"unvaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t14",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_14",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"outcome\": {\"name\": \"R_V\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t15",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_15",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"I_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000511\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"outcome\": {\"name\": \"H_V\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t16",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_16",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"H_V\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"outcome\": {\"name\": \"R_V\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t17",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_17",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"H_V\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C25179\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"outcome\": {\"name\": \"D_V\", \"identifiers\": {\"identifiers\": {\"ncit\": \"C28554\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  },
+  {
+   "tname": "t18",
+   "template_type": "NaturalConversion",
+   "parameter_name": "p_petri_18",
+   "parameter_value": null,
+   "mira_template": "{\"rate_law\": null, \"type\": \"NaturalConversion\", \"subject\": {\"name\": \"R_V\", \"identifiers\": {\"identifiers\": {\"apollosv\": \"00000163\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"outcome\": {\"name\": \"S_V\", \"identifiers\": {\"identifiers\": {\"ido\": \"0000514\"}}, \"context\": {\"vaccination_status\": \"vaccinated\"}}, \"provenance\": []}"
+  }
+ ],
+ "I": [
+  {
+   "is": 2,
+   "it": 1
+  },
+  {
+   "is": 1,
+   "it": 1
+  },
+  {
+   "is": 2,
+   "it": 2
+  },
+  {
+   "is": 3,
+   "it": 2
+  },
+  {
+   "is": 4,
+   "it": 3
+  },
+  {
+   "is": 1,
+   "it": 3
+  },
+  {
+   "is": 4,
+   "it": 4
+  },
+  {
+   "is": 3,
+   "it": 4
+  },
+  {
+   "is": 1,
+   "it": 5
+  },
+  {
+   "is": 2,
+   "it": 6
+  },
+  {
+   "is": 5,
+   "it": 7
+  },
+  {
+   "is": 7,
+   "it": 8
+  },
+  {
+   "is": 2,
+   "it": 9
+  },
+  {
+   "is": 2,
+   "it": 10
+  },
+  {
+   "is": 7,
+   "it": 11
+  },
+  {
+   "is": 7,
+   "it": 12
+  },
+  {
+   "is": 5,
+   "it": 13
+  },
+  {
+   "is": 4,
+   "it": 14
+  },
+  {
+   "is": 4,
+   "it": 15
+  },
+  {
+   "is": 8,
+   "it": 16
+  },
+  {
+   "is": 8,
+   "it": 17
+  },
+  {
+   "is": 6,
+   "it": 18
+  }
+ ],
+ "O": [
+  {
+   "os": 2,
+   "ot": 1
+  },
+  {
+   "os": 2,
+   "ot": 1
+  },
+  {
+   "os": 2,
+   "ot": 2
+  },
+  {
+   "os": 4,
+   "ot": 2
+  },
+  {
+   "os": 4,
+   "ot": 3
+  },
+  {
+   "os": 2,
+   "ot": 3
+  },
+  {
+   "os": 4,
+   "ot": 4
+  },
+  {
+   "os": 4,
+   "ot": 4
+  },
+  {
+   "os": 3,
+   "ot": 5
+  },
+  {
+   "os": 4,
+   "ot": 6
+  },
+  {
+   "os": 6,
+   "ot": 7
+  },
+  {
+   "os": 8,
+   "ot": 8
+  },
+  {
+   "os": 5,
+   "ot": 9
+  },
+  {
+   "os": 7,
+   "ot": 10
+  },
+  {
+   "os": 5,
+   "ot": 11
+  },
+  {
+   "os": 9,
+   "ot": 12
+  },
+  {
+   "os": 1,
+   "ot": 13
+  },
+  {
+   "os": 6,
+   "ot": 14
+  },
+  {
+   "os": 8,
+   "ot": 15
+  },
+  {
+   "os": 6,
+   "ot": 16
+  },
+  {
+   "os": 10,
+   "ot": 17
+  },
+  {
+   "os": 3,
+   "ot": 18
+  }
+ ]
+}
