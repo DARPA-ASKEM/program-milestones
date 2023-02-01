@@ -33,3 +33,11 @@ Steps followed
 
 1. From Brian:  For California, median time to reinfection is 262 days for vaccinated and 277 days for unvaccinated.
 Data was from May - Nov 2021. Source: https://doi.org/10.15585/mmwr.mm7104e1 Method: Put in query "covid reinfection hazard rates" in Terarium
+
+
+### Sero prevalence data
+1. From https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9716971/pdf/main.pdf 
+"From November 4, 2020, to January 27, 2021, the ratio was 2.8 (CI: 2.8–2.9) and then decreased, reaching a low point from April 21 to July 1, 2021 (1.1, CI: 0.6–1.7). These ratios increased to 2.3 (CI: 2.0–2.5) from July 1 to September 20, 2021, held steady from September 20 to December 8, 2021 (2.2, CI: 2.0–2.5), and increased again from December 8, 2021, to February 26, 2022 (3.1, CI: 3.0–3.3)."
+
+The change ratios, ratios estimating the change in seroprevalence compared to the change in reported case prevalence, can be used as a multiplier to enhance the understanding of the infection burden represented by officially reported case rates
+
