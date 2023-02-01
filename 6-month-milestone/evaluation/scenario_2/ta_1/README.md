@@ -27,3 +27,7 @@ The Gromet FNs for the SIDARTHE sources with text extraction metadata attached i
 
 The skema text extractions linked to those gromet fn are found in `scenario2_skema_extractions.xlsx`
 
+## Unit Test 1 (1.b.i.)
+
+- funman_s2_1_b_i_infected.png: Plot of SIDARTHE unit test 1 created by FUNMAN.
+- funman_s2_1_b_i_unit_test.png: Plot of the sum(I, D, A, R, T) by time, used to identify peak infected. 
