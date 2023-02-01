@@ -24,3 +24,6 @@ Steps followed
 2. Using same dataset, also stratified by age group and generated age-stratified-by-month-hosp-cases-deaths.csv.
    Code for both parts is in cdc-case-data/process.py
 3. Hazard rates conditioned on vaccination is derived from https://data.cdc.gov/Public-Health-Surveillance/Rates-of-COVID-19-Cases-or-Deaths-by-Age-Group-and/3rge-nu2a and checked in as vaccination-hazard-rates-age-month.csv. Note: This data has also be stratified by age.
+
+### Text Extractions
+- `scenario3_skema_extractions.xlsx`: Parameter values and descriptions mined from relevant papers identified by TA1, which may inform TA2-TA3 
