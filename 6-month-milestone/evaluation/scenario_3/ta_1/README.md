@@ -24,3 +24,8 @@ Steps followed
 2. Using same dataset, also stratified by age group and generated age-stratified-by-month-hosp-cases-deaths.csv.
    Code for both parts is in cdc-case-data/process.py
 3. Hazard rates conditioned on vaccination is derived from https://data.cdc.gov/Public-Health-Surveillance/Rates-of-COVID-19-Cases-or-Deaths-by-Age-Group-and/3rge-nu2a and checked in as vaccination-hazard-rates-age-month.csv. Note: This data has also be stratified by age.
+
+### Reinfection data
+
+1. From Brian:  For California, median time to reinfection is 262 days for vaccinated and 277 days for unvaccinated.
+Data was from May - Nov 2021. Source: https://doi.org/10.15585/mmwr.mm7104e1 Method: Put in query "covid reinfection hazard rates" in Terarium
