@@ -43,5 +43,7 @@ Method: Put in query "covid reinfection hazard rates" in Terarium
 
 The change ratios, ratios estimating the change in seroprevalence compared to the change in reported case prevalence, can be used as a multiplier to enhance the understanding of the infection burden represented by officially reported case rates
 
+For low-level details on the search process for this and prior questions, see the PDF <xDD-Scenario-3-raw-notes.pdf>
+
 ### Text Extractions
 - `scenario3_skema_extractions.xlsx`: Parameter values and descriptions mined from relevant papers identified by TA1, which may inform TA2-TA3 
