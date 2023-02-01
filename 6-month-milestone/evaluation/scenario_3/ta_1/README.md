@@ -24,6 +24,10 @@ Steps followed
 2. Using same dataset, also stratified by age group and generated age-stratified-by-month-hosp-cases-deaths.csv.
    Code for both parts is in cdc-case-data/process.py
 3. Hazard rates conditioned on vaccination is derived from https://data.cdc.gov/Public-Health-Surveillance/Rates-of-COVID-19-Cases-or-Deaths-by-Age-Group-and/3rge-nu2a and checked in as vaccination-hazard-rates-age-month.csv. Note: This data has also be stratified by age.
+4. Hospitalization rates conditioned on vaccination. From Brian:
+   "Using California data from May - Nov 2021: unvaccinated individuals had a 12.7x increased rate of hospitalization compared to vaccinated."
+   This is also from https://doi.org/10.15585/mmwr.mm7104e1. Method: Queried "covid vaccine hazard rates" in Terarium
+
 
 ### Reinfection data
 
