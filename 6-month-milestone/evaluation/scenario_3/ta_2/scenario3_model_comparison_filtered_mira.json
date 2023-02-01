@@ -1323,12 +1323,13 @@
         "ido": "0000511",
         "apollosv": "00000163"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C171549"
+       }
       },
       "subject": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -1355,7 +1356,6 @@
       "subject": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -1375,15 +1375,15 @@
       "controller": {
        "name": "Super_spreaders",
        "identifiers": {
-        "ncit": "0000511",
-        "ido": "0000463"
+        "ido": "0000511"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C49508"
+       }
       },
       "subject": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -1410,7 +1410,6 @@
       "outcome": {
        "name": "Asymptomatic",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000511"
        },
        "context": {
@@ -1432,10 +1431,11 @@
       "outcome": {
        "name": "Super_spreaders",
        "identifiers": {
-        "ncit": "0000511",
-        "ido": "0000463"
+        "ido": "0000511"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C49508"
+       }
       },
       "provenance": []
      },
@@ -1455,7 +1455,9 @@
         "ido": "0000511",
         "apollosv": "00000163"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C171549"
+       }
       },
       "provenance": []
      },
@@ -1465,10 +1467,11 @@
       "subject": {
        "name": "Super_spreaders",
        "identifiers": {
-        "ncit": "0000511",
-        "ido": "0000463"
+        "ido": "0000511"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C49508"
+       }
       },
       "outcome": {
        "name": "Fatalities",
@@ -1485,10 +1488,11 @@
       "subject": {
        "name": "Super_spreaders",
        "identifiers": {
-        "ncit": "0000511",
-        "ido": "0000463"
+        "ido": "0000511"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C49508"
+       }
       },
       "outcome": {
        "name": "Hospitalised",
@@ -1505,10 +1509,11 @@
       "subject": {
        "name": "Super_spreaders",
        "identifiers": {
-        "ncit": "0000511",
-        "ido": "0000463"
+        "ido": "0000511"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C49508"
+       }
       },
       "outcome": {
        "name": "Recovered",
@@ -1528,7 +1533,9 @@
         "ido": "0000511",
         "apollosv": "00000163"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C171549"
+       }
       },
       "outcome": {
        "name": "Fatalities",
@@ -1548,7 +1555,9 @@
         "ido": "0000511",
         "apollosv": "00000163"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C171549"
+       }
       },
       "outcome": {
        "name": "Hospitalised",
@@ -1568,7 +1577,9 @@
         "ido": "0000511",
         "apollosv": "00000163"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C171549"
+       }
       },
       "outcome": {
        "name": "Recovered",
@@ -1715,7 +1726,6 @@
       "concept": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -1739,7 +1749,9 @@
         "ido": "0000511",
         "apollosv": "00000163"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C171549"
+       }
       },
       "value": 1.0
      },
@@ -1747,10 +1759,11 @@
       "concept": {
        "name": "Super_spreaders",
        "identifiers": {
-        "ncit": "0000511",
-        "ido": "0000463"
+        "ido": "0000511"
        },
-       "context": {}
+       "context": {
+        "transmissibility": "ncit:C49508"
+       }
       },
       "value": 5.0
      },
@@ -1758,7 +1771,6 @@
       "concept": {
        "name": "Asymptomatic",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000511"
        },
        "context": {
@@ -1815,7 +1827,6 @@
       "subject": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -1835,7 +1846,6 @@
       "controller": {
        "name": "Asymptomatic",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000511"
        },
        "context": {
@@ -1845,7 +1855,6 @@
       "subject": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -1872,7 +1881,6 @@
       "subject": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -1919,7 +1927,6 @@
       "outcome": {
        "name": "Asymptomatic",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000511"
        },
        "context": {
@@ -1994,7 +2001,6 @@
       "subject": {
        "name": "Asymptomatic",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000511"
        },
        "context": {
@@ -2016,7 +2022,6 @@
       "subject": {
        "name": "Asymptomatic",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000511"
        },
        "context": {
@@ -3386,7 +3391,6 @@
       "concept": {
        "name": "Susceptible",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000514"
        },
        "context": {}
@@ -3418,7 +3422,6 @@
       "concept": {
        "name": "Asymptomatic",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000511"
        },
        "context": {
@@ -3461,7 +3464,6 @@
       "concept": {
        "name": "Cumulative_Cases",
        "identifiers": {
-        "ncit": "C171133",
         "ido": "0000480"
        },
        "context": {}
@@ -3820,12 +3822,13 @@
       "ido": "0000511",
       "apollosv": "00000163"
      },
-     "context": {}
+     "context": {
+      "transmissibility": "ncit:C171549"
+     }
     },
     "15": {
      "name": "Susceptible",
      "identifiers": {
-      "ncit": "C171133",
       "ido": "0000514"
      },
      "context": {}
@@ -3847,15 +3850,15 @@
     "18": {
      "name": "Super_spreaders",
      "identifiers": {
-      "ncit": "0000511",
-      "ido": "0000463"
+      "ido": "0000511"
      },
-     "context": {}
+     "context": {
+      "transmissibility": "ncit:C49508"
+     }
     },
     "19": {
      "name": "Asymptomatic",
      "identifiers": {
-      "ncit": "C171133",
       "ido": "0000511"
      },
      "context": {
@@ -3889,7 +3892,6 @@
     "13": {
      "name": "Susceptible",
      "identifiers": {
-      "ncit": "C171133",
       "ido": "0000514"
      },
      "context": {}
@@ -3904,7 +3906,6 @@
     "15": {
      "name": "Asymptomatic",
      "identifiers": {
-      "ncit": "C171133",
       "ido": "0000511"
      },
      "context": {
@@ -5228,12 +5229,13 @@
        "ido": "0000511",
        "apollosv": "00000163"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C171549"
+      }
      },
      "subject": {
       "name": "Susceptible",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000514"
       },
       "context": {}
@@ -5260,7 +5262,6 @@
      "subject": {
       "name": "Susceptible",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000514"
       },
       "context": {}
@@ -5280,15 +5281,15 @@
      "controller": {
       "name": "Super_spreaders",
       "identifiers": {
-       "ncit": "0000511",
-       "ido": "0000463"
+       "ido": "0000511"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C49508"
+      }
      },
      "subject": {
       "name": "Susceptible",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000514"
       },
       "context": {}
@@ -5315,7 +5316,6 @@
      "outcome": {
       "name": "Asymptomatic",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000511"
       },
       "context": {
@@ -5337,10 +5337,11 @@
      "outcome": {
       "name": "Super_spreaders",
       "identifiers": {
-       "ncit": "0000511",
-       "ido": "0000463"
+       "ido": "0000511"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C49508"
+      }
      },
      "provenance": []
     },
@@ -5360,7 +5361,9 @@
        "ido": "0000511",
        "apollosv": "00000163"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C171549"
+      }
      },
      "provenance": []
     },
@@ -5370,10 +5373,11 @@
      "subject": {
       "name": "Super_spreaders",
       "identifiers": {
-       "ncit": "0000511",
-       "ido": "0000463"
+       "ido": "0000511"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C49508"
+      }
      },
      "outcome": {
       "name": "Fatalities",
@@ -5390,10 +5394,11 @@
      "subject": {
       "name": "Super_spreaders",
       "identifiers": {
-       "ncit": "0000511",
-       "ido": "0000463"
+       "ido": "0000511"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C49508"
+      }
      },
      "outcome": {
       "name": "Hospitalised",
@@ -5410,10 +5415,11 @@
      "subject": {
       "name": "Super_spreaders",
       "identifiers": {
-       "ncit": "0000511",
-       "ido": "0000463"
+       "ido": "0000511"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C49508"
+      }
      },
      "outcome": {
       "name": "Recovered",
@@ -5433,7 +5439,9 @@
        "ido": "0000511",
        "apollosv": "00000163"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C171549"
+      }
      },
      "outcome": {
       "name": "Fatalities",
@@ -5453,7 +5461,9 @@
        "ido": "0000511",
        "apollosv": "00000163"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C171549"
+      }
      },
      "outcome": {
       "name": "Hospitalised",
@@ -5473,7 +5483,9 @@
        "ido": "0000511",
        "apollosv": "00000163"
       },
-      "context": {}
+      "context": {
+       "transmissibility": "ncit:C171549"
+      }
      },
      "outcome": {
       "name": "Recovered",
@@ -5538,7 +5550,6 @@
      "subject": {
       "name": "Susceptible",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000514"
       },
       "context": {}
@@ -5558,7 +5569,6 @@
      "controller": {
       "name": "Asymptomatic",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000511"
       },
       "context": {
@@ -5568,7 +5578,6 @@
      "subject": {
       "name": "Susceptible",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000514"
       },
       "context": {}
@@ -5595,7 +5604,6 @@
      "subject": {
       "name": "Susceptible",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000514"
       },
       "context": {}
@@ -5642,7 +5650,6 @@
      "outcome": {
       "name": "Asymptomatic",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000511"
       },
       "context": {
@@ -5717,7 +5724,6 @@
      "subject": {
       "name": "Asymptomatic",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000511"
       },
       "context": {
@@ -5739,7 +5745,6 @@
      "subject": {
       "name": "Asymptomatic",
       "identifiers": {
-       "ncit": "C171133",
        "ido": "0000511"
       },
       "context": {
@@ -6018,14 +6023,25 @@
    ],
    [
     [
+     7,
+     8
+    ],
+    [
      0,
      1
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      11
     ],
-    "is_equal"
+    [
+     0,
+     1
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -6249,14 +6265,25 @@
    ],
    [
     [
+     7,
+     8
+    ],
+    [
      1,
      1
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      11
     ],
-    "is_equal"
+    [
+     1,
+     1
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -6282,14 +6309,25 @@
    ],
    [
     [
+     7,
+     6
+    ],
+    [
      1,
      2
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      9
     ],
-    "is_equal"
+    [
+     1,
+     2
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -6491,14 +6529,25 @@
    ],
    [
     [
+     7,
+     8
+    ],
+    [
      2,
      1
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      11
     ],
-    "is_equal"
+    [
+     2,
+     1
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -6590,14 +6639,25 @@
    ],
    [
     [
+     7,
+     7
+    ],
+    [
      2,
      2
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      10
     ],
-    "is_equal"
+    [
+     2,
+     2
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -6854,14 +6914,25 @@
    ],
    [
     [
+     7,
+     8
+    ],
+    [
      3,
      1
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      11
     ],
-    "is_equal"
+    [
+     3,
+     1
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -6942,14 +7013,25 @@
    ],
    [
     [
+     7,
+     7
+    ],
+    [
      3,
      2
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      10
     ],
-    "is_equal"
+    [
+     3,
+     2
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -7250,14 +7332,25 @@
    ],
    [
     [
+     7,
+     8
+    ],
+    [
      4,
      1
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      11
     ],
-    "is_equal"
+    [
+     4,
+     1
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -7327,14 +7420,25 @@
    ],
    [
     [
+     7,
+     7
+    ],
+    [
      4,
      2
     ],
+    "refinement_of"
+   ],
+   [
     [
      7,
      10
     ],
-    "is_equal"
+    [
+     4,
+     2
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -7606,17 +7710,6 @@
      8
     ],
     [
-     7,
-     11
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     5,
-     8
-    ],
-    [
      8,
      6
     ],
@@ -7632,17 +7725,6 @@
      9
     ],
     "is_equal"
-   ],
-   [
-    [
-     5,
-     9
-    ],
-    [
-     7,
-     10
-    ],
-    "refinement_of"
    ],
    [
     [
@@ -7738,17 +7820,6 @@
      13
     ],
     [
-     7,
-     11
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     5,
-     13
-    ],
-    [
      8,
      6
     ],
@@ -7764,17 +7835,6 @@
      13
     ],
     "is_equal"
-   ],
-   [
-    [
-     5,
-     14
-    ],
-    [
-     7,
-     10
-    ],
-    "refinement_of"
    ],
    [
     [
@@ -7859,30 +7919,8 @@
      8
     ],
     [
-     7,
-     11
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     6,
-     8
-    ],
-    [
      8,
      6
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     6,
-     9
-    ],
-    [
-     7,
-     10
     ],
     "refinement_of"
    ],
@@ -7947,30 +7985,8 @@
      12
     ],
     [
-     7,
-     11
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     6,
-     12
-    ],
-    [
      8,
      6
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     6,
-     13
-    ],
-    [
-     7,
-     10
     ],
     "refinement_of"
    ],
@@ -8036,17 +8052,6 @@
     ],
     [
      8,
-     0
-    ],
-    "is_equal"
-   ],
-   [
-    [
-     8,
-     1
-    ],
-    [
-     7,
      0
     ],
     "refinement_of"
@@ -8065,6 +8070,17 @@
    [
     [
      7,
+     2
+    ],
+    [
+     8,
+     0
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     7,
      3
     ],
     [
@@ -8087,22 +8103,55 @@
    [
     [
      7,
+     4
+    ],
+    [
+     8,
+     3
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     7,
      5
     ],
     [
      8,
      3
     ],
-    "is_equal"
+    "refinement_of"
    ],
    [
     [
-     8,
-     4
+     7,
+     6
     ],
     [
+     8,
+     7
+    ],
+    "refinement_of"
+   ],
+   [
+    [
      7,
+     7
+    ],
+    [
+     8,
      5
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     7,
+     8
+    ],
+    [
+     8,
+     6
     ],
     "refinement_of"
    ],
@@ -8115,17 +8164,6 @@
      8,
      7
     ],
-    "is_equal"
-   ],
-   [
-    [
-     8,
-     9
-    ],
-    [
-     7,
-     9
-    ],
     "refinement_of"
    ],
    [
@@ -8137,7 +8175,7 @@
      8,
      5
     ],
-    "is_equal"
+    "refinement_of"
    ],
    [
     [
@@ -8147,17 +8185,6 @@
     [
      8,
      6
-    ],
-    "is_equal"
-   ],
-   [
-    [
-     8,
-     8
-    ],
-    [
-     7,
-     11
     ],
     "refinement_of"
    ],
@@ -8273,14 +8300,25 @@
    ],
    [
     [
-     0,
-     2
-    ],
-    [
      7,
      14
     ],
-    "is_equal"
+    [
+     0,
+     2
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     7,
+     18
+    ],
+    [
+     0,
+     2
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -8614,14 +8652,25 @@
    ],
    [
     [
-     1,
-     3
-    ],
-    [
      7,
      14
     ],
-    "is_equal"
+    [
+     1,
+     3
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     7,
+     18
+    ],
+    [
+     1,
+     3
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -9010,19 +9059,8 @@
    ],
    [
     [
-     2,
-     4
-    ],
-    [
      7,
      14
-    ],
-    "is_equal"
-   ],
-   [
-    [
-     7,
-     19
     ],
     [
      2,
@@ -9032,19 +9070,19 @@
    ],
    [
     [
+     7,
+     18
+    ],
+    [
      2,
      4
     ],
-    [
-     8,
-     12
-    ],
-    "is_equal"
+    "refinement_of"
    ],
    [
     [
-     8,
-     15
+     7,
+     19
     ],
     [
      2,
@@ -9055,6 +9093,28 @@
    [
     [
      2,
+     4
+    ],
+    [
+     8,
+     12
+    ],
+    "is_equal"
+   ],
+   [
+    [
+     8,
+     15
+    ],
+    [
+     2,
+     4
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     2,
      5
     ],
     [
@@ -9373,14 +9433,25 @@
    ],
    [
     [
-     3,
-     5
-    ],
-    [
      7,
      14
     ],
-    "is_equal"
+    [
+     3,
+     5
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     7,
+     18
+    ],
+    [
+     3,
+     5
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -9769,14 +9840,25 @@
    ],
    [
     [
-     4,
-     6
-    ],
-    [
      7,
      14
     ],
-    "is_equal"
+    [
+     4,
+     6
+    ],
+    "refinement_of"
+   ],
+   [
+    [
+     7,
+     18
+    ],
+    [
+     4,
+     6
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -10092,17 +10174,6 @@
      18
     ],
     [
-     7,
-     14
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     5,
-     18
-    ],
-    [
      8,
      12
     ],
@@ -10184,17 +10255,6 @@
      19
     ],
     "is_equal"
-   ],
-   [
-    [
-     5,
-     21
-    ],
-    [
-     7,
-     14
-    ],
-    "refinement_of"
    ],
    [
     [
@@ -10411,17 +10471,6 @@
      16
     ],
     [
-     7,
-     14
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     6,
-     16
-    ],
-    [
      8,
      12
     ],
@@ -10468,17 +10517,6 @@
     [
      8,
      13
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     6,
-     19
-    ],
-    [
-     7,
-     14
     ],
     "refinement_of"
    ],
@@ -10628,33 +10666,11 @@
    [
     [
      7,
-     19
-    ],
-    [
-     7,
-     14
-    ],
-    "refinement_of"
-   ],
-   [
-    [
-     7,
      14
     ],
     [
      8,
      12
-    ],
-    "is_equal"
-   ],
-   [
-    [
-     8,
-     15
-    ],
-    [
-     7,
-     14
     ],
     "refinement_of"
    ],
@@ -10690,6 +10706,17 @@
      16
     ],
     "is_equal"
+   ],
+   [
+    [
+     7,
+     18
+    ],
+    [
+     8,
+     12
+    ],
+    "refinement_of"
    ],
    [
     [
@@ -12942,7 +12969,7 @@
     5,
     7
    ],
-   "score": 0.5
+   "score": 0.4
   },
   {
    "models": [
@@ -12956,7 +12983,7 @@
     6,
     7
    ],
-   "score": 0.5
+   "score": 0.4
   },
   {
    "models": [
