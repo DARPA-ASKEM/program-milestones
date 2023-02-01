@@ -25,3 +25,5 @@ SIDARTHE-latex-params.txt is the connection between the latex extract from paper
 ## Enriched Gromets
 The Gromet FNs for the SIDARTHE sources with text extraction metadata attached inside the `gromet_fn` directory
 
+The skema text extractions linked to those gromet fn are found in `scenario2_skema_extractions.xlsx`
+
