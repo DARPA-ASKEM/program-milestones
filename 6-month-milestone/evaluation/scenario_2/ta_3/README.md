@@ -18,3 +18,6 @@ https://github.com/DARPA-ASKEM/program-milestones/blob/main/6-month-milestone/ev
 A cloud runnable version which allows for changing any plots interactively can be found via signing in at the link:
 
 https://juliahub.com/pluto/editor.html?id=85c8f255-990d-49e7-85e5-e52e3d55cb11
+
+A locally runnable Pluto notebook can be found as the Scenario2.jl and can be opened using the instructions 
+from [Pluto.jl](https://github.com/fonsp/Pluto.jl)
