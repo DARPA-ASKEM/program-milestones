@@ -2,7 +2,7 @@
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "c41a62d8d6b6d612610df4d2133845aeba2ef92f"
+project_hash = "674c85c2b5d2d19fd25bd18d0b1aea14cd26b903"
 
 [[deps.ANSIColoredPrinters]]
 git-tree-sha1 = "574baf8110975760d391c710b6341da1afa48d8c"
@@ -76,9 +76,9 @@ version = "0.1.6"
 
 [[deps.AlgebraicPetri]]
 deps = ["Catlab", "LabelledArrays", "LinearAlgebra", "Requires", "StatsBase"]
-git-tree-sha1 = "f2ce0bbfae8bc7ee81f064a419d18766d29bb254"
+git-tree-sha1 = "3036a6246db65c6e4837997ba3b4a52e9a023f64"
 uuid = "4f99eebe-17bf-4e98-b6a1-2c4f205a959b"
-version = "0.8.3"
+version = "0.8.4"
 
 [[deps.ArgCheck]]
 git-tree-sha1 = "a3a402a35a2f7e0b87828ccabbd5ebfbebe356b4"
@@ -271,9 +271,9 @@ version = "12.3.2"
 
 [[deps.Catlab]]
 deps = ["Colors", "CompTime", "Compose", "DataStructures", "GeneralizedGenerated", "JSON", "LightXML", "LinearAlgebra", "Logging", "MLStyle", "Pkg", "PrettyTables", "Random", "Reexport", "Requires", "SparseArrays", "StaticArrays", "Statistics", "StructEquality", "Tables"]
-git-tree-sha1 = "e4743dbddb6065e024cf47ce9e6077a81ac8f39b"
+git-tree-sha1 = "51a3fbc3f3b1d09e081bb682c440c76327a8c765"
 uuid = "134e5e36-593f-5add-ad60-77f754baafbe"
-version = "0.14.13"
+version = "0.14.14"
 
 [[deps.ChainRules]]
 deps = ["Adapt", "ChainRulesCore", "Compat", "Distributed", "GPUArraysCore", "IrrationalConstants", "LinearAlgebra", "Random", "RealDot", "SparseArrays", "Statistics", "StructArrays"]
@@ -566,9 +566,9 @@ version = "0.4.5"
 
 [[deps.EasyModelAnalysis]]
 deps = ["DifferentialEquations", "Distributions", "GlobalSensitivity", "LinearAlgebra", "ModelingToolkit", "NLopt", "Optimization", "OptimizationBBO", "OptimizationMOI", "OptimizationNLopt", "Plots", "Reexport", "SciMLBase", "SciMLExpectations", "Turing"]
-git-tree-sha1 = "e8ebb97abf50d79716db71fea001721b446d558e"
+git-tree-sha1 = "cb3d69fb34e805b7a2a69094c0f4e17df76283ee"
 uuid = "ef4b24a4-a090-4686-a932-e7e56a5a83bd"
-version = "0.1.2"
+version = "0.1.5"
 
 [[deps.EllipticalSliceSampling]]
 deps = ["AbstractMCMC", "ArrayInterfaceCore", "Distributions", "Random", "Statistics"]
@@ -731,9 +731,9 @@ version = "3.3.8+0"
 
 [[deps.GPUArrays]]
 deps = ["Adapt", "GPUArraysCore", "LLVM", "LinearAlgebra", "Printf", "Random", "Reexport", "Serialization", "Statistics"]
-git-tree-sha1 = "494f1e456000c00c93dde79b38094e023f639dac"
+git-tree-sha1 = "4dfaff044eb2ce11a897fecd85538310e60b91e6"
 uuid = "0c68f7d7-f131-5f86-a1c3-88cf8149b2d7"
-version = "8.6.1"
+version = "8.6.2"
 
 [[deps.GPUArraysCore]]
 deps = ["Adapt"]
@@ -799,6 +799,12 @@ deps = ["ArnoldiMethod", "Compat", "DataStructures", "Distributed", "Inflate", "
 git-tree-sha1 = "ba2d094a88b6b287bd25cfa86f301e7693ffae2f"
 uuid = "86223c79-3864-5bf0-83f7-82e725a168b6"
 version = "1.7.4"
+
+[[deps.Graphviz_jll]]
+deps = ["Artifacts", "Cairo_jll", "Expat_jll", "JLLWrappers", "Libdl", "Pango_jll", "Pkg"]
+git-tree-sha1 = "a5d45833dda71048117e8a9828bef75c03b18b1c"
+uuid = "3c863552-8265-54e4-a6dc-903eb78fde85"
+version = "2.50.0+1"
 
 [[deps.Grisu]]
 git-tree-sha1 = "53bb909d1151e57e2484c3d1b53e19552b887fb2"
@@ -1374,9 +1380,9 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[deps.ModelingToolkit]]
 deps = ["AbstractTrees", "ArrayInterfaceCore", "Combinatorics", "Compat", "ConstructionBase", "DataStructures", "DiffEqBase", "DiffEqCallbacks", "DiffRules", "Distributed", "Distributions", "DocStringExtensions", "DomainSets", "ForwardDiff", "FunctionWrappersWrappers", "Graphs", "IfElse", "InteractiveUtils", "JuliaFormatter", "JumpProcesses", "LabelledArrays", "Latexify", "Libdl", "LinearAlgebra", "MacroTools", "NaNMath", "RecursiveArrayTools", "Reexport", "RuntimeGeneratedFunctions", "SciMLBase", "Serialization", "Setfield", "SimpleNonlinearSolve", "SparseArrays", "SpecialFunctions", "StaticArrays", "SymbolicIndexingInterface", "SymbolicUtils", "Symbolics", "UnPack", "Unitful"]
-git-tree-sha1 = "8d2daebe41b66e52d0e33c5ab992611fd710c99b"
+git-tree-sha1 = "efafba25152cb39bd80577b7e7ae11f258f79b11"
 uuid = "961ee093-0014-501f-94e3-6117800e7a78"
-version = "8.43.0"
+version = "8.45.0"
 
 [[deps.MonteCarloIntegration]]
 deps = ["Distributions", "Random"]
@@ -1577,6 +1583,12 @@ deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
 git-tree-sha1 = "cf494dca75a69712a72b80bc48f59dcf3dea63ec"
 uuid = "90014a1f-27ba-587c-ab20-58faa44d9150"
 version = "0.11.16"
+
+[[deps.Pango_jll]]
+deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "FriBidi_jll", "Glib_jll", "HarfBuzz_jll", "JLLWrappers", "Libdl", "Pkg"]
+git-tree-sha1 = "84a314e3926ba9ec66ac097e3635e270986b0f10"
+uuid = "36c8627f-9965-5494-a995-c6b170f724f3"
+version = "1.50.9+0"
 
 [[deps.Parameters]]
 deps = ["OrderedCollections", "UnPack"]
@@ -1855,11 +1867,9 @@ version = "1.4.0"
 
 [[deps.SBMLToolkit]]
 deps = ["Catalyst", "MathML", "SBML", "SymbolicUtils"]
-git-tree-sha1 = "0a86daaa500baecb76b5b732a56736a24dc84c7b"
-repo-rev = "aj/askem"
-repo-url = "https://github.com/SciML/SBMLToolkit.jl"
+git-tree-sha1 = "888fd529792e335fa3319f79939393697abb224e"
 uuid = "86080e66-c8ac-44c2-a1a0-9adaadfe4a4e"
-version = "0.1.19"
+version = "0.1.20"
 
 [[deps.SBML_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg", "XML2_jll", "Zlib_jll"]
