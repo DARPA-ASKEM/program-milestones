@@ -13,7 +13,7 @@ https://chrisrackauckas.github.io/ASKEM_Evaluation_Staging/dev/
 
 A static render of a Pluto notebook of the results can be loaded via loading the following into a web browser:
 
-https://github.com/DARPA-ASKEM/program-milestones/blob/main/6-month-milestone/evaluation/scenario_1/ta_3/Scenario1.jl.html
+https://github.com/DARPA-ASKEM/program-milestones/blob/main/6-month-milestone/evaluation/scenario_1/ta_3/Scenario1.html
 
 A cloud runnable version which allows for changing any plots interactively can be found via signing in at the link:
 
