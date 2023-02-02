@@ -31,9 +31,11 @@ The Gromet FNs for the SIDARTHE sources with text extraction metadata attached i
 
 The skema text extractions linked to those gromet fn are found in `scenario2_skema_extractions.xlsx`
 
+
 ## Equation and code alignment
 Equation Alignment in the SIDARTHE and SIDARTHE+V papers.xlsx is the alignment result for the core equations in the SIDARTHE and SIDARTHE+V papers.
 
 Equation Alignment in the SIDARTHE paper and code version A.xlsx is the alignment result for the core equations in the SIDARTHE and the implementation in the code version A.
 
 Equation Alignment in the SIDARTHE paper and code version B.xlsx is the alignment result for the core equations in the SIDARTHE and the implementation in the code version B.
+

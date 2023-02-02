@@ -33,7 +33,7 @@ This version of the data includes some data elements from Arizona, but we need t
 To be clear, we didn't write this tool! The tool was written by Manfred and Daniel from TA-4. But the tool is meant to display metadata produced by MIT and UA processes.
 
 You can see a video of the tool in action at this URL:
-https://drive.google.com/drive/folders/1VI-iDNR3Km9RP7mjKrBVoV5mT-OGK8V8
+https://drive.google.com/file/d/1uNLWvTCSKpenkbTnn0jOAuBKvB-D2yBz/view?usp=share_link
 
 It is an extended attempt by James of Florida to use the tool to recover the Petri Net.  More about this shortly.
 
@@ -62,6 +62,8 @@ The first is the extraction-to-datacolumn integrator. As mentioned above, this R
 The second is a "reachback service" for variables that have seemingly-unreliable data. A TA-3 modeler may decide a particular variable-with-data is possibly not reliable --- perhaps the data failed a statistical test or perhaps the user read an article in the news about how certain COVID stats are becoming less reliable with the growth of home testing.  The user should be able to "reach back" for more support data from TA-1.
 
 Right now the system works by taking as input a particular variable name.  This is a set of data the user views as flawed (say, COVID infection numbers). The system then emits as output a list of other known datasets that might be relevant or correlated to the original questionable dataset. For example, the COVID infection data might be a query input, and the system might return datasets that are fairly closely correlated, such as wastewater data. The goal is to provide the user with data that might be useful as a proxy, or in predicting the variable's true value.
+
+You can see an example of the output of this system in the local file `mit-feb1-dataquality-reachback-example.json`
 
 This service works as of the end of Wednesday but has not yet been integrated into any user-facing system
 

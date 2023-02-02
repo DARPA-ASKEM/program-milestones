@@ -4,452 +4,228 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 49465045-7e4c-4296-845b-44d389f0e228
-begin
-	using EasyModelAnalysis, LinearAlgebra
-	using EasyModelAnalysis.ModelingToolkit: toparam
-	using EasyModelAnalysis.ModelingToolkit.Symbolics: FnType, variables
-	using XLSX, CSV, DataFrames, Plots
-	using Catlab, Catlab.CategoricalAlgebra, Catlab.Programs, AlgebraicPetri, AlgebraicPetri.TypedPetri
-	using Base: splat
-end
-
-# ╔═╡ 445a3e17-4178-494d-9496-024ecc142dda
-using Downloads
-
-# ╔═╡ ff4d383f-daa6-4031-87dc-ef919206eac8
-using DataSets, JuliaHubData
-
-# ╔═╡ b1182102-a23b-11ed-3f10-5ddc2ce6fe06
-md"""
-# Evaluation Scenario 1
-
-This document is the solution set for Scenario 1 of the Jan 2023 DARPA
-ASKEM program evaluation. Quoted text is the scenario specification provided
-by DARPA/MITRE. Unquoted text, code and output are intended to address
-the question posed in the scenario document, while providing use case
-illustration for the libraries in question.
-
-In this scenario, we investigate the effects of different age population distributions on the effect of viral epidemics using a simple SIR model.
-
-First, we load various packages for model exploration and data loading,
-which we will use later.
-"""
-
-# ╔═╡ 034896c3-6114-48fe-81a0-ea1782e719e4
-md"""
-## Stratified SIR
-
-> Scenario Ask: In order to consider more nuanced interventions, we would like for models to account for different age groups and their contact dynamics. Start with a basic SIR model without vital dynamics, and stratify it according to the following questions.
-
-We begin by creating a basic function that manually creates a stratified SIR model given a list of population buckets.
-"""
-
-# ╔═╡ 04a25dbf-305e-4011-986d-d158fd4d5dda
-begin
-	  tf = 600
-const k = 1000
-const γ = 1/14
-const R₀ = 5
-const β = R₀ * γ
-end
-
-# ╔═╡ 9737bd73-04d1-4040-bd00-ff1ee3fa8ba2
-"""
-    make_stratified_model(pops, contactmat; infectedfrac = nothing)
-
-Given a list of population buckets `pops` (of length `n`), create a stratified SIR model with interaction
-incidence given by `contactmat`. The SIR parameters γ and R0 (and thus β) are inherited from global scope.
-Returns the system of differential equations that can be used for futher simulations.
-
-The optional keyword argument `infectedfrac` specifies the fraction of each group that should be
-considered infected initially.
-"""
-function make_stratified_model(pops, contactmat; infectedfrac = nothing)
-    types = LabelledPetriNet([:Pop],
-                             :infect=>((:Pop, :Pop)=>(:Pop, :Pop)),
-                             :disease=>(:Pop=>:Pop),
-                             :strata=>(:Pop=>:Pop))
-    sir_uwd = @relation () where (S::Pop, I::Pop, R::Pop) begin
-        infect(S,I,I,I)
-        disease(I,R)
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
     end
-    sir_typed = oapply_typed(types, sir_uwd, [:inf, :rec])
-    totalpop = sum(pops)
-    n = length(pops)
-    I₀ = something(infectedfrac, n / totalpop)
-    sir_paramd = add_params(sir_typed, Dict{Symbol,Float64}(:S => 1 - I₀, :I => I₀, :R => 0),
-                            Dict(:inf => β, :rec => γ))
-
-    ages = pairwise_id_typed_petri(types, :Pop, :infect, [Symbol("A$i") for i = 1:n],
-                                   pops, contactmat ./ pops,
-                                   codom_net = codom(sir_paramd))
-    ages = add_reflexives(ages, repeat([[:disease]], n), types)
-    return typed_product(sir_paramd, ages)
 end
 
-
-# ╔═╡ 9527d842-69e3-4d17-a209-376bc624388c
-"""
-    scenario1(pops, contactmat; infectedfrac, numinfected)
-
-Run a scenario 1 simulation with the given population buckets and contact matrix.
-`infectedfrac` has the same meaning as in `make_stratified_model`.
-`numinfected` allows specifying a fixed number of individuals in each age group
-considered infected initially.
-"""
-function scenario1(pops, mat; infectedfrac = nothing, numinfected = nothing)
-    sir_strat = flatten_labels(make_stratified_model(pops, mat; infectedfrac).dom)
-    sys = ODESystem(sir_strat)
-    U₀ = map(splat(*), sir_strat[:, :concentration])
-    if !isnothing(numinfected)
-        U₀[2:2:end] .= numinfected
-    end
-    P = map(splat(*), sir_strat[:, :rate])
-    prob = ODEProblem(sys, U₀, (0, tf), P)
-    solve(prob)
-end
-
-# ╔═╡ 092a8295-d3ad-4db9-8f1c-b845bb59fb41
-md"""
-## Question 1
-
-> Start with a simple stratification with three age groups: young, middle-aged, and old.
-
-### Sub-question 1.a.
-> Begin with a situation where the population size across each age group is uniform: N_young = 2k, N_middle = 2k, N_old = 2k. Assume only one person in each age group is infectious at the beginning of the simulation. Let gamma = 1/14 days, and let R0 = 5. Assume gamma, beta, and R0 are the same for all age groups.
-
-> i. Simulate this model for the case where the 3x3 contact matrix is uniform (all values in matrix are 0.33)
-
-N.B.: Uniform `1/n_strata` is the default in our model creation function above.
-"""
-
-# ╔═╡ 0a6c1b49-d609-44fe-9870-8220c9a73072
+# ╔═╡ 65054514-a2f0-11ed-0033-a194b71fd947
 begin
-	sol = scenario1([2k, 2k, 2k], fill(1/3, 3, 3), numinfected = 1)
-	plt_a1 = plot(sol, leg = :topright)
+using EasyModelAnalysis, LinearAlgebra, CSV
+using Catlab, AlgebraicPetri
+using Catlab.CategoricalAlgebra
 end
 
-# ╔═╡ 963c6b53-6d9a-4a36-b718-6a322aad1a4b
+# ╔═╡ 5cd591fb-6be5-404d-9da4-cc9d896551e7
+using PlutoUI # Interactivity Elements
+
+# ╔═╡ 8682cf41-01ff-49b3-81bc-540f0bb14b3b
+using Downloads, DataFrames
+
+# ╔═╡ 61f2fa6b-f5ef-4cb2-bf93-b2e6089b5459
 md"""
-
-> ii. Simulate this model for the case where there is significant in-group contact
-> preference – you may choose the numbers in the matrix to represent this in-
-> group preference.
-
-We pick a contact matrix with significant (0.4) in-group interaction
-and somewhat weak (but differening, to make the plots more interesting)
-off-diagonal interactions.
-
-"""
-
-# ╔═╡ 4efded85-a434-49b1-8d2d-50c1308c1197
-contact_matrix = [0.4  0.05  0.1
-                  0.05 0.4   0.15          
-                  0.1  0.15  0.4]
-
-# ╔═╡ 153e3069-f558-4290-8192-1ec4caff9aa3
-md"""
-We now use this updated contact matrix to re-run the simulation.
-"""
-
-# ╔═╡ 8b54fc53-ce21-48b0-9a75-f26628142baf
-begin
-	sol_2 = scenario1([2k, 2k, 2k], contact_matrix, numinfected = 1)
-	plt_a2 = plot(sol_2, leg = :topright)
-end
-
-# ╔═╡ b78985b9-67c6-412e-b0f9-9306f6460c79
-md"""
-> iii. Simulate this model for the case where there is no contact between age groups.
-> You may choose the numbers in the matrix, but ensure it meets the requirement
-> of no contact between age groups.
-"""
-
-# ╔═╡ 4876d6ba-15f2-4b28-b913-ebae8fe6b02b
-begin
-	sol_3 = scenario1([2k, 2k, 2k], Diagonal(contact_matrix), numinfected = 1)
-	plt_a3 = plot(sol_3, leg = :topright)
-end
-
-# ╔═╡ 5a597ac1-4b89-4d5c-99ac-bfa955f5b7c5
-md"""
-> Simulate social distancing by scaling down the uniform contact matrix by a
-> factor (e.g. multiply by 0.5)
-"""
-
-# ╔═╡ fb279200-195f-4ddf-b4ed-c79bad1d05b5
-
-
-# ╔═╡ 50d4af28-3406-4472-8cd6-9c8dbc537bac
-begin
-	uniform_matrix = fill(0.33, (3, 3))
-	sol_4 = scenario1([2k, 2k, 2k], 0.5 * uniform_matrix, numinfected = 1)
-	plt_a4 = plot(sol_4, leg = :topright)
-end
-
-# ╔═╡ 14f942e5-69b3-4982-aefa-31e6b2ce7de7
-md"""
-> Repeat 1.a.iv for the scenario where the young population has poor compliance
-> with social distancing policies, but the old population is very compliant.
-"""
-
-# ╔═╡ 5831ed97-15ed-4f68-bb31-c84a93a2d03d
-begin
-	scaling = Diagonal([0.9, 0.8, 0.4])
-	sol_5 = scenario1([2k, 2k, 2k], scaling * uniform_matrix, numinfected = 1)
-	plt_a5 = plot(sol_5, leg = :topright)
-end
-
-# ╔═╡ 429b54a6-47ab-4c24-85b7-f04d5ced3848
-plot(plt_a1, plt_a2, plt_a3, plt_a4, plt_a5, size = (1000, 500))
-
-# ╔═╡ 388fd1f3-ed96-4865-a1fb-3df8b954da81
-md"""
-> Repeat 1.a for a younger-skewing population: `N_young = 3k, N_middle = 2k, N_old = 1k`
-"""
-
-# ╔═╡ 788edbac-c5c8-4f4b-803e-eb0e06303deb
-begin
-sol_b1 = scenario1([3k, 2k, 1k], fill(1/3, 3, 3), numinfected = 1)
-plt_b1 = plot(sol_b1, leg = :topright, title = "i")
-
-sol_b2 = scenario1([3k, 2k, 1k], contact_matrix, numinfected = 1)
-plt_b2 = plot(sol_b2, leg = :topright, title = "ii")
-
-sol_b3 = scenario1([3k, 2k, 1k], Diagonal(contact_matrix), numinfected = 1)
-plt_b3 = plot(sol_b3, leg = :topright, title = "iii")
-
-sol_b4 = scenario1([3k, 2k, 1k], 0.5 * uniform_matrix, numinfected = 1)
-plt_b4 = plot(sol_b4, leg = :topright, title = "iv")
-
-sol_b5 = scenario1([3k, 2k, 1k], scaling * uniform_matrix, numinfected = 1)
-plt_b5 = plot(sol_b5, leg = :topright, title = "v")
-
-plot(plt_b1, plt_b2, plt_b3, plt_b4, plt_b5, size = (1000, 500))
-end
-
-# ╔═╡ c4350711-f2a5-4827-a65d-24a57f01bf1f
-md"""
-> Repeat 1.a for an older-skewing population: `N_young = 1k, N_middle = 2k, N_old = 3k`
-"""
-
-# ╔═╡ c6165bda-3550-4485-a77e-4accafa3a352
-begin sol_c1 = scenario1([1k, 2k, 3k], fill(1/3, 3, 3), numinfected = 1)
-plt_c1 = plot(sol_c1, leg = :topright, title = "i")
-
-sol_c2 = scenario1([1k, 2k, 3k], contact_matrix, numinfected = 1)
-plt_c2 = plot(sol_c2, leg = :topright, title = "ii")
-
-sol_c3 = scenario1([1k, 2k, 3k], Diagonal(contact_matrix), numinfected = 1)
-plt_c3 = plot(sol_c3, leg = :topright, title = "iii")
-
-sol_c4 = scenario1([1k, 2k, 3k], 0.5 * uniform_matrix, numinfected = 1)
-plt_c4 = plot(sol_c4, leg = :topright, title = "iv")
-
-sol_c5 = scenario1([1k, 2k, 3k], scaling * uniform_matrix, numinfected = 1)
-plt_c5 = plot(sol_c5, leg = :topright, title = "v")
-
-plot(plt_c1, plt_c2, plt_c3, plt_c4, plt_c5, size = (1000, 500))
-end
-
-# ╔═╡ dbcbc2d4-d741-4ff5-978b-90eea084e076
-md"""
-> d. Compare simulation outputs from 1a-c, and describe any takeaways/conclusions.
-
-The most difference between age demographics can be seen in the case
-where there are social-distancing compliance differences. We complare
-these plots here:
-"""
-
-# ╔═╡ 213b0b06-143c-4aac-9aad-5474fa5e564f
-plot(plt_a5, plt_b5, plt_c5)
-
-# ╔═╡ f0d7b892-7ac4-4dfc-8c99-3b9e55887099
-md"""
+# Evaluation Scenario 3
 ## Question 2
-
-> Now find real contact matrix data and stratify the basic SIR model with the appropriate number of age groups to match the data found. To simulate the model with realistic initial values, find data on population distribution by age group. As in question 1, let gamma = 1/14 days, and let R0 = 5. Assume gamma, beta, and R0 are the same for all age groups.
-
-TA1 provided the data from ["Projecting social contact matrices in 152 countries using contact surveys and demographic data"](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005697) by Prem, et al.
-This paper comes with [10 Excel files](https://doi.org/10.1371/journal.pcbi.1005697.s002) that provide contact matrices
-for 152 countries at work, home, school and other locations (plus
-a data set of the sum of these locations). The data values in these
-excel files are raw, averaged survey results.
-
-!!! note
-    We make no attempt to normalize or otherwise adjust the contact matrices. The interpretation of the contact matrices needs to be
-    consistent with the SIR parameter `β`, which is fixed in our the
-    given scenario. In a real world case, care would need to be taken
-    to match the units of the contact matrix to the units of `β`.
-
 """
 
-# ╔═╡ 689f59b9-fccb-4a80-bfae-f801efc1ef59
+# ╔═╡ edd710c6-a28f-4315-9a47-a8bee2579e13
 md"""
-(JuliaHub-specific dataset loading:)
+## Parameter control dashboard
 """
 
-# ╔═╡ 5658bb87-c20b-48ee-8b12-742a91fecf1f
+# ╔═╡ 41473c67-e9d8-4a8c-a22f-19bab1c16595
+md"""
+| val |   | 
+| --- | --- |
+| inf | $(@bind inf_ia PlutoUI.Slider(0:0.05:2; default=0.5, show_value=true)) |
+|rec | $(@bind rec_ia PlutoUI.Slider(0:0.05:2; default=0.25, show_value=true)) |
+| ideath | $(@bind ideath_ia PlutoUI.Slider(0:0.05:2; default=0.25, show_value=true))|
+| death | $(@bind death_ia PlutoUI.Slider(0:0.05:2; default=0.25, show_value=true))|
+| hosp | $(@bind hosp_ia PlutoUI.Slider(0:0.05:2; default=0.25, show_value=true))|
+| hrec | $(@bind hrec_ia PlutoUI.Slider(0:0.05:2; default=0.25, show_value=true))|
+"""
+
+# ╔═╡ 0123e377-0fd1-4ac4-bfcd-3e1c15a41834
 begin
-	base = "https://raw.githubusercontent.com/ChrisRackauckas/ASKEM_Evaluation_Staging/main/docs/src/Scenario1/data/"
-	files = [
-		"2016_belgium_population_by_age.csv",
-		"2016_india_population_by_age.csv",
-		"2021_population_by_age.csv",
-		"2022_%20Belgium_population_by_age.csv",
-		"MUestimates_all_locations_1.xlsx",
-		"MUestimates_all_locations_2.xlsx",
-		"MUestimates_home_1.xlsx",
-		"MUestimates_home_2.xlsx",
-		"MUestimates_other_locations_1.xlsx",
-		"MUestimates_other_locations_2.xlsx",
-		"MUestimates_school_1.xlsx",
-		"MUestimates_school_2.xlsx",
-		"MUestimates_work_1.xlsx",
-		"MUestimates_work_2.xlsx",
-		"belgium_all_locations_cm.txt",
-		"contact_matrix_data.txt",
-		"india_all_locations_cm.txt"
-	]
-	rm("./data"; force=true, recursive=true)
-	mkdir("./data")
+	url = "https://raw.githubusercontent.com/DARPA-ASKEM/program-milestones/data-h-d-breakdown/6-month-milestone/evaluation/scenario_3/ta_4/usa-IRDVHN_age_HD_breakdown.csv"
+	file = CSV.File(Downloads.download(url))
+	df_raw = DataFrame(file)
+	
+	start_train = 171
+	stop_train = 171 + 121
+	start_test = 171 + 122
+	stop_test = 171 + 122 + 92
+	
+	df_train = df_raw[start_train:stop_train, :]
+	df_test = df_raw[start_test:stop_test, :]
+	
+	t_train = collect(0:(size(df_train, 1) - 1))
+	t_test = collect(0:(size(df_test, 1) - 1))
+	
+	N_total = 334998398 # assumed to be constant from (https://github.com/DARPA-ASKEM/program-milestones/blob/main/6-month-milestone/evaluation/scenario_3/ta_1/usa-2021-population-age-stratified.csv)
+	#S = N_total - R - I
+end
+
+# ╔═╡ 122c810b-248e-4834-942a-da6ae27e83f9
+
+
+# ╔═╡ e0b6b1e6-abc3-44cc-83d6-d1aa2ae4788f
+md"""
+Question 2 involves doing the same analysis as question one but on the SIR model with hospitalizations and deaths included.
+
+#### Model Calibration
+"""
+
+# ╔═╡ 1eb30857-e1ce-40d5-a64b-86df56d48e7a
+md"""
+#### Explanation of the Fit
+
+Once again it's clear that the model is unable to fit the data well. The same issues apply to the new data as well.
+The S, R, and D data all increase the rate of growth after the infection's peak, which is impossible to occur in
+the SIRHD model and thus suggests that the infection peak might be an anomoly of the data. In either case, it's
+impossible to both fit the non-decreasing derivatives of these 3 data series while also fitting the peak of the
+infection, with this model. Additionally. for no parameters does the SIRHD model emit oscillatory solutions as seen
+in the data, which suggests a model deficiency.
+
+### Evaluate Model Forecasts
+
+In order to evaluate the model forecasts, we developed a functional which does the forecasting part with multiple models
+and puts a score on the forecast result. This score is calculated using the L2 norm.
+"""
+
+# ╔═╡ ce272f72-aba8-4335-9a6a-055a00167d61
+md"""
+Overall the SIRHD model gives a better forecast. Though for no values of the model can an SIR or SIRHD model predict
+a second wave, all of these models can only have a singular peak in the infections, and thus we would say that neither
+of the models are adequate predictors of this data.
+"""
+
+# ╔═╡ bef52851-edea-4cd0-8298-b7a01542588e
+begin # Downloader
+base = "https://raw.githubusercontent.com/ChrisRackauckas/ASKEM_Evaluation_Staging/main/docs/src/Scenario3/"
+files = [
+	"sir.json",
+	"sird.json",
+	"sirh.json",
+	"sirhd.json",
+	"sirhd_renew.json",
+	"sirhd_renew_vax.json",
+	"sirhd_renew_vax_age11.json",
+	"sirhd_renew_vax_age16.json",
+	"sirhd_vax.json",
+	"sirhd_vax_age11.json",
+	"sirhd_vax_age16.json",
+]
 	for file in files
 		sleep(0.25)
-		@info "./data/$file"
-		Downloads.download(joinpath(base, file), "./data/$file")
+		Downloads.download(joinpath(base, file), "./$file")
 	end
 	ok = true
 end
 
-# ╔═╡ 47855a24-60cf-4939-bbc1-5915fee2d184
-readdir("./data")
-
-# ╔═╡ 01225dff-b793-4201-8ec8-e6099a497b6b
+# ╔═╡ acacb273-389a-48da-b635-5cf2aa8cddb7
 begin
 	ok
-	xf_all_locations1 = XLSX.readxlsx("./data/MUestimates_all_locations_1.xlsx")
-	xf_all_locations2 = XLSX.readxlsx("./data/MUestimates_all_locations_2.xlsx")
-	xf_work1 = XLSX.readxlsx("./data/MUestimates_work_1.xlsx")
-	xf_work2 = XLSX.readxlsx("./data/MUestimates_work_2.xlsx")
-	xf_school1 = XLSX.readxlsx("./data/MUestimates_school_1.xlsx")
-	xf_school2 = XLSX.readxlsx("./data/MUestimates_school_2.xlsx")
-	xf_home1 = XLSX.readxlsx("./data/MUestimates_home_1.xlsx")
-	xf_home2 = XLSX.readxlsx("./data/MUestimates_home_2.xlsx")
-	xf_other1 = XLSX.readxlsx("./data/MUestimates_other_locations_1.xlsx")
-	xf_other2 = XLSX.readxlsx("./data/MUestimates_other_locations_2.xlsx")
+	sird = read_json_acset(LabelledPetriNet, "sird.json")
+	sirh = read_json_acset(LabelledPetriNet, "sirh.json")
+	sirhd = read_json_acset(LabelledPetriNet, "sirhd.json")
+	sirhd_sys = ODESystem(sirhd)
+	sirhd_sys = complete(sirhd_sys)
+	@unpack S, I, R, H, D, inf, rec, ideath, death, hosp, hrec = sirhd_sys
+	@parameters N = 1
+	param_sub = [
+	    inf => inf / N,
+	]
+	sirhd_sys = substitute(sirhd_sys, param_sub)
+	defs = ModelingToolkit.defaults(sirhd_sys)
+	defs[S] = N_total - 10
+	defs[I] = 10
+	defs[H] = 0
+	defs[D] = 0
+	defs[R] = 0.0
+	defs[N] = N_total
+	defs[inf] = inf_ia # 0.5
+	defs[rec] = rec_ia # 0.25
+	defs[ideath] = ideath_ia # 0.25
+	defs[death] = death_ia # 0.25
+	defs[hosp] = hosp_ia # 0.25
+	defs[hrec] = hrec_ia # 0.25
+	tspan = (0.0, 40.0)
+	sirhd_prob = ODEProblem(sirhd_sys, [], tspan)
+	sirhd_sol = solve(sirhd_prob)
+	plot(sirhd_sol)
+end 
 
-xfs1 = (; all = xf_all_locations1, work = xf_work1, school = xf_school1,
-        home = xf_home1, other = xf_other1)
-xfs2 = (; all = xf_all_locations2, work = xf_work2, school = xf_school2,
-        home = xf_home2, other = xf_other2)
-
-to_cm(sheet) = Float64[sheet[i, j] for i in 2:17, j in 1:16]
-end
-
-# ╔═╡ d4ca58a2-3504-4650-b6f6-f0e290748b4f
-md"""
-#### We begin by loading up the relevant data for Belgium
-and quickly visualizing the contract matrix.
-"""
-
-# ╔═╡ 7aa77f81-8818-495f-9028-561150fd0b85
-begin # Load Belgium contact matrix
-cm_belg = to_cm(xf_all_locations1["Belgium"])
-heatmap(cm_belg, yflip=true)
-end
-
-# ╔═╡ dbbd9ff3-606a-4452-b6e9-ae39a4050f73
-md"""
-Next we load the population distribution data.
-"""
-
-# ╔═╡ c7f3692b-97e5-49f7-a47e-22ff416f9413
+# ╔═╡ 917156f7-93a4-47d5-a6ff-8364525ca7d6
 begin
-	pop_belg = collect(values(CSV.read("./data/2022_%20Belgium_population_by_age.csv", DataFrame,
-                           header = 3)[1, 2:17]))
-bar(1:length(pop_belg), collect(pop_belg), permute=(:x, :y), xlabel="Age (5 year buckets)", ylabel="Total # of people", leg=:none)
-end
-
-# ╔═╡ d5e6398d-9e40-4ed2-92fe-af2d1aba067c
-begin
-	# Set up model
-	# Per MITRE: Assume that the same fixed fraction of the population in each stratum is initially infected. Here: 0.01%
-	sol_2_b = scenario1(pop_belg, cm_belg, infectedfrac = 0.0001)
-	plot(sol_2_b, leg = :topright)
-end
-
-# ╔═╡ 17c89b5b-bf83-46bb-9126-a13a41e4d8eb
-md"""
-
-> If the data you’ve found supports this, compare the situation for a country with significant multi-generational contact beyond two generations (as indicated by multiple contact matrix diagonal bandings), and for a country without.
-
-TA1 advises that India has significant multi-generational contact, while Belgium does not. We repeat the exercise for India.
-
-"""
-
-# ╔═╡ a211c9f1-739a-48ec-ba27-c1da1a6d457c
-begin
+data_train = [
+	    S => N_total .- df_train.I .- df_train.R .- df_train.D .- df_train.H,
+	    I => df_train.I, R => df_train.R, H => df_train.H, D => df_train.D,
+	]
+	data_test = [
+	    S => N_total .- df_test.I .- df_test.R .- df_test.D .- df_test.H,
+	    I => df_test.I, R => df_test.R, H => df_test.H, D => df_test.D,
+	]
 	
-	# Load India contact matrix
-	cm_india = to_cm(xf_all_locations1["India"])
-	hm = heatmap(cm_india, yflip=true)
-	
-	# Load India population distribution
-	pop_india = collect(values(CSV.read("./data/2016_india_population_by_age.csv", DataFrame)[1, 3:18]))
-	bar_india = bar(1:length(pop_india), collect(pop_india), permute=(:x, :y), xlabel="Age (5 year buckets)", ylabel="Total # of people", leg=:none)
-	plot(hm, bar_india)
+	u0s = [
+	    S => N_total - df_train.I[1] - df_train.R[1] - df_train.H[1] - df_train.D[1],
+	    I => df_train.I[1], R => df_train.R[1], H => df_train.H[1], D => df_train.D[1],
+	]
+	_prob2 = remake(sirhd_prob, u0 = u0s, tspan = (t_train[1], t_train[end]),
+	                p = [N => N_total])
 end
 
-# ╔═╡ 4a1f75fc-fa15-4022-9cca-94bb726c9850
+# ╔═╡ ee6e618a-ede9-4bf8-84f5-36fc392553a4
 begin
-	sol_b_3 = scenario1(pop_india, cm_india, infectedfrac = 0.0001)
-	plot(sol_b_3, leg = :topright)
-end
+param_bounds = [inf => [0.0, 1.0]
+                rec => [0.0, 1.0]
+                death => [0.0, 5.0]
+                ideath => [0.0, 5.0]
+                hosp => [0.0, 5.0]
+                hrec => [0.0, 5.0]]
+fitparams2 = global_datafit(_prob2, param_bounds, t_train, data_train,
+                            maxiters = 500_000, loss = EasyModelAnalysis.relative_l2loss)end
 
-# ╔═╡ 18a81bdd-5064-4828-95bc-a6d140e8fd8e
-md"""
-
-> If the data supports this, try implementing interventions like: (1) School closures (2) Social distancing at work and other locations, but not at home.
-
-> (1) School closures
-
-> Prem et al Supplementary info, page 20
-
-"""
-
-# ╔═╡ 8f5027fb-7b05-49ba-89d0-3010fce1f09c
+# ╔═╡ 2b3c2e26-4c73-425f-a176-b2beb5bf059e
 begin 
-function cm_school(xfs, country)
-    to_cm(xfs[:home][country]) + to_cm(xfs[:work][country]) + to_cm(xfs[:other][country])
-end # no school
-
-cm_belgium_school_closure = cm_school(xfs1, "Belgium")
-sol_b_4 = scenario1(pop_belg, cm_belgium_school_closure, infectedfrac = 0.0001)
-plot(sol_b_4, leg = :topright)
+	_prob2_train = remake(_prob2, p = fitparams2)
+	sol = solve(_prob2_train, saveat = t_train);
+	plot(map(data_train) do (var, num)
+         plot(sol, idxs = var)
+         plot!(t_train, num)
+     end..., dpi = 300)
 end
 
-# ╔═╡ 5fbed646-a919-47ef-83fd-31f295fda0cf
-md"""
-
-> (2) Social distancing at work and other locations, but not at home.
-
-> Prem et al sets social distancing to reduce contacts by half
-
-"""
-
-# ╔═╡ 06de693a-4fdb-4f7d-a455-7166212d09c3
-begin
-	function cm_social_dist(xfs, country)
-	    to_cm(xfs[:home][country]) + 0.5 * to_cm(xfs[:work][country]) +
-	    0.5 * to_cm(xfs[:school][country]) + 0.5 * to_cm(xfs[:other][country])
-	end
-	
-	cm_belgium_social_dist = cm_social_dist(xfs1, "Belgium")
-	sol_b_6 = scenario1(pop_belg, cm_belgium_social_dist, infectedfrac = 0.0001)
-	plot(sol_b_6, leg = :topright)
-	
+# ╔═╡ e2f238b2-df24-4068-8f06-16b7c451e8db
+let 
+u0s = [
+    S => N_total - df_test.I[1] - df_test.R[1] - df_test.H[1] - df_test.D[1],
+    I => df_test.I[1], R => df_test.R[1], H => df_test.H[1], D => df_test.D[1],
+]
+_prob2_test = remake(_prob2, p = fitparams2, u0 = u0s, tspan = (t_test[1], t_test[end]))
+sol = solve(_prob2_test, saveat = t_test);
+plot(map(data_test) do (var, num)
+         plot(sol, idxs = var)
+         plot!(t_test, num)
+     end..., dpi = 300)
 end
+
+# ╔═╡ 26e67413-c376-41e0-960a-bf4e2a3d6e11
+norm(solve(_prob, saveat = t_test)[S] - data_test[1][2]) +
+norm(solve(_prob, saveat = t_test)[I] - data_test[2][2]) +
+norm(solve(_prob, saveat = t_test)[R] - data_test[3][2])
+
+# ╔═╡ 91a70c5c-58f4-43c1-933d-eab74d2a94a5
+norm(solve(_prob2, saveat = t_test)[S] - data_test[1][2]) +
+norm(solve(_prob2, saveat = t_test)[I] - data_test[2][2]) +
+norm(solve(_prob2, saveat = t_test)[R] - data_test[3][2]) +
+norm(solve(_prob2, saveat = t_test)[H] - data_test[4][2]) +
+norm(solve(_prob2, saveat = t_test)[D] - data_test[5][2])
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -458,24 +234,18 @@ AlgebraicPetri = "4f99eebe-17bf-4e98-b6a1-2c4f205a959b"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 Catlab = "134e5e36-593f-5add-ad60-77f754baafbe"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-DataSets = "c9661210-8a83-48f0-b833-72e62abce419"
 Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 EasyModelAnalysis = "ef4b24a4-a090-4686-a932-e7e56a5a83bd"
-JuliaHubData = "e241c0f9-2941-4184-86f1-92558f4420e8"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
+PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
 AlgebraicPetri = "~0.8.4"
 CSV = "~0.10.9"
 Catlab = "~0.14.14"
 DataFrames = "~1.4.4"
-DataSets = "~0.2.8"
-EasyModelAnalysis = "~0.1.4"
-JuliaHubData = "~0.3.5"
-Plots = "~1.38.3"
-XLSX = "~0.8.4"
+EasyModelAnalysis = "~0.1.8"
+PlutoUI = "~0.7.49"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -484,12 +254,6 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.7.3"
 manifest_format = "2.0"
-
-[[deps.AWS]]
-deps = ["Base64", "Compat", "Dates", "Downloads", "GitHub", "HTTP", "IniFile", "JSON", "MbedTLS", "Mocking", "OrderedCollections", "Random", "Sockets", "URIs", "UUIDs", "XMLDict"]
-git-tree-sha1 = "93f3cffcb1fd90548b13cf21a28a898e1ca8c58f"
-uuid = "fbe9abb3-538b-5e4e-ba9e-bc94f4f92ebc"
-version = "1.79.0"
 
 [[deps.AbstractAlgebra]]
 deps = ["GroupsCore", "InteractiveUtils", "LinearAlgebra", "MacroTools", "Markdown", "Random", "RandomExtensions", "SparseArrays", "Test"]
@@ -515,10 +279,16 @@ git-tree-sha1 = "8f5d88dc15df270d8778ade9442d608939c75659"
 uuid = "7a57a42e-76ec-4ea3-a279-07e840d6d9cf"
 version = "0.5.3"
 
+[[deps.AbstractPlutoDingetjes]]
+deps = ["Pkg"]
+git-tree-sha1 = "8eaf9f1b4921132a4cff3f36a1d9ba923b14a481"
+uuid = "6e696c72-6542-2067-7265-42206c756150"
+version = "1.1.4"
+
 [[deps.AbstractTrees]]
-git-tree-sha1 = "03e0550477d86222521d254b741d470ba17ea0b5"
+git-tree-sha1 = "faa260e4cb5aba097a73fab382dd4b5819d8ec8c"
 uuid = "1520ce14-60c1-5f80-bbc7-55ef81b5835c"
-version = "0.3.4"
+version = "0.4.4"
 
 [[deps.Adapt]]
 deps = ["LinearAlgebra"]
@@ -668,11 +438,6 @@ deps = ["ArgCheck", "ChainRulesCore", "ChangesOfVariables", "Compat", "Distribut
 git-tree-sha1 = "a3704b8e5170f9339dff4e6cb286ad49464d3646"
 uuid = "76274a88-744f-5084-9051-94815aaf08c4"
 version = "0.10.6"
-
-[[deps.BitFlags]]
-git-tree-sha1 = "43b1a4a8f797c1cddadf60499a8a077d4af2cd2d"
-uuid = "d1d4a3ce-64b1-5f1a-9ba4-7e7e69966f35"
-version = "0.1.7"
 
 [[deps.BitTwiddlingConvenienceFunctions]]
 deps = ["Static"]
@@ -897,12 +662,6 @@ git-tree-sha1 = "d4f69885afa5e6149d0cab3818491565cf41446d"
 uuid = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 version = "1.4.4"
 
-[[deps.DataSets]]
-deps = ["AbstractTrees", "Base64", "Markdown", "REPL", "ReplMaker", "ResourceContexts", "SHA", "TOML", "UUIDs"]
-git-tree-sha1 = "e37aa4eeb040f91784179540a33430200946d907"
-uuid = "c9661210-8a83-48f0-b833-72e62abce419"
-version = "0.2.8"
-
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
 git-tree-sha1 = "d1fff3a548102f48987a52a2e0d114fa97d730f0"
@@ -1033,9 +792,9 @@ version = "0.4.5"
 
 [[deps.EasyModelAnalysis]]
 deps = ["DifferentialEquations", "Distributions", "GlobalSensitivity", "LinearAlgebra", "ModelingToolkit", "NLopt", "Optimization", "OptimizationBBO", "OptimizationMOI", "OptimizationNLopt", "Plots", "Reexport", "SciMLBase", "SciMLExpectations", "Turing"]
-git-tree-sha1 = "e71653d582e00677601c8626ad71bbbc3320a46d"
+git-tree-sha1 = "3d2e799dbf4412d40a55ca4d1f9dc24fd8259836"
 uuid = "ef4b24a4-a090-4686-a932-e7e56a5a83bd"
-version = "0.1.4"
+version = "0.1.8"
 
 [[deps.EllipticalSliceSampling]]
 deps = ["AbstractMCMC", "ArrayInterfaceCore", "Distributions", "Random", "Statistics"]
@@ -1064,12 +823,6 @@ version = "1.22.0"
 git-tree-sha1 = "56559bbef6ca5ea0c0818fa5c90320398a6fbf8d"
 uuid = "e2ba6199-217a-4e67-a87a-7c52f15ade04"
 version = "0.1.8"
-
-[[deps.EzXML]]
-deps = ["Printf", "XML2_jll"]
-git-tree-sha1 = "0fa3b52a04a4e210aeb1626def9c90df3ae65268"
-uuid = "8f5d6c58-4d21-5cfd-889c-e3ad7ee6a615"
-version = "1.1.0"
 
 [[deps.FFMPEG]]
 deps = ["FFMPEG_jll"]
@@ -1198,9 +951,9 @@ version = "3.3.8+0"
 
 [[deps.GPUArrays]]
 deps = ["Adapt", "GPUArraysCore", "LLVM", "LinearAlgebra", "Printf", "Random", "Reexport", "Serialization", "Statistics"]
-git-tree-sha1 = "494f1e456000c00c93dde79b38094e023f639dac"
+git-tree-sha1 = "4dfaff044eb2ce11a897fecd85538310e60b91e6"
 uuid = "0c68f7d7-f131-5f86-a1c3-88cf8149b2d7"
-version = "8.6.1"
+version = "8.6.2"
 
 [[deps.GPUArraysCore]]
 deps = ["Adapt"]
@@ -1237,12 +990,6 @@ deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Li
 git-tree-sha1 = "9b02998aba7bf074d14de89f9d37ca24a1a0b046"
 uuid = "78b55507-aeef-58d4-861c-77aaff3498b1"
 version = "0.21.0+0"
-
-[[deps.GitHub]]
-deps = ["Base64", "Dates", "HTTP", "JSON", "MbedTLS", "Sockets", "SodiumSeal", "URIs"]
-git-tree-sha1 = "5688002de970b9eee14b7af7bbbd1fdac10c9bbe"
-uuid = "bc5e4493-9b4d-5f90-b8aa-2b2bcaad7a26"
-version = "5.8.2"
 
 [[deps.Glib_jll]]
 deps = ["Artifacts", "Gettext_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Libiconv_jll", "Libmount_jll", "PCRE2_jll", "Pkg", "Zlib_jll"]
@@ -1297,10 +1044,10 @@ uuid = "19dc6840-f33b-545b-b366-655c7e3ffd49"
 version = "1.5.1"
 
 [[deps.HTTP]]
-deps = ["Base64", "CodecZlib", "Dates", "IniFile", "Logging", "LoggingExtras", "MbedTLS", "NetworkOptions", "OpenSSL", "Random", "SimpleBufferStream", "Sockets", "URIs", "UUIDs"]
-git-tree-sha1 = "37e4657cd56b11abe3d10cd4a1ec5fbdb4180263"
+deps = ["Base64", "Dates", "IniFile", "Logging", "MbedTLS", "NetworkOptions", "Sockets", "URIs"]
+git-tree-sha1 = "0fa77022fe4b511826b39c894c90daf5fce3334a"
 uuid = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-version = "1.7.4"
+version = "0.9.17"
 
 [[deps.HarfBuzz_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll", "Graphite2_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Pkg"]
@@ -1319,6 +1066,24 @@ deps = ["DualNumbers", "LinearAlgebra", "OpenLibm_jll", "SpecialFunctions", "Tes
 git-tree-sha1 = "709d864e3ed6e3545230601f94e11ebc65994641"
 uuid = "34004b35-14d8-5ef3-9330-4cdb6864b03a"
 version = "0.3.11"
+
+[[deps.Hyperscript]]
+deps = ["Test"]
+git-tree-sha1 = "8d511d5b81240fc8e6802386302675bdf47737b9"
+uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
+version = "0.0.4"
+
+[[deps.HypertextLiteral]]
+deps = ["Tricks"]
+git-tree-sha1 = "c47c5fa4c5308f27ccaac35504858d8914e102f9"
+uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
+version = "0.9.4"
+
+[[deps.IOCapture]]
+deps = ["Logging", "Random"]
+git-tree-sha1 = "f7be53659ab06ddc986428d3a9dcc95f6fa6705a"
+uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
+version = "0.2.2"
 
 [[deps.IRTools]]
 deps = ["InteractiveUtils", "MacroTools", "Test"]
@@ -1453,12 +1218,6 @@ git-tree-sha1 = "94ce68aee6dbc066e39d5d2ca0b6b1ccd38d7e04"
 uuid = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
 version = "1.0.20"
 
-[[deps.JuliaHubData]]
-deps = ["AWS", "Base64", "Dates", "Downloads", "HTTP", "JSON", "MbedTLS", "Pkg", "Random", "TOML", "URIs", "UUIDs"]
-git-tree-sha1 = "3bad6921077e6d12161ccecd36558b286a0b8f22"
-uuid = "e241c0f9-2941-4184-86f1-92558f4420e8"
-version = "0.3.5"
-
 [[deps.JuliaVariables]]
 deps = ["MLStyle", "NameResolution"]
 git-tree-sha1 = "49fb3cb53362ddadb4415e9b73926d6b40709e70"
@@ -1576,9 +1335,9 @@ uuid = "4af54fe1-eca0-43a8-85a7-787d91b784e3"
 
 [[deps.LeftChildRightSiblingTrees]]
 deps = ["AbstractTrees"]
-git-tree-sha1 = "b864cb409e8e445688bc478ef87c0afe4f6d1f8d"
+git-tree-sha1 = "fb6803dafae4a5d62ea5cab204b1e657d9737e7f"
 uuid = "1d6d02ad-be62-4b6b-8a6d-2f90e265016e"
-version = "0.1.3"
+version = "0.2.0"
 
 [[deps.LevyArea]]
 deps = ["LinearAlgebra", "Random", "SpecialFunctions"]
@@ -1726,6 +1485,11 @@ git-tree-sha1 = "8b862779314f9299cbf7bdbf2413bcbd9c8e77b2"
 uuid = "be115224-59cd-429b-ad48-344e309966f0"
 version = "0.2.6"
 
+[[deps.MIMEs]]
+git-tree-sha1 = "65f28ad4b594aebe22157d6fac869786a255b7eb"
+uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
+version = "0.1.4"
+
 [[deps.MKL_jll]]
 deps = ["Artifacts", "IntelOpenMP_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "Pkg"]
 git-tree-sha1 = "2ce8695e1e699b68702c03402672a69f54b8aca9"
@@ -1811,17 +1575,11 @@ version = "1.1.0"
 [[deps.Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
-[[deps.Mocking]]
-deps = ["Compat", "ExprTools"]
-git-tree-sha1 = "c272302b22479a24d1cf48c114ad702933414f80"
-uuid = "78c3b35d-d492-501b-9361-3d52fe80e533"
-version = "0.7.5"
-
 [[deps.ModelingToolkit]]
 deps = ["AbstractTrees", "ArrayInterfaceCore", "Combinatorics", "Compat", "ConstructionBase", "DataStructures", "DiffEqBase", "DiffEqCallbacks", "DiffRules", "Distributed", "Distributions", "DocStringExtensions", "DomainSets", "ForwardDiff", "FunctionWrappersWrappers", "Graphs", "IfElse", "InteractiveUtils", "JuliaFormatter", "JumpProcesses", "LabelledArrays", "Latexify", "Libdl", "LinearAlgebra", "MacroTools", "NaNMath", "RecursiveArrayTools", "Reexport", "RuntimeGeneratedFunctions", "SciMLBase", "Serialization", "Setfield", "SimpleNonlinearSolve", "SparseArrays", "SpecialFunctions", "StaticArrays", "SymbolicIndexingInterface", "SymbolicUtils", "Symbolics", "UnPack", "Unitful"]
-git-tree-sha1 = "3d731ed5afac4a6364aaa3f275afce979c790c4b"
+git-tree-sha1 = "ea133ffe5aa228620ebe9942c15728ddbb3ca9c2"
 uuid = "961ee093-0014-501f-94e3-6117800e7a78"
-version = "8.44.0"
+version = "8.46.0"
 
 [[deps.MonteCarloIntegration]]
 deps = ["Distributions", "Random"]
@@ -1931,12 +1689,6 @@ uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
 deps = ["Artifacts", "Libdl"]
 uuid = "05823500-19ac-5b8b-9628-191a04bc5112"
 
-[[deps.OpenSSL]]
-deps = ["BitFlags", "Dates", "MozillaCACerts_jll", "OpenSSL_jll", "Sockets"]
-git-tree-sha1 = "6503b77492fd7fcb9379bf73cd31035670e3c509"
-uuid = "4d8831e6-92b7-49fb-bdf8-b643e874388c"
-version = "1.3.3"
-
 [[deps.OpenSSL_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "f6e9dba33f9f2c44e08a020b0caf6903be540004"
@@ -2020,9 +1772,9 @@ version = "0.12.3"
 
 [[deps.Parsers]]
 deps = ["Dates", "SnoopPrecompile"]
-git-tree-sha1 = "8175fc2b118a3755113c8e68084dc1a9e63c61ee"
+git-tree-sha1 = "151d91d63d8d6c1a5789ecb7de51547e00480f1b"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.5.3"
+version = "2.5.4"
 
 [[deps.Pipe]]
 git-tree-sha1 = "6842804e7867b115ca9de748a0cf6b364523c16d"
@@ -2056,6 +1808,12 @@ deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers"
 git-tree-sha1 = "0a3a23e0c67adf9433111467b0522077c596de58"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 version = "1.38.3"
+
+[[deps.PlutoUI]]
+deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
+git-tree-sha1 = "eadad7b14cf046de6eb41f13c9275e5aa2711ab6"
+uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+version = "0.7.49"
 
 [[deps.PoissonRandom]]
 deps = ["Random"]
@@ -2238,12 +1996,6 @@ git-tree-sha1 = "90bc7a7c96410424509e4263e277e43250c05691"
 uuid = "05181044-ff0b-4ac5-8273-598c1e38db00"
 version = "1.0.0"
 
-[[deps.ReplMaker]]
-deps = ["REPL", "Unicode"]
-git-tree-sha1 = "f8bb680b97ee232c4c6591e213adc9c1e4ba0349"
-uuid = "b873ce64-0db9-51f5-a568-4457d8e49576"
-version = "0.2.7"
-
 [[deps.Requires]]
 deps = ["UUIDs"]
 git-tree-sha1 = "838a3a4188e2ded87a4f9f184b4b0d78a1e91cb7"
@@ -2255,12 +2007,6 @@ deps = ["StaticArrays"]
 git-tree-sha1 = "256eeeec186fa7f26f2801732774ccf277f05db9"
 uuid = "ae5879a3-cd67-5da8-be7f-38c6eb64a37b"
 version = "1.1.1"
-
-[[deps.ResourceContexts]]
-deps = ["Logging"]
-git-tree-sha1 = "0e9863272a09aff6579a987dd7fe3f94e32f6673"
-uuid = "8d208092-d35c-4dd3-a0d7-8325f9cce6b4"
-version = "0.2.0"
 
 [[deps.ReverseDiff]]
 deps = ["ChainRulesCore", "DiffResults", "DiffRules", "ForwardDiff", "FunctionWrappers", "LinearAlgebra", "LogExpFunctions", "MacroTools", "NaNMath", "Random", "SpecialFunctions", "StaticArrays", "Statistics"]
@@ -2366,11 +2112,6 @@ git-tree-sha1 = "91eddf657aca81df9ae6ceb20b959ae5653ad1de"
 uuid = "992d4aef-0814-514b-bc4d-f2e9a6c4116f"
 version = "1.0.3"
 
-[[deps.SimpleBufferStream]]
-git-tree-sha1 = "874e8867b33a00e784c8a7e4b60afe9e037b74e1"
-uuid = "777ac1f9-54b0-4bf8-805c-2214025038e7"
-version = "1.1.0"
-
 [[deps.SimpleNonlinearSolve]]
 deps = ["ArrayInterfaceCore", "DiffEqBase", "FiniteDiff", "ForwardDiff", "LinearAlgebra", "Reexport", "SciMLBase", "SnoopPrecompile", "StaticArraysCore"]
 git-tree-sha1 = "9b941eeecd4f051f5656383fbebe7f7d0a89fc0d"
@@ -2397,12 +2138,6 @@ version = "1.5.0"
 
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
-
-[[deps.SodiumSeal]]
-deps = ["Base64", "Libdl", "libsodium_jll"]
-git-tree-sha1 = "80cef67d2953e33935b41c6ab0a178b9987b1c99"
-uuid = "2133526b-2bfb-4018-ac12-889fb3908a75"
-version = "0.1.1"
 
 [[deps.SortingAlgorithms]]
 deps = ["DataStructures"]
@@ -2752,23 +2487,11 @@ git-tree-sha1 = "cd1659ba0d57b71a464a29e64dbc67cfe83d54e7"
 uuid = "76eceee3-57b5-4d4a-8e66-0e911cebbf60"
 version = "1.6.1"
 
-[[deps.XLSX]]
-deps = ["Artifacts", "Dates", "EzXML", "Printf", "Tables", "ZipFile"]
-git-tree-sha1 = "ccd1adf7d0b22f762e1058a8d73677e7bd2a7274"
-uuid = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
-version = "0.8.4"
-
 [[deps.XML2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "Zlib_jll"]
 git-tree-sha1 = "93c41695bc1c08c46c5899f4fe06d6ead504bb73"
 uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
 version = "2.10.3+0"
-
-[[deps.XMLDict]]
-deps = ["EzXML", "IterTools", "OrderedCollections"]
-git-tree-sha1 = "d9a3faf078210e477b291c79117676fca54da9dd"
-uuid = "228000da-037f-5747-90a9-8195ccbf91a5"
-version = "0.4.1"
 
 [[deps.XSLT_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Libiconv_jll", "Pkg", "XML2_jll", "Zlib_jll"]
@@ -2902,12 +2625,6 @@ git-tree-sha1 = "79c31e7844f6ecf779705fbc12146eb190b7d845"
 uuid = "c5fb5394-a638-5e4d-96e5-b29de1b5cf10"
 version = "1.4.0+3"
 
-[[deps.ZipFile]]
-deps = ["Libdl", "Printf", "Zlib_jll"]
-git-tree-sha1 = "f492b7fe1698e623024e873244f10d89c95c340a"
-uuid = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
-version = "0.10.1"
-
 [[deps.Zlib_jll]]
 deps = ["Libdl"]
 uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
@@ -2964,12 +2681,6 @@ git-tree-sha1 = "94d180a6d2b5e55e447e2d27a29ed04fe79eb30c"
 uuid = "b53b4c65-9356-5827-b1ea-8c7a1a84506f"
 version = "1.6.38+0"
 
-[[deps.libsodium_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "848ab3d00fe39d6fbc2a8641048f8f272af1c51e"
-uuid = "a9144af2-ca23-56d9-984f-0d03f7b5ccf8"
-version = "1.0.20+0"
-
 [[deps.libvorbis_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Ogg_jll", "Pkg"]
 git-tree-sha1 = "b910cb81ef3fe6e78bf6acee440bda86fd6ae00c"
@@ -3004,50 +2715,24 @@ version = "1.4.1+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─b1182102-a23b-11ed-3f10-5ddc2ce6fe06
-# ╠═49465045-7e4c-4296-845b-44d389f0e228
-# ╟─034896c3-6114-48fe-81a0-ea1782e719e4
-# ╠═04a25dbf-305e-4011-986d-d158fd4d5dda
-# ╠═9737bd73-04d1-4040-bd00-ff1ee3fa8ba2
-# ╠═9527d842-69e3-4d17-a209-376bc624388c
-# ╠═092a8295-d3ad-4db9-8f1c-b845bb59fb41
-# ╠═0a6c1b49-d609-44fe-9870-8220c9a73072
-# ╠═963c6b53-6d9a-4a36-b718-6a322aad1a4b
-# ╠═4efded85-a434-49b1-8d2d-50c1308c1197
-# ╠═153e3069-f558-4290-8192-1ec4caff9aa3
-# ╠═8b54fc53-ce21-48b0-9a75-f26628142baf
-# ╠═b78985b9-67c6-412e-b0f9-9306f6460c79
-# ╠═4876d6ba-15f2-4b28-b913-ebae8fe6b02b
-# ╠═5a597ac1-4b89-4d5c-99ac-bfa955f5b7c5
-# ╠═fb279200-195f-4ddf-b4ed-c79bad1d05b5
-# ╠═50d4af28-3406-4472-8cd6-9c8dbc537bac
-# ╟─14f942e5-69b3-4982-aefa-31e6b2ce7de7
-# ╠═5831ed97-15ed-4f68-bb31-c84a93a2d03d
-# ╠═429b54a6-47ab-4c24-85b7-f04d5ced3848
-# ╟─388fd1f3-ed96-4865-a1fb-3df8b954da81
-# ╠═788edbac-c5c8-4f4b-803e-eb0e06303deb
-# ╟─c4350711-f2a5-4827-a65d-24a57f01bf1f
-# ╠═c6165bda-3550-4485-a77e-4accafa3a352
-# ╟─dbcbc2d4-d741-4ff5-978b-90eea084e076
-# ╠═213b0b06-143c-4aac-9aad-5474fa5e564f
-# ╟─f0d7b892-7ac4-4dfc-8c99-3b9e55887099
-# ╟─689f59b9-fccb-4a80-bfae-f801efc1ef59
-# ╠═5658bb87-c20b-48ee-8b12-742a91fecf1f
-# ╠═445a3e17-4178-494d-9496-024ecc142dda
-# ╠═47855a24-60cf-4939-bbc1-5915fee2d184
-# ╠═ff4d383f-daa6-4031-87dc-ef919206eac8
-# ╠═01225dff-b793-4201-8ec8-e6099a497b6b
-# ╟─d4ca58a2-3504-4650-b6f6-f0e290748b4f
-# ╠═7aa77f81-8818-495f-9028-561150fd0b85
-# ╟─dbbd9ff3-606a-4452-b6e9-ae39a4050f73
-# ╠═c7f3692b-97e5-49f7-a47e-22ff416f9413
-# ╠═d5e6398d-9e40-4ed2-92fe-af2d1aba067c
-# ╟─17c89b5b-bf83-46bb-9126-a13a41e4d8eb
-# ╟─a211c9f1-739a-48ec-ba27-c1da1a6d457c
-# ╠═4a1f75fc-fa15-4022-9cca-94bb726c9850
-# ╠═18a81bdd-5064-4828-95bc-a6d140e8fd8e
-# ╠═8f5027fb-7b05-49ba-89d0-3010fce1f09c
-# ╟─5fbed646-a919-47ef-83fd-31f295fda0cf
-# ╠═06de693a-4fdb-4f7d-a455-7166212d09c3
+# ╠═65054514-a2f0-11ed-0033-a194b71fd947
+# ╟─61f2fa6b-f5ef-4cb2-bf93-b2e6089b5459
+# ╠═5cd591fb-6be5-404d-9da4-cc9d896551e7
+# ╟─edd710c6-a28f-4315-9a47-a8bee2579e13
+# ╟─41473c67-e9d8-4a8c-a22f-19bab1c16595
+# ╠═8682cf41-01ff-49b3-81bc-540f0bb14b3b
+# ╠═0123e377-0fd1-4ac4-bfcd-3e1c15a41834
+# ╠═122c810b-248e-4834-942a-da6ae27e83f9
+# ╠═acacb273-389a-48da-b635-5cf2aa8cddb7
+# ╠═917156f7-93a4-47d5-a6ff-8364525ca7d6
+# ╠═ee6e618a-ede9-4bf8-84f5-36fc392553a4
+# ╟─e0b6b1e6-abc3-44cc-83d6-d1aa2ae4788f
+# ╠═2b3c2e26-4c73-425f-a176-b2beb5bf059e
+# ╠═e2f238b2-df24-4068-8f06-16b7c451e8db
+# ╟─1eb30857-e1ce-40d5-a64b-86df56d48e7a
+# ╠═26e67413-c376-41e0-960a-bf4e2a3d6e11
+# ╠═91a70c5c-58f4-43c1-933d-eab74d2a94a5
+# ╠═ce272f72-aba8-4335-9a6a-055a00167d61
+# ╠═bef52851-edea-4cd0-8298-b7a01542588e
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

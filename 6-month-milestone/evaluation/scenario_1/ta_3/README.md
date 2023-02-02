@@ -13,8 +13,25 @@ https://chrisrackauckas.github.io/ASKEM_Evaluation_Staging/dev/
 
 A static render of a Pluto notebook of the results can be loaded via loading the following into a web browser:
 
-https://github.com/DARPA-ASKEM/program-milestones/blob/main/6-month-milestone/evaluation/scenario_1/ta_3/Scenario1.jl.html
+https://github.com/DARPA-ASKEM/program-milestones/blob/main/6-month-milestone/evaluation/scenario_1/ta_3/Scenario1.html
 
 A cloud runnable version which allows for changing any plots interactively can be found via signing in at the link:
 
 https://juliahub.com/pluto/editor.html?id=2d701ac3-a284-4622-859f-a1ce8088855b
+
+## Using the Pluto Notebooks
+
+The Pluto notebooks are fully relocatable and download the dependencies and data on-demand, making them easy
+install and use. To do this, first install Julia v1.8.5 from https://julialang.org/downloads/. Then
+open up Julia and run:
+
+```julia
+using Pkg
+Pkg.add("Pluto")
+import Pluto
+Pluto.run()
+```
+
+When this window opens in your browser, navigate to the Pluto notebook. Opening it will start the download
+of all data and dependencies, along with the automatic installation and compilation of all dependencies.
+This may take awhile due to the complexity of the downloads.

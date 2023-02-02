@@ -4,16 +4,17 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 6b56d2ea-e305-44f2-853a-2a1adf12f138
+# ╔═╡ 12285bf3-17b3-49bd-a57a-25a08f2c4fa0
 begin
 	using Catlab, AlgebraicPetri, Catlab.CategoricalAlgebra, ModelingToolkit
 	using AlgebraicPetri.SubACSets
+	using Downloads
 end
 
-# ╔═╡ 6111719b-6630-4b6c-9312-f96caf749f63
-using DataSets, JuliaHubData
+# ╔═╡ 4d75fc47-8b06-48c1-b741-e71da1c21ec7
+using ModelingToolkit: @set!
 
-# ╔═╡ cf55fe9f-b197-4a41-92f9-2894211a7d18
+# ╔═╡ b9341834-a2e3-11ed-0f55-fb50ef228629
 md"""
 # Evaluation Scenario 2
 
@@ -23,7 +24,45 @@ md"""
 
 """
 
-# ╔═╡ ccec5e89-ec7e-4948-bc3c-c3bb686fb6ff
+# ╔═╡ f4492b0f-da68-4f93-9458-0eaf3599ccaa
+begin sidarthe = read_json_acset(LabelledPetriNet, "sidarthe.json")
+sys = ODESystem(sidarthe) end
+
+# ╔═╡ 9c6765aa-0b25-4d52-9a39-0b8b0a8a712d
+begin 
+using EasyModelAnalysis, SBML, SBMLToolkit, UnPack, Test
+
+fn = "Giordano2020.xml"
+
+myread(fn) = readSBML(fn, doc -> begin
+                          set_level_and_version(3, 2)(doc)
+                          convert_promotelocals_expandfuns(doc)
+                      end)
+
+m = myread(fn)
+
+paramvals = map(name -> m.parameters[string(name)].value, tnames(sidarthe))
+namemap = Dict(:S => "Susceptible", :I => "Infected", :D => "Diagnosed", :A => "Ailing",
+               :R => "Recognized",
+               :T => "Threatened", :H => "Healed", :E => "Extinct")
+u0vals = map(name -> m.species[namemap[name]].initial_concentration, snames(sidarthe))
+let S, I, D, A, R, T, H, E
+    @unpack S, I, D, A, R, T, H, E = sys
+    global Infected, Healed, Extinct, Diagnosed, Ailing, Recognized, Susceptible, Threatened
+    Infected, Healed, Extinct, Diagnosed, Ailing, Recognized, Susceptible, Threatened = I,
+                                                                                        H,
+                                                                                        E,
+                                                                                        D,
+                                                                                        A,
+                                                                                        R,
+                                                                                        S, T
+end
+@unpack beta, gamma, delta, alpha, epsilon, kappa, sigma, rho, xi, mu, tau, lambda, eta, nu, zeta, theta = sys
+ps = [alpha, epsilon, gamma, beta, delta, mu, nu, lambda, rho, kappa, xi, sigma, zeta, eta]
+defaultsmap = Dict(param => val for (param, val) in zip(parameters(sys), paramvals))
+end
+
+# ╔═╡ 462e80a1-fa1d-4113-b505-266e5d076fce
 md"""
 ### Load parameter values and initial concentrations from SBML file
 
@@ -31,9 +70,8 @@ This uses our [SBMLToolkit.jl](https://github.com/SciML/SBMLToolkit.jl) library 
 
 """
 
-# ╔═╡ 396392a4-d46b-4a85-bc69-b7cabe175806
+# ╔═╡ 064c578d-6df6-4eac-93ab-8dff1a253a62
 md"""
-
 ### Unit Tests
 
 #### Unit Test 1
@@ -57,19 +95,34 @@ The paper and SBML model also described time-dependent parameters. These are par
 time points. However, we believe that the evaluators and/or paper must have used an SBML reading system that incorrectly handled these
 time-dependent parameters. This is because dropping the time-dependency and treating the parameters as constant gives the requested
 results of the unit test 1. A demonstration of this is as follows:
+
 """
 
-# ╔═╡ fa9f96c6-52f5-4cea-8114-0539fc619d08
+# ╔═╡ be627117-9573-4f4d-a15e-79914ae20e0e
+begin
+	ssys = structural_simplify(sys)
+	probne = ODEProblem(ssys, u0vals, (0.0, 100.0), paramvals)
+	solne = solve(probne, Tsit5())
+	plot(solne)
+end
 
+# ╔═╡ 6ffa6c04-f203-4595-bcaa-5cb0089f10dc
+let
+	idart = [Infected, Diagnosed, Ailing, Recognized, Threatened]
+	xmax, xmaxval = get_max_t(probne2, sum(idart))
+	@test isapprox(xmax, 47; atol = 0.5)
+	@test isapprox(xmaxval, 0.6, atol = 0.01)
+end
 
-# ╔═╡ 3113a470-a233-47f6-a629-55112965d190
+# ╔═╡ 3d7cb553-4cec-4948-9cf6-70b40ac9965c
 md"""
 #### Full Analysis of the Effect of Events
 
 The SBML model already contains the changes of parameters requested for Unit Test #2 in the form of events. In the SBML these are enclosed by the element `listOfEvents`. The `id`s correspond to the days of the introduction of government intervention as outlined in the paper. "On day 4, R0 = 1.66 as a result of the introduction of basic social distancing, awareness of the epidemic, hygiene and behavioral recommendations, and early measures by the Italian government (for example, closing schools). At day 12, ... ". When we interpret the instructions "Unit Test #1: Set the initial values and parameters, as desribed in the Supplementary Methods..." as "Set the initial values and set and maintain the paramters (i.e. simulate without government restrictions)..." we have to remove the events from the model. If we do so, the unit tests pass.
+
 """
 
-# ╔═╡ 1bc28da7-bf5a-460c-95fd-07ff9a8f5de5
+# ╔═╡ 72a985c4-54a9-4798-89d7-5bd82e9e8871
 md"""
 #### Unit Test 2
 
@@ -79,17 +132,79 @@ This unit test was a straightforward implementation of the scenario, requiring a
 ModelingToolkit feature designed for ASKEM, `remake(prob, u0 = u0s, p = pars)`, which allows for a new ODE to be generated from the
 old ODE simply by mentioning which parameters need to be changed (all others are kept constant). The approximation tests on the
 bottom demonstrate that the results in Fig 2B are obtained.
-
 """
 
-# ╔═╡ a90ea633-7dd5-4fa2-9e8d-2ba53d138412
+# ╔═╡ dde7d6cc-1b3b-4682-a148-f1160328657e
+begin
+	ITALY_POPULATION = 60e6
+	u0s = [
+	    Infected => 200 / ITALY_POPULATION,
+	    Diagnosed => 20 / ITALY_POPULATION,
+	    Ailing => 1 / ITALY_POPULATION,
+	    Recognized => 2 / ITALY_POPULATION,
+	    Threatened => 0,
+	    Healed => 0,
+	    Extinct => 0,
+	]
+	push!(u0s, Susceptible => 1 - sum(last.(u0s)))
+	
+	# The resulting basic reproduction number is R0 = 2.38.
+	pars = [alpha => 0.570, beta => 0.011, delta => 0.011, gamma => 0.456, epsilon => 0.171,
+	    theta => 0.371,
+	    zeta => 0.125, eta => 0.125, mu => 0.017, nu => 0.027, tau => 0.01,
+	    lambda => 0.034, rho => 0.034, kappa => 0.017, xi => 0.017, sigma => 0.017]
+	prob = ODEProblem(ssys, u0vals, (0, 100), paramvals)
+	prob_test1 = remake(prob, u0 = u0s, p = pars)
+	solt1 = solve(prob_test1, Tsit5(); saveat = 0:100)
+	og_states = states(sys)[1:8]
+	idart = [Infected, Diagnosed, Ailing, Recognized, Threatened]
+	plot(solt1; idxs = Infected)
+end
+
+# ╔═╡ 88d20589-249f-445f-92a1-e116866f0010
+let
+	solne = solve(probne, Tsit5())
+	p = plot(solne, vars = idart)
+end
+
+# ╔═╡ c386a87c-5d68-4d57-97bc-81254e0ae27a
+plot(solne, idxs = [sum(idart)], lab = "total infected")
+
+# ╔═╡ b5571c9d-223e-4534-92c0-701df57b9a0b
+plot(solt1; idxs = Diagnosed)
+
+# ╔═╡ b7358b5d-96a1-44ce-82fe-b2081f62b0ce
+plot(solt1; idxs = idart)
+
+# ╔═╡ 9bd0fe98-4768-43f3-bc92-14769aad9ece
+@test solt1[Infected + Healed] == solt1[Infected] + solt1[Healed]
+
+# ╔═╡ d9e87a78-c8ab-409e-a13f-570348653fa1
+plot(solt1.t, solt1[sum(idart)] * ITALY_POPULATION; label = "IDART absolute")
+
+# ╔═╡ bf75eaf9-e9c8-411c-8a54-28188dd61fd0
+plot(solt1.t, solt1[sum(idart)]; label = "IDART percent")
+
+# ╔═╡ ccb151c4-44c4-4a42-821f-166dd6923dda
+xmax, xmaxval = get_max_t(prob_test1, sum(idart))
+
+# ╔═╡ 6a4f0fe0-3b8c-441e-9c98-0d9fe6bd54e0
+@test isapprox(xmax, 47; atol = 4)
+
+# ╔═╡ 479c2f04-a308-4922-be7b-147a1e045807
 md"""
+This test passes with SBML.jl
+"""
+
+# ╔═╡ 4b9a8a43-5ada-496d-baec-e61a1e2b5154
+@test_broken isapprox(xmaxval, 0.002; atol = 0.01)
+
+# ╔═╡ 59ce4d7c-0d4c-4f09-92a8-7d300c7a5c26
+md"""
+
 This last test worked with the SBML script, but fails with the model from TA2. It seems inconsequential
 to the rest of the analysis.
-"""
 
-# ╔═╡ 716fd381-aa32-4028-9c96-6e9173ef868a
-md"""
 ### Sensitivity Analysis
 
 > The difference between 1.b.i and 1.b.ii are changes in some parameter values
@@ -111,7 +226,28 @@ compute server.
 
 """
 
-# ╔═╡ be9a70d1-fd36-4908-862c-c8eb04bc79d7
+# ╔═╡ fc038e7f-bb13-41e1-a537-315feb34f5a2
+begin pbounds = [param => [
+               0.5 * defaultsmap[param],
+               2 * defaultsmap[param],
+           ] for param in parameters(sys)]
+sensres = get_sensitivity(probne, 100.0, Infected, pbounds; samples = 200)
+sensres_vec = collect(sensres)
+sort(filter(x -> endswith(string(x[1]), "_first_order"), sensres_vec), by = x -> abs(x[2]),
+     rev = true) end
+
+# ╔═╡ e04c1a4a-9da9-44f8-b799-3b23290ef5ba
+sort(filter(x -> endswith(string(x[1]), "_second_order"), sensres_vec), by = x -> abs(x[2]),
+     rev = true)
+
+# ╔═╡ b4ef693a-8800-4783-a6c3-f6f390822552
+sort(filter(x -> endswith(string(x[1]), "_total_order"), sensres_vec), by = x -> abs(x[2]),
+     rev = true)
+
+# ╔═╡ 5cb1a32f-608b-4bee-a59b-78f2378edaae
+create_sensitivity_plot(sensres, pbounds, true, ylims = (-0.2, 1.0), size = (800, 800))
+
+# ╔═╡ 567e7456-0f3e-48c2-81a8-94d86f8888de
 md"""
 ### Minimum Parameter Threshold
 
@@ -139,7 +275,27 @@ that the cost of interventions on these two parameters are the same, and have ma
 of these parameters for further information.
 """
 
-# ╔═╡ d57fd23c-e039-4108-8d8b-1cac43e43939
+# ╔═╡ c394c911-8eca-419c-929f-eb6e0378e87e
+begin threshold_observable = (Infected + Diagnosed + Ailing + Recognized + Threatened) /
+                       sum(states(sys))
+cost = (epsilon + theta)
+ineq_cons = [2 * epsilon - theta]
+opt_p, sol_opt_p, ret = optimal_parameter_threshold(probne, threshold_observable,
+                                                    0.33,
+                                                    cost, [epsilon, theta],
+                                                    [0.0, 0.0],
+                                                    3 .* [
+                                                        defaultsmap[epsilon],
+                                                        defaultsmap[theta],
+                                                    ];
+                                                    maxtime = 60,
+                                                    ineq_cons);
+opt_p end
+
+# ╔═╡ efffb1f7-3b3a-4d2d-8f6a-5c84ccf98327
+plot(sol_opt_p, idxs = [threshold_observable], lab = "total infected", leg = :bottomright)
+
+# ╔═╡ e5f1f254-f144-4682-b50c-fe63a967f6b8
 md"""
 ## Question 2
 
@@ -149,7 +305,25 @@ This forms SIDARTHE-V by manually adding the V state and vax transition. It comp
 
 """
 
-# ╔═╡ 83f71081-cd56-4963-8993-86c960e2fd2a
+# ╔═╡ 65192d40-3ff3-4bc9-8890-98813765f5a5
+begin 
+import Graphviz_jll
+sidarthe_v = read_json_acset(LabelledPetriNet, "sidarthe_v.json")
+
+mca_sidarthe_v = mca(sidarthe, sidarthe_v)
+AlgebraicPetri.Graph(mca_sidarthe_v[1]) end
+
+# ╔═╡ 8785fcf3-45d9-4a75-8565-6abf67585d3c
+begin
+	sidarthe_sub = Subobject(sidarthe_v,
+                         S = parts(sidarthe, :S),
+                         T = parts(sidarthe, :T),
+                         I = parts(sidarthe, :I),
+                         O = parts(sidarthe, :O))
+	AlgebraicPetri.Graph(dom(hom(negate(sidarthe_sub))))
+end
+
+# ╔═╡ 7cea77d4-dd97-45aa-b2bb-664b97d1fad3
 md"""
 ### Setup the Parameters
 
@@ -163,11 +337,55 @@ md"""
 > parameters (ε, θ) – testing and contact tracing; (3) Those that impact the
 > vaccination rate psi – vaccination campaigns. Assume previously stated
 > constraints: θ >= 2* ε, and τ1 = (1/3)*τ2.
-
 """
 
-# ╔═╡ 01a071b2-a489-4b67-88c0-ffcf7c6006e1
+# ╔═╡ c6bbe7ff-3914-47fb-99d4-cbd0b4570292
+sysv, tau1, tau2, defs_v2, u0valsv, phi = let
+	sysv = ODESystem(sidarthe_v)
+	u0valsv = [u0vals; 0.0]  # 0 vaccinated initially
+	@unpack beta, gamma, delta, alpha, epsilon, kappa, sigma, rho, xi, mu, tau1, tau2, lambda, eta, nu, zeta, theta, vax = sysv
+	phi = vax
+	p_map = Dict([parameters(sys) .=> paramvals
+	              tau2 => defaultsmap[tau]
+	              tau1 => defaultsmap[tau] / 3
+	              vax => 0.0])
+	sts_map = Dict(states(sysv) .=> u0valsv)
+	defs_v2 = merge(sts_map, p_map)
+	@set! sysv.defaults = defs_v2
+	sysv = complete(sysv)
+	sysv, tau1, tau2, defs_v2, u0valsv, phi
+end
+
+# ╔═╡ 540f89b0-076c-4a59-923d-6b9b0300eb9c
+begin
+	probv = ODEProblem(sysv, [], (0, 100))
+	solv = solve(probv, Tsit5())
+	plot(solv)
+end
+
+# ╔═╡ 7eb2b2ed-9fd7-4047-995b-9f731f3c6746
+plot(solv, idxs = [og_states; sysv.V])
+
+# ╔═╡ c4b8a6b1-679a-4719-8fd4-bfeedacccd9c
+plot(solt1; idxs = sum(idart))
+
+# ╔═╡ 12541f99-d9b2-4baa-874c-c9f70f9fa6a9
+xmax1, xmaxval1 = get_max_t(probv, sum(idart) * ITALY_POPULATION)
+
+# ╔═╡ 1f5eb327-8a62-404f-9907-9083a8a62b8a
+xmax2, xmaxval2 = get_max_t(probv, sum(idart))
+
+# ╔═╡ 872edcd9-b575-4c33-97c2-e020373fe842
+@test isapprox(xmax2, 47; atol = 1)
+
+# ╔═╡ 31ea3b85-b64c-4c7b-a92c-d0ee31f62ddf
+@test isapprox(xmaxval2, 0.6; atol = 0.1)
+
+# ╔═╡ 89521891-8ed6-489b-ae92-ca2671e8f3c6
 md"""
+
+This test passed with the original SBML model but failed with the model from the TA2 integration.
+
 ### b.i
 
 > Let’s say our goal is to ensure that the total infected population (sum over
@@ -186,343 +404,130 @@ what the "intervention parameters" are. A data request back to TA1/TA2 has been 
 set.
 
 This example revealed a typo in our function (https://github.com/SciML/EasyModelAnalysis.jl/pull/135) which had to be fixed.
+
 """
 
-# ╔═╡ 738e73cd-45ce-49be-b0ea-a97cec2c6e1f
-md"""
-Note that the optimization solution is trivial, i.e. there's no intervention at
-all. This is expected because the model without any intervention would already
-have less than 1/3 of the population infected.
+# ╔═╡ 00ac9fe7-b053-43da-8e39-03a99b19a536
+begin
+	threshold_observable2 = (Infected + Diagnosed + Ailing + Recognized + Threatened) /
+                       sum(states(sysv))
+	plot(solv, idxs = [threshold_observable2], lab = "total infected")
+	hline!([1 / 3], lab = "limit")
+end
 
+# ╔═╡ e68f56c9-4204-4775-827d-f5b1d8f93003
+md"""
 ### b.ii
 
-> Let’s say our goal is to get the reproduction number R0 below 1.0, at some
-> point within the next 100 days. Are there interventions that will allow us to
-> meet our goal? If there are multiple options, which single intervention would
-> have the greatest impact on R0 and let us meet our goal with minimal change to
-> the intervention parameter? Assume that the intervention will be implemented
-> after one month (t = day 30), and will stay constant after that, over the
-> remaining time period (i.e. the following 70 days).
+> Let’s say our goal is to get the reproduction number Rt below 1.0, within the
+> next 60 days. Which interventions will allow us to meet our goal, while
+> minimizing total cumulative infections (over all infected states I, D, A, R,
+> T)? If there are multiple options, show the tradeoff between change in
+> parameter and infected populations – show the space of possible solutions.
+> Which single intervention would have the greatest impact on Rt and let us meet
+> our goal with minimal change to the intervention parameter, while minimizing
+> total cumulative infections? Assume that the intervention will be implemented
+> immediately. Use Rt as defined in the SIDDARTHE-V publication. No intervention
+> and increasing the infected population, are not valid solutions for this
+> problem.
 
-In order to do this scenario a modeling decision for how to represent R0 in
-terms of the states was required. This needed expert information, which we
-called out for and documented the results in https:
-//github.com/ChrisRackauckas/ASKEM_Evaluation_Staging/issues/20. This led us to
-a definition of the instantanious R0 as defined in https:
-//www.ncbi.nlm.nih.gov/pmc/articles/PMC7325187/ equation 1. However, the R
-computation requires the mean duration of infectiousness, we will use `D=20` for
-now to have a non-trivial optimization. Thus using this definition of R0 and our
-intervention functionality designed to find parameters to keep a value below a
-threshold, we were able to solve for the intervention.
-
-Another modeling decision required here was the definition of intervention parameters, which we decided to use the same parameters
-as b.i.
+A modeling decision required here was the definition of intervention parameters,
+which we decided to use the same parameters as b.i.
 """
 
-# ╔═╡ 53acb092-b2e5-4a34-8692-0e772d30f70b
-md"""
-# DataSets and files hosted on JuliaHub
-"""
-
-# ╔═╡ 791c013c-a25c-11ed-226b-f12eebdca5e0
-jh_folder = open(BlobTree,
-	dataset("panagiotis_georgakopoulos2/data_scenario2"))
-
-# ╔═╡ c67fea3a-85c7-4508-960e-bac831ee1b6a
-begin
-	write("sidarthe.json", open(IO, jh_folder["sidarthe.json"])) # Copy from cloud
-	sidarthe = read_json_acset(LabelledPetriNet,"sidarthe.json")
-	
-	sys = ODESystem(sidarthe)
-end
-
-# ╔═╡ 3bea0716-dd81-487b-a887-95d0de3db05c
-begin
-	import Graphviz_jll
-	sidarthe_v = deepcopy(sidarthe)
-	new_s = add_species!(sidarthe_v;sname=:V)
-	new_t = add_transition!(sidarthe_v;tname=:vax)
-	new_i = add_input!(sidarthe_v,new_t,1)
-	new_o = add_output!(sidarthe_v,new_t,new_s)
-	
-	mca_sidarthe_v = mca(sidarthe,sidarthe_v)
-	AlgebraicPetri.Graph(mca_sidarthe_v[1])
-end
-
-# ╔═╡ 41b7913b-b0ad-41e6-9504-b7c716dd6dbb
-begin sidarthe_sub = Subobject(
-  sidarthe_v,
-  S=parts(sidarthe, :S),
-  T=parts(sidarthe, :T),
-  I=parts(sidarthe, :I),
-  O=parts(sidarthe, :O)
-)
-AlgebraicPetri.Graph(dom(hom(negate(sidarthe_sub)))) end 
-
-# ╔═╡ 0be8202c-8c8d-4e04-bc9c-f8c50c621eb4
-begin
-
-using EasyModelAnalysis, SBML, SBMLToolkit, UnPack, Test
-
-	
-fn = "Giordano2020.xml"
-write(fn, open(IO, jh_folder[fn]))
-
-myread(fn) = readSBML(fn, doc -> begin
-                          set_level_and_version(3, 2)(doc)
-                          convert_promotelocals_expandfuns(doc)
-                      end)
-
-m = myread(fn)
-
-paramvals = map(name->m.parameters[string(name)].value, tnames(sidarthe))
-namemap = Dict(:S => "Susceptible", :I => "Infected", :D => "Diagnosed", :A => "Ailing", :R => "Recognized",
-               :T => "Threatened", :H => "Healed", :E => "Extinct")
-u0vals = map(name->m.species[namemap[name]].initial_concentration, snames(sidarthe))
-let S, I, D, A, R, T, H, E
-    @unpack S, I, D, A, R, T, H, E = sys
-    global Infected, Healed, Extinct, Diagnosed, Ailing, Recognized, Susceptible, Threatened
-    Infected, Healed, Extinct, Diagnosed, Ailing, Recognized, Susceptible, Threatened = I, H, E, D, A, R, S, T
-end
-@unpack beta, gamma, delta, alpha, epsilon, kappa, sigma, rho, xi, mu, tau, lambda, eta, nu, zeta, theta = sys
-ps = [alpha, epsilon, gamma, beta, delta, mu, nu, lambda, rho, kappa, xi, sigma, zeta, eta]
-defaultsmap = Dict(param => val for (param, val) in zip(parameters(sys), paramvals))
-end
-
-# ╔═╡ bf91e51c-af5c-433b-a93f-76057da4b5df
-begin ssys = structural_simplify(sys)
-probne = ODEProblem(ssys, u0vals, (0.0, 100.0), paramvals)
-solne = solve(probne, Tsit5())
-plot(solne)
-end
-
-# ╔═╡ a060d37c-8e0e-4ffc-b500-cc74289fb93c
-begin
-	idart2 = [Infected, Diagnosed, Ailing, Recognized, Threatened]
-	xmax1, xmaxval1 = get_max_t(probne, sum(idart2))
-@test isapprox(xmax1, 47; atol = 0.5)
-@test isapprox(xmaxval1, 0.6, atol = 0.01)
-end
-
-# ╔═╡ cf09a0bc-6f81-4abc-aa2f-e7d67f4da5b6
-begin
-	ITALY_POPULATION = 60e6
-	u0s = [
-	    Infected => 200 / ITALY_POPULATION,
-	    Diagnosed => 20 / ITALY_POPULATION,
-	    Ailing => 1 / ITALY_POPULATION,
-	    Recognized => 2 / ITALY_POPULATION,
-	    Threatened => 0,
-	    Healed => 0,
-	    Extinct => 0,
-	]
-	push!(u0s, Susceptible => 1 - sum(last.(u0s)))
-	
-	# The resulting basic reproduction number is R0 = 2.38.
-	pars = [alpha => 0.570, beta => 0.011, delta => 0.011, gamma => 0.456, epsilon => 0.171,
-	    theta => 0.371,
-	    zeta => 0.125, eta => 0.125, mu => 0.017, nu => 0.027, tau => 0.01,
-	    lambda => 0.034, rho => 0.034, kappa => 0.017, xi => 0.017, sigma => 0.017]
-	prob = ODEProblem(ssys, u0vals, (0, 100), paramvals)
-	prob_test1 = remake(prob, u0 = u0s, p = pars)
-	solt1 = solve(prob_test1, Tsit5(); saveat = 0:100)
-	og_states = states(sys)[1:8]
-	idart = [Infected, Diagnosed, Ailing, Recognized, Threatened]
-	plot(solt1; idxs = Infected)
-end
-
-# ╔═╡ 243af0ad-2832-4c24-9a8a-1bd66f7d9116
-begin
-	solne1 = solve(probne, Tsit5())
-	plot(solne1, vars = idart)
-end
-
-# ╔═╡ 7bba7ec3-050c-4ccd-97eb-af29339d0f16
-plot(solne1, idxs = [sum(idart)], lab = "total infected")
-
-# ╔═╡ 930dcbb6-470b-42da-9ffb-4322e5ba08eb
-plot(solt1; idxs = Diagnosed)
-
-# ╔═╡ 0a97e776-9a42-42ad-9c67-d7c72f03d77f
-plot(solt1; idxs = idart)
-
-# ╔═╡ 639a143a-73a8-4427-bdbb-9e492c39f3b7
-@test solt1[Infected + Healed] == solt1[Infected] + solt1[Healed]
-
-# ╔═╡ 5266c4da-dab3-430c-b75b-8d08a514d5fe
-plot(solt1.t, solt1[sum(idart)] * ITALY_POPULATION; label = "IDART absolute")
-
-# ╔═╡ efd1b805-899f-452f-87d1-7cda95b3e6c8
-plot(solt1.t, solt1[sum(idart)]; label = "IDART percent")
-
-# ╔═╡ 7852dacb-5903-4501-b083-e118cdbaafb0
-xmax, xmaxval = get_max_t(prob_test1, sum(idart))
-
-# ╔═╡ 5c75783b-f32c-425c-9b94-75405ac8e810
-@test isapprox(xmax, 47; atol = 4)
-
-# ╔═╡ 9a9f9f73-1463-45a2-867b-c59d8a409bfd
-@test_broken isapprox(xmaxval, 0.002; atol = 0.01)
-
-# ╔═╡ ac49635c-0ea3-42f9-b65b-148e9b1ab7c4
-begin
-	pbounds = [param => [
-	               0.5 * defaultsmap[param],
-		       2 * defaultsmap[param],
-		   ] for param in parameters(sys)]
-	sensres = get_sensitivity(probne, 100.0, Infected, pbounds; samples = 200)
-	sensres_vec = collect(sensres)
-	sort(filter(x -> endswith(string(x[1]), "_first_order"), sensres_vec), by = x -> abs(x[2]),
-	     rev = true)
-end
-
-# ╔═╡ 57121a6c-e08a-4a69-877b-8639d3d81c23
-sort(filter(x -> endswith(string(x[1]), "_second_order"), sensres_vec), by = x -> abs(x[2]),
-     rev = true)
-
-# ╔═╡ bb1e3ef4-ea6f-4224-a8ca-cc23e9b327c3
-sort(filter(x -> endswith(string(x[1]), "_total_order"), sensres_vec), by = x -> abs(x[2]),
-     rev = true)
-
-# ╔═╡ dd46e578-bce4-4776-82c0-d711ec7bb1ae
-create_sensitivity_plot(sensres, pbounds, true, ylims = (-0.2, 1.0), size=(800, 800))
-
-# ╔═╡ 0970a8df-4591-41f1-b9c2-c191d4e8b922
-begin 
-	threshold_observable = (Infected + Diagnosed + Ailing + Recognized + Threatened) /
-                       sum(states(sys))
-	cost = -(epsilon + theta)
-	ineq_cons = [2 * epsilon - theta]
-	opt_p, sol_opt_p, ret = optimal_parameter_threshold(probne, threshold_observable,
-                                                    0.33,
-                                                    cost, [epsilon, theta],
-                                                    [0.0, 0.0],
-                                                    3 .* [
-                                                        defaultsmap[epsilon],
-                                                        defaultsmap[theta],
-                                                    ];
-                                                    maxtime = 60,
-                                                    ineq_cons);
-opt_p
-end
-
-# ╔═╡ c79dce96-368c-4a15-9a51-13569de4fa65
-plot(sol_opt_p, idxs = [threshold_observable], lab = "total infected", leg = :topright)
-
-# ╔═╡ dc2aea94-3c10-48d3-a92d-83cdb6894172
-solv_q2, probv_q2, sysv_q2, defaultsmapv, vax, phi = let sysv = ODESystem(sidarthe_v)
-u0valsv = [u0vals; 0.0]  # 0 vaccinated initially
-paramvalsv = [paramvals; 0.0025]
-defaultsmapv = Dict(Num(param) => val for (param, val) in zip(parameters(sysv), paramvalsv))
-@unpack beta, gamma, delta, alpha, epsilon, kappa, sigma, rho, xi, mu, tau, lambda, eta, nu, zeta, theta, vax = sysv
-phi = vax
-	
-probv = ODEProblem(sysv, u0valsv, (0, 100), paramvalsv)
-solv = solve(probv, Tsit5())
-solv, probv, sysv, defaultsmapv, vax, phi
-end
-
-# ╔═╡ d8c95b2e-9673-4bab-94df-498ac9427b61
-plot(solv_q2)
-
-# ╔═╡ 8a78ff36-909b-4d76-91f4-8f793bd5ce5f
-plot(solv_q2, idxs = [og_states; @nonamespace(sysv_q2.V)])
-
-
-# ╔═╡ d6e661ec-b00e-4cca-b424-4504d86dbf26
-plot(solt1; idxs = sum(idart))
-
-# ╔═╡ 4d5f794c-bec7-4220-8cc3-6334d55bcd18
-begin
-xmax_q2, xmaxval_q2 = get_max_t(probv_q2, sum(idart) * ITALY_POPULATION)
-xmax_q2, xmaxval_q2 = get_max_t(probv_q2, sum(idart))
-
-@test isapprox(xmax_q2, 47; atol = 5) end
-
-# ╔═╡ bcaae3c3-7f80-4f2f-a83f-5ac9dac50dc7
-@test isapprox(xmaxval_q2, 0.6; atol = 0.1)
-
-# ╔═╡ 79a99ff9-4560-4509-859d-7f89731259f6
-begin defs_v2 = copy(defaultsmapv)
-defs_v2[tau] = defaultsmapv[tau] / 3
-defs_v2[vax] = 0
-probv2 = remake(probv_q2; p = defs_v2)
-solv2 = solve(probv2)
-plot(solv2) end
-
-# ╔═╡ 15a9487c-26ee-4e06-abb7-33415088fe44
-begin
-threshold_observable_q2 = (Infected + Diagnosed + Ailing + Recognized + Threatened) /
-                       sum(states(sysv_q2))
-plot(solv2, idxs = [threshold_observable_q2], lab = "total infected")
-hline!([1 / 3], lab = "limit") 
-end
-
-# ╔═╡ ace218e0-844a-4fda-bbef-fbff2f2098c2
-let
-	intervention_p = phi # Need to figure out what these should be
-cost = intervention_p - defaultsmapv[intervention_p]
-opt_p, solv2_s, ret = optimal_parameter_intervention_for_threshold(probv2,
-                                                                   threshold_observable,
-                                                                   0.33,
-                                                                   cost,
-                                                                   [intervention_p], [0.0],
-                                                                   [1.0],
-                                                                   (30.0, 100.0);
-                                                                   maxtime = 10);
-opt_p end
-
-# ╔═╡ e5aa1eec-0c2a-4daf-abe5-b47c0ae7273f
-opt_results_q2, plotR0, plotsq2 = let 
-	D = 20
-	R0 = alpha * @nonamespace(sysv_q2.S) * D # double check
-	solv2_r0p = plot(solv2, idxs = [R0])
-	
-	intervention_parameters = [theta => (2 * defs_v2[eta], 1) # 𝜃 >= 2 * 𝜀
-                           eta => (0, defs_v2[theta] / 2)
-                           phi => (0, 1)]
-opt_results = map(intervention_parameters) do (intervention_p, bounds)
-    cost = intervention_p - defs_v2[intervention_p]
-    optimal_parameter_intervention_for_reach(probv2,
-                                             R0,
-                                             1.0,
-                                             cost,
-                                             [intervention_p], [bounds[1]], [bounds[2]],
-                                             (30.0, 100.0);
-                                             maxtime = 10)
+# ╔═╡ 410310d9-e924-45f8-ad17-228877508708
+plt, solv3, probv3, R_t, R0, cumulative_inf = let
+	@unpack S, I, D, A, R, T = sysv
+	r1 = epsilon + xi + lambda
+	r2 = eta + rho
+	r3 = theta + mu + kappa
+	r4 = nu + xi + tau1
+	r5 = sigma + tau2
+	R0 = (alpha + beta * epsilon / r2 + gamma * zeta / r3 +
+	      delta * ((eta * epsilon /
+	                (r2 * r4)) + (zeta * theta) / (r3 * r4))) / r1
+	R_t = S * R0
+	plot(solv, idxs = [R_t], lab = "R_t")
+	@variables t cumulative_inf(t)
+	total_inf = (I + D + A + R + T) / sum(states(sysv))
+	sysva = add_accumulations(sysv, [cumulative_inf => total_inf])
+	@set! sysva.defaults = defs_v2
+	u03 = [u0valsv; 0.0]
+	probv3 = ODEProblem(sysva, u03, (0, 60.0))
+	solv3 = solve(probv3)
+	p = plot(solv3)
+	p, solv3, probv3, R_t, R0, cumulative_inf
 end;
 
+# ╔═╡ 97d2d553-609d-4d30-af8c-13610b2c254f
+plt
 
-	plts = map(opt_results) do opt_result
-    	title = only(collect(opt_result[1]))
-    	title = title[1] => round(title[2], sigdigits = 3)
-    	plot(opt_result[2][2]; idxs = [R0], lab = "R0", title)
-    	hline!([1], lab = "limit")
-	end
- map(first, opt_results), solv2_r0p, plot(plts...)
-end 
+# ╔═╡ 42a4726b-2448-4deb-a8a6-95891227a027
+solv3
 
-# ╔═╡ d7454d65-2290-4014-b616-c93428698f69
-opt_results_q2
+# ╔═╡ 908f331a-6298-4fc7-92e6-f131ad333963
+md"""
+A modeling decision required here is that we want to minimize the sum of
+normalized cumulative total infections and the change of intervention parameters
+`theta`, `epsilon`, and `phi`.
+"""
 
-# ╔═╡ 15393f8a-04a4-402e-8b9e-01ee49128eed
-plotR0
+# ╔═╡ ac49d74f-0531-4bd7-ae79-c332277b89d4
+begin
+	intervention_parameters = [theta => (2 * defs_v2[epsilon], 3) # 𝜃 >= 2 * 𝜀
+                           epsilon => (0, defs_v2[theta] / 2)
+                           phi => (0, 1)]
+	sol_cost = sol -> begin sol(sol.t[end], idxs = cumulative_inf) end
+	opt_results = map(intervention_parameters) do (intervention_p, bounds)
+	    cost = intervention_p - defs_v2[intervention_p]
+	    optimal_parameter_intervention_for_reach(probv3,
+	                                             R_t,
+	                                             1.0,
+	                                             (cost, sol_cost),
+	                                             [intervention_p], [bounds[1]], [bounds[2]],
+	                                             maxtime = 10)
+	end;
+	map(first, opt_results)
+end
 
-# ╔═╡ 92d64fcb-d7fd-4c4a-b756-536cc92ee811
-plotsq2
+# ╔═╡ a295c6f5-ae79-435b-ba76-d5a828ada61c
+md"""
+We can see that increasing the rate of vaccination is the most effective.
+"""
 
-# ╔═╡ 5412cbc2-ea5d-403e-80c1-e557a91f4327
+# ╔═╡ c5209037-64e3-47bd-931f-c6490491829d
+plot(map(opt_results) do opt_result
+    title = only(collect(opt_result[1]))
+    title = string(title[1], " = ", round(title[2], sigdigits = 3))
+    plot(opt_result[2][2]; idxs = [R_t], lab = "R_t", title)
+    plot!(opt_result[2][2]; idxs = [cumulative_inf], lab = "cumulative infected", title)
+    hline!([1], lab = "limit", ylims = (0, 10))
+end...)
 
+# ╔═╡ 06e4e9b8-d212-406c-885c-01ab31e1b59f
+begin
+		base = "https://raw.githubusercontent.com/ChrisRackauckas/ASKEM_Evaluation_Staging/main/docs/src/Scenario2/"
+		files = [
+			"Giordano2020.xml",
+			"sidarthe.json",
+			"sidarthe_v.json"
+		]
+		for file in files
+			sleep(0.25)
+			@info file
+			Downloads.download(joinpath(base, file), "./$file")
+		end
+		ok = true
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 AlgebraicPetri = "4f99eebe-17bf-4e98-b6a1-2c4f205a959b"
 Catlab = "134e5e36-593f-5add-ad60-77f754baafbe"
-DataSets = "c9661210-8a83-48f0-b833-72e62abce419"
+Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 EasyModelAnalysis = "ef4b24a4-a090-4686-a932-e7e56a5a83bd"
 Graphviz_jll = "3c863552-8265-54e4-a6dc-903eb78fde85"
-JuliaHubData = "e241c0f9-2941-4184-86f1-92558f4420e8"
 ModelingToolkit = "961ee093-0014-501f-94e3-6117800e7a78"
 SBML = "e5567a89-2604-4b09-9718-f5f78e97c3bb"
 SBMLToolkit = "86080e66-c8ac-44c2-a1a0-9adaadfe4a4e"
@@ -532,11 +537,9 @@ UnPack = "3a884ed6-31ef-47d7-9d2a-63182c4928ed"
 [compat]
 AlgebraicPetri = "~0.8.4"
 Catlab = "~0.14.14"
-DataSets = "~0.2.8"
-EasyModelAnalysis = "~0.1.5"
+EasyModelAnalysis = "~0.1.8"
 Graphviz_jll = "~2.50.0"
-JuliaHubData = "~0.3.5"
-ModelingToolkit = "~8.45.0"
+ModelingToolkit = "~8.46.0"
 SBML = "~1.4.0"
 SBMLToolkit = "~0.1.20"
 UnPack = "~1.0.2"
@@ -548,12 +551,6 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.7.3"
 manifest_format = "2.0"
-
-[[deps.AWS]]
-deps = ["Base64", "Compat", "Dates", "Downloads", "GitHub", "HTTP", "IniFile", "JSON", "MbedTLS", "Mocking", "OrderedCollections", "Random", "Sockets", "URIs", "UUIDs", "XMLDict"]
-git-tree-sha1 = "93f3cffcb1fd90548b13cf21a28a898e1ca8c58f"
-uuid = "fbe9abb3-538b-5e4e-ba9e-bc94f4f92ebc"
-version = "1.79.0"
 
 [[deps.AbstractAlgebra]]
 deps = ["GroupsCore", "InteractiveUtils", "LinearAlgebra", "MacroTools", "Markdown", "Random", "RandomExtensions", "SparseArrays", "Test"]
@@ -580,9 +577,9 @@ uuid = "7a57a42e-76ec-4ea3-a279-07e840d6d9cf"
 version = "0.5.3"
 
 [[deps.AbstractTrees]]
-git-tree-sha1 = "03e0550477d86222521d254b741d470ba17ea0b5"
+git-tree-sha1 = "faa260e4cb5aba097a73fab382dd4b5819d8ec8c"
 uuid = "1520ce14-60c1-5f80-bbc7-55ef81b5835c"
-version = "0.3.4"
+version = "0.4.4"
 
 [[deps.Adapt]]
 deps = ["LinearAlgebra"]
@@ -955,12 +952,6 @@ git-tree-sha1 = "e8119c1a33d267e16108be441a287a6981ba1630"
 uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
 version = "1.14.0"
 
-[[deps.DataSets]]
-deps = ["AbstractTrees", "Base64", "Markdown", "REPL", "ReplMaker", "ResourceContexts", "SHA", "TOML", "UUIDs"]
-git-tree-sha1 = "e37aa4eeb040f91784179540a33430200946d907"
-uuid = "c9661210-8a83-48f0-b833-72e62abce419"
-version = "0.2.8"
-
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
 git-tree-sha1 = "d1fff3a548102f48987a52a2e0d114fa97d730f0"
@@ -1091,9 +1082,9 @@ version = "0.4.5"
 
 [[deps.EasyModelAnalysis]]
 deps = ["DifferentialEquations", "Distributions", "GlobalSensitivity", "LinearAlgebra", "ModelingToolkit", "NLopt", "Optimization", "OptimizationBBO", "OptimizationMOI", "OptimizationNLopt", "Plots", "Reexport", "SciMLBase", "SciMLExpectations", "Turing"]
-git-tree-sha1 = "cb3d69fb34e805b7a2a69094c0f4e17df76283ee"
+git-tree-sha1 = "3d2e799dbf4412d40a55ca4d1f9dc24fd8259836"
 uuid = "ef4b24a4-a090-4686-a932-e7e56a5a83bd"
-version = "0.1.5"
+version = "0.1.8"
 
 [[deps.EllipticalSliceSampling]]
 deps = ["AbstractMCMC", "ArrayInterfaceCore", "Distributions", "Random", "Statistics"]
@@ -1289,12 +1280,6 @@ deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Li
 git-tree-sha1 = "9b02998aba7bf074d14de89f9d37ca24a1a0b046"
 uuid = "78b55507-aeef-58d4-861c-77aaff3498b1"
 version = "0.21.0+0"
-
-[[deps.GitHub]]
-deps = ["Base64", "Dates", "HTTP", "JSON", "MbedTLS", "Sockets", "SodiumSeal", "URIs"]
-git-tree-sha1 = "5688002de970b9eee14b7af7bbbd1fdac10c9bbe"
-uuid = "bc5e4493-9b4d-5f90-b8aa-2b2bcaad7a26"
-version = "5.8.2"
 
 [[deps.Glib_jll]]
 deps = ["Artifacts", "Gettext_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Libiconv_jll", "Libmount_jll", "PCRE2_jll", "Pkg", "Zlib_jll"]
@@ -1505,12 +1490,6 @@ git-tree-sha1 = "94ce68aee6dbc066e39d5d2ca0b6b1ccd38d7e04"
 uuid = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
 version = "1.0.20"
 
-[[deps.JuliaHubData]]
-deps = ["AWS", "Base64", "Dates", "Downloads", "HTTP", "JSON", "MbedTLS", "Pkg", "Random", "TOML", "URIs", "UUIDs"]
-git-tree-sha1 = "3bad6921077e6d12161ccecd36558b286a0b8f22"
-uuid = "e241c0f9-2941-4184-86f1-92558f4420e8"
-version = "0.3.5"
-
 [[deps.JuliaVariables]]
 deps = ["MLStyle", "NameResolution"]
 git-tree-sha1 = "49fb3cb53362ddadb4415e9b73926d6b40709e70"
@@ -1628,9 +1607,9 @@ uuid = "4af54fe1-eca0-43a8-85a7-787d91b784e3"
 
 [[deps.LeftChildRightSiblingTrees]]
 deps = ["AbstractTrees"]
-git-tree-sha1 = "b864cb409e8e445688bc478ef87c0afe4f6d1f8d"
+git-tree-sha1 = "fb6803dafae4a5d62ea5cab204b1e657d9737e7f"
 uuid = "1d6d02ad-be62-4b6b-8a6d-2f90e265016e"
-version = "0.1.3"
+version = "0.2.0"
 
 [[deps.LevyArea]]
 deps = ["LinearAlgebra", "Random", "SpecialFunctions"]
@@ -1817,9 +1796,9 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 
 [[deps.MathML]]
 deps = ["AbstractTrees", "DocStringExtensions", "EzXML", "IfElse", "SpecialFunctions", "Statistics", "Symbolics"]
-git-tree-sha1 = "8181cbf58d972546b514c5bac7fd3503a3b97b88"
+git-tree-sha1 = "fb5ad0700d214344d3034e5b2f09b63684b37fc9"
 uuid = "abcecc63-2b08-419c-80c4-c63dca6fa478"
-version = "0.1.12"
+version = "0.1.13"
 
 [[deps.MathOptInterface]]
 deps = ["BenchmarkTools", "CodecBzip2", "CodecZlib", "DataStructures", "ForwardDiff", "JSON", "LinearAlgebra", "MutableArithmetics", "NaNMath", "OrderedCollections", "Printf", "SnoopPrecompile", "SparseArrays", "SpecialFunctions", "Test", "Unicode"]
@@ -1869,17 +1848,11 @@ version = "1.1.0"
 [[deps.Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
-[[deps.Mocking]]
-deps = ["Compat", "ExprTools"]
-git-tree-sha1 = "c272302b22479a24d1cf48c114ad702933414f80"
-uuid = "78c3b35d-d492-501b-9361-3d52fe80e533"
-version = "0.7.5"
-
 [[deps.ModelingToolkit]]
 deps = ["AbstractTrees", "ArrayInterfaceCore", "Combinatorics", "Compat", "ConstructionBase", "DataStructures", "DiffEqBase", "DiffEqCallbacks", "DiffRules", "Distributed", "Distributions", "DocStringExtensions", "DomainSets", "ForwardDiff", "FunctionWrappersWrappers", "Graphs", "IfElse", "InteractiveUtils", "JuliaFormatter", "JumpProcesses", "LabelledArrays", "Latexify", "Libdl", "LinearAlgebra", "MacroTools", "NaNMath", "RecursiveArrayTools", "Reexport", "RuntimeGeneratedFunctions", "SciMLBase", "Serialization", "Setfield", "SimpleNonlinearSolve", "SparseArrays", "SpecialFunctions", "StaticArrays", "SymbolicIndexingInterface", "SymbolicUtils", "Symbolics", "UnPack", "Unitful"]
-git-tree-sha1 = "efafba25152cb39bd80577b7e7ae11f258f79b11"
+git-tree-sha1 = "ea133ffe5aa228620ebe9942c15728ddbb3ca9c2"
 uuid = "961ee093-0014-501f-94e3-6117800e7a78"
-version = "8.45.0"
+version = "8.46.0"
 
 [[deps.MonteCarloIntegration]]
 deps = ["Distributions", "Random"]
@@ -2084,9 +2057,9 @@ version = "0.12.3"
 
 [[deps.Parsers]]
 deps = ["Dates", "SnoopPrecompile"]
-git-tree-sha1 = "8175fc2b118a3755113c8e68084dc1a9e63c61ee"
+git-tree-sha1 = "151d91d63d8d6c1a5789ecb7de51547e00480f1b"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "2.5.3"
+version = "2.5.4"
 
 [[deps.Pipe]]
 git-tree-sha1 = "6842804e7867b115ca9de748a0cf6b364523c16d"
@@ -2296,12 +2269,6 @@ git-tree-sha1 = "90bc7a7c96410424509e4263e277e43250c05691"
 uuid = "05181044-ff0b-4ac5-8273-598c1e38db00"
 version = "1.0.0"
 
-[[deps.ReplMaker]]
-deps = ["REPL", "Unicode"]
-git-tree-sha1 = "f8bb680b97ee232c4c6591e213adc9c1e4ba0349"
-uuid = "b873ce64-0db9-51f5-a568-4457d8e49576"
-version = "0.2.7"
-
 [[deps.Requires]]
 deps = ["UUIDs"]
 git-tree-sha1 = "838a3a4188e2ded87a4f9f184b4b0d78a1e91cb7"
@@ -2313,12 +2280,6 @@ deps = ["StaticArrays"]
 git-tree-sha1 = "256eeeec186fa7f26f2801732774ccf277f05db9"
 uuid = "ae5879a3-cd67-5da8-be7f-38c6eb64a37b"
 version = "1.1.1"
-
-[[deps.ResourceContexts]]
-deps = ["Logging"]
-git-tree-sha1 = "0e9863272a09aff6579a987dd7fe3f94e32f6673"
-uuid = "8d208092-d35c-4dd3-a0d7-8325f9cce6b4"
-version = "0.2.0"
 
 [[deps.ReverseDiff]]
 deps = ["ChainRulesCore", "DiffResults", "DiffRules", "ForwardDiff", "FunctionWrappers", "LinearAlgebra", "LogExpFunctions", "MacroTools", "NaNMath", "Random", "SpecialFunctions", "StaticArrays", "Statistics"]
@@ -2467,12 +2428,6 @@ version = "1.5.0"
 
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
-
-[[deps.SodiumSeal]]
-deps = ["Base64", "Libdl", "libsodium_jll"]
-git-tree-sha1 = "80cef67d2953e33935b41c6ab0a178b9987b1c99"
-uuid = "2133526b-2bfb-4018-ac12-889fb3908a75"
-version = "0.1.1"
 
 [[deps.SortingAlgorithms]]
 deps = ["DataStructures"]
@@ -2817,12 +2772,6 @@ git-tree-sha1 = "93c41695bc1c08c46c5899f4fe06d6ead504bb73"
 uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
 version = "2.10.3+0"
 
-[[deps.XMLDict]]
-deps = ["EzXML", "IterTools", "OrderedCollections"]
-git-tree-sha1 = "d9a3faf078210e477b291c79117676fca54da9dd"
-uuid = "228000da-037f-5747-90a9-8195ccbf91a5"
-version = "0.4.1"
-
 [[deps.XSLT_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Libiconv_jll", "Pkg", "XML2_jll", "Zlib_jll"]
 git-tree-sha1 = "91844873c4085240b95e795f692c4cec4d805f8a"
@@ -3011,12 +2960,6 @@ git-tree-sha1 = "94d180a6d2b5e55e447e2d27a29ed04fe79eb30c"
 uuid = "b53b4c65-9356-5827-b1ea-8c7a1a84506f"
 version = "1.6.38+0"
 
-[[deps.libsodium_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "848ab3d00fe39d6fbc2a8641048f8f272af1c51e"
-uuid = "a9144af2-ca23-56d9-984f-0d03f7b5ccf8"
-version = "1.0.20+0"
-
 [[deps.libvorbis_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Ogg_jll", "Pkg"]
 git-tree-sha1 = "b910cb81ef3fe6e78bf6acee440bda86fd6ae00c"
@@ -3051,59 +2994,59 @@ version = "1.4.1+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─cf55fe9f-b197-4a41-92f9-2894211a7d18
-# ╠═6b56d2ea-e305-44f2-853a-2a1adf12f138
-# ╠═c67fea3a-85c7-4508-960e-bac831ee1b6a
-# ╟─ccec5e89-ec7e-4948-bc3c-c3bb686fb6ff
-# ╠═0be8202c-8c8d-4e04-bc9c-f8c50c621eb4
-# ╟─396392a4-d46b-4a85-bc69-b7cabe175806
-# ╠═bf91e51c-af5c-433b-a93f-76057da4b5df
-# ╠═a060d37c-8e0e-4ffc-b500-cc74289fb93c
-# ╠═fa9f96c6-52f5-4cea-8114-0539fc619d08
-# ╟─3113a470-a233-47f6-a629-55112965d190
-# ╠═243af0ad-2832-4c24-9a8a-1bd66f7d9116
-# ╠═7bba7ec3-050c-4ccd-97eb-af29339d0f16
-# ╟─1bc28da7-bf5a-460c-95fd-07ff9a8f5de5
-# ╠═cf09a0bc-6f81-4abc-aa2f-e7d67f4da5b6
-# ╠═930dcbb6-470b-42da-9ffb-4322e5ba08eb
-# ╠═0a97e776-9a42-42ad-9c67-d7c72f03d77f
-# ╠═639a143a-73a8-4427-bdbb-9e492c39f3b7
-# ╠═5266c4da-dab3-430c-b75b-8d08a514d5fe
-# ╠═efd1b805-899f-452f-87d1-7cda95b3e6c8
-# ╠═7852dacb-5903-4501-b083-e118cdbaafb0
-# ╠═5c75783b-f32c-425c-9b94-75405ac8e810
-# ╠═9a9f9f73-1463-45a2-867b-c59d8a409bfd
-# ╟─a90ea633-7dd5-4fa2-9e8d-2ba53d138412
-# ╟─716fd381-aa32-4028-9c96-6e9173ef868a
-# ╠═ac49635c-0ea3-42f9-b65b-148e9b1ab7c4
-# ╠═57121a6c-e08a-4a69-877b-8639d3d81c23
-# ╠═bb1e3ef4-ea6f-4224-a8ca-cc23e9b327c3
-# ╠═dd46e578-bce4-4776-82c0-d711ec7bb1ae
-# ╟─be9a70d1-fd36-4908-862c-c8eb04bc79d7
-# ╠═0970a8df-4591-41f1-b9c2-c191d4e8b922
-# ╠═c79dce96-368c-4a15-9a51-13569de4fa65
-# ╟─d57fd23c-e039-4108-8d8b-1cac43e43939
-# ╠═3bea0716-dd81-487b-a887-95d0de3db05c
-# ╠═41b7913b-b0ad-41e6-9504-b7c716dd6dbb
-# ╠═dc2aea94-3c10-48d3-a92d-83cdb6894172
-# ╠═d8c95b2e-9673-4bab-94df-498ac9427b61
-# ╠═8a78ff36-909b-4d76-91f4-8f793bd5ce5f
-# ╠═d6e661ec-b00e-4cca-b424-4504d86dbf26
-# ╠═4d5f794c-bec7-4220-8cc3-6334d55bcd18
-# ╠═bcaae3c3-7f80-4f2f-a83f-5ac9dac50dc7
-# ╟─83f71081-cd56-4963-8993-86c960e2fd2a
-# ╠═79a99ff9-4560-4509-859d-7f89731259f6
-# ╟─01a071b2-a489-4b67-88c0-ffcf7c6006e1
-# ╠═15a9487c-26ee-4e06-abb7-33415088fe44
-# ╠═ace218e0-844a-4fda-bbef-fbff2f2098c2
-# ╟─738e73cd-45ce-49be-b0ea-a97cec2c6e1f
-# ╠═e5aa1eec-0c2a-4daf-abe5-b47c0ae7273f
-# ╠═d7454d65-2290-4014-b616-c93428698f69
-# ╠═15393f8a-04a4-402e-8b9e-01ee49128eed
-# ╠═92d64fcb-d7fd-4c4a-b756-536cc92ee811
-# ╟─53acb092-b2e5-4a34-8692-0e772d30f70b
-# ╠═791c013c-a25c-11ed-226b-f12eebdca5e0
-# ╠═6111719b-6630-4b6c-9312-f96caf749f63
-# ╠═5412cbc2-ea5d-403e-80c1-e557a91f4327
+# ╟─b9341834-a2e3-11ed-0f55-fb50ef228629
+# ╠═12285bf3-17b3-49bd-a57a-25a08f2c4fa0
+# ╠═f4492b0f-da68-4f93-9458-0eaf3599ccaa
+# ╟─462e80a1-fa1d-4113-b505-266e5d076fce
+# ╠═9c6765aa-0b25-4d52-9a39-0b8b0a8a712d
+# ╟─064c578d-6df6-4eac-93ab-8dff1a253a62
+# ╠═be627117-9573-4f4d-a15e-79914ae20e0e
+# ╠═6ffa6c04-f203-4595-bcaa-5cb0089f10dc
+# ╟─3d7cb553-4cec-4948-9cf6-70b40ac9965c
+# ╠═88d20589-249f-445f-92a1-e116866f0010
+# ╠═c386a87c-5d68-4d57-97bc-81254e0ae27a
+# ╟─72a985c4-54a9-4798-89d7-5bd82e9e8871
+# ╠═dde7d6cc-1b3b-4682-a148-f1160328657e
+# ╠═b5571c9d-223e-4534-92c0-701df57b9a0b
+# ╠═b7358b5d-96a1-44ce-82fe-b2081f62b0ce
+# ╠═9bd0fe98-4768-43f3-bc92-14769aad9ece
+# ╠═d9e87a78-c8ab-409e-a13f-570348653fa1
+# ╠═bf75eaf9-e9c8-411c-8a54-28188dd61fd0
+# ╠═ccb151c4-44c4-4a42-821f-166dd6923dda
+# ╠═6a4f0fe0-3b8c-441e-9c98-0d9fe6bd54e0
+# ╟─479c2f04-a308-4922-be7b-147a1e045807
+# ╠═4b9a8a43-5ada-496d-baec-e61a1e2b5154
+# ╟─59ce4d7c-0d4c-4f09-92a8-7d300c7a5c26
+# ╠═fc038e7f-bb13-41e1-a537-315feb34f5a2
+# ╠═e04c1a4a-9da9-44f8-b799-3b23290ef5ba
+# ╠═b4ef693a-8800-4783-a6c3-f6f390822552
+# ╠═5cb1a32f-608b-4bee-a59b-78f2378edaae
+# ╟─567e7456-0f3e-48c2-81a8-94d86f8888de
+# ╠═c394c911-8eca-419c-929f-eb6e0378e87e
+# ╠═efffb1f7-3b3a-4d2d-8f6a-5c84ccf98327
+# ╠═e5f1f254-f144-4682-b50c-fe63a967f6b8
+# ╠═65192d40-3ff3-4bc9-8890-98813765f5a5
+# ╠═8785fcf3-45d9-4a75-8565-6abf67585d3c
+# ╠═7cea77d4-dd97-45aa-b2bb-664b97d1fad3
+# ╠═4d75fc47-8b06-48c1-b741-e71da1c21ec7
+# ╠═c6bbe7ff-3914-47fb-99d4-cbd0b4570292
+# ╠═540f89b0-076c-4a59-923d-6b9b0300eb9c
+# ╠═7eb2b2ed-9fd7-4047-995b-9f731f3c6746
+# ╠═c4b8a6b1-679a-4719-8fd4-bfeedacccd9c
+# ╠═12541f99-d9b2-4baa-874c-c9f70f9fa6a9
+# ╠═1f5eb327-8a62-404f-9907-9083a8a62b8a
+# ╠═872edcd9-b575-4c33-97c2-e020373fe842
+# ╠═31ea3b85-b64c-4c7b-a92c-d0ee31f62ddf
+# ╟─89521891-8ed6-489b-ae92-ca2671e8f3c6
+# ╠═00ac9fe7-b053-43da-8e39-03a99b19a536
+# ╟─e68f56c9-4204-4775-827d-f5b1d8f93003
+# ╠═410310d9-e924-45f8-ad17-228877508708
+# ╠═97d2d553-609d-4d30-af8c-13610b2c254f
+# ╠═42a4726b-2448-4deb-a8a6-95891227a027
+# ╟─908f331a-6298-4fc7-92e6-f131ad333963
+# ╠═ac49d74f-0531-4bd7-ae79-c332277b89d4
+# ╠═a295c6f5-ae79-435b-ba76-d5a828ada61c
+# ╠═c5209037-64e3-47bd-931f-c6490491829d
+# ╠═06e4e9b8-d212-406c-885c-01ab31e1b59f
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
