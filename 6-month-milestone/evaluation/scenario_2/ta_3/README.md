@@ -21,3 +21,20 @@ https://juliahub.com/pluto/editor.html?id=85c8f255-990d-49e7-85e5-e52e3d55cb11
 
 A locally runnable Pluto notebook can be found as the Scenario2.jl and can be opened using the instructions 
 from [Pluto.jl](https://github.com/fonsp/Pluto.jl)
+
+## Using the Pluto Notebooks
+
+The Pluto notebooks are fully relocatable and download the dependencies and data on-demand, making them easy
+install and use. To do this, first install Julia v1.8.5 from https://julialang.org/downloads/. Then
+open up Julia and run:
+
+```julia
+using Pkg
+Pkg.add("Pluto")
+import Pluto
+Pluto.run()
+```
+
+When this window opens in your browser, navigate to the Pluto notebook. Opening it will start the download
+of all data and dependencies, along with the automatic installation and compilation of all dependencies.
+This may take awhile due to the complexity of the downloads.
