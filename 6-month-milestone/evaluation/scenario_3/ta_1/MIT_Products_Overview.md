@@ -33,7 +33,7 @@ This version of the data includes some data elements from Arizona, but we need t
 To be clear, we didn't write this tool! The tool was written by Manfred and Daniel from TA-4. But the tool is meant to display metadata produced by MIT and UA processes.
 
 You can see a video of the tool in action at this URL:
-https://drive.google.com/drive/folders/1VI-iDNR3Km9RP7mjKrBVoV5mT-OGK8V8
+https://drive.google.com/file/d/1uNLWvTCSKpenkbTnn0jOAuBKvB-D2yBz/view?usp=share_link
 
 It is an extended attempt by James of Florida to use the tool to recover the Petri Net.  More about this shortly.
 
