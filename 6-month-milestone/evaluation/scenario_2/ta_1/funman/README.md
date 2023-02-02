@@ -21,3 +21,9 @@
     - funman_s2_1_b_i_SKEMA_extract_test_case.png: Plot of the sum(I, D, A, R, T) by time, used to identify peak infected. 
     - funman_s2_1_b_i_SKEMA_extract_bilayer.pdf: Bilayer graph
     - funman_s2_1_b_i_SKEMA_extract_bilayer.json: Bilayer graph source
+
+## Unit Test 1 (1.d.)
+- Minimum theta and epsilon are in regions (white) that are not proven to be inconsistent with the query (sum(IDART)<=1/3).  An example region is the point near (0.12, 0.24).  The regions allow different functions of epsilon and theta (depending on analyst preference).
+- funman_s2_1_d_parameter_space.json: FUNMAN Parameter Space Object
+- funman_s2_1_d_parameter_space.png: Figure of Parameter Space
+- test case is at: https://github.com/ml4ai/funman/blob/6mo-evaluation/scratch/evaluation23_s2.py
