@@ -40,5 +40,29 @@ It is an extended attempt by James of Florida to use the tool to recover the Pet
 ---
 ## Initial Experiment
 
-One of the goals of TA-1 is to produce a model that can be used by downstream teams. 
+One of the goals of TA-1 is to produce a petri net model that can be used by downstream teams. If we do a better job of extracting information from code, paper, formula, and data sources, then the resulting incomplete-but-annotated petri net should be straightforward for a user to correct.
+
+We can now ship extractions and metadata to the user-facing editing tool described above, so we ran a simple (and flawed) initial experiment.
+
+Justin from UA attempted to build the SIDDARTHE Petri Net using an editor that showed all of the correct formulas, as well as good editing functionality that showed the formula described by the current-Petri-Net-in-progress. It took him about 15 minutes.
+
+We sent our extractions for the same model to a novel editing tool. This tool lacked almost all of the nice features described in the paragraph above. It didn't show the correct formulas, and it didn't show the formulas that describe the Petri-Net-in-progress. This tool didn't even allow the user to delete an edge that was incorrectly placed! However, it did show off all the upstream metadata extractions.  James used this tool to do the same task as Justin. His experience was recorded in the video above.
+
+The bad news is that it took James 25 minutes before he ran out of gas: although he made a lot of progress, the network was still not done. So we failed to "beat" the naive approach in terms of time needed to arrive at a correct Petri Net.
+
+The good news is that James gave a lot of useful feedback, much of it centered around a few small changes we can make to the tool itself rather than the extractions.  One important suggestion was to show extracted species and transitions annotated with actual rendered portions of the original paper  (rather than unrendered extracted LaTeX). Another was to reorganize the way we present information; right now the "per-node-metadata" display made it hard to have a TODO list that he worked his way down.  It was a constant struggle to remember where he was in the Petri Net process.  There are a few moments in the video above where improved extraction quality might have made a differnce, but right now it seems we can improve a lot by more pure tool based edits.
+
+---
+## Reachback and Data Services
+
+Finally, we implemented a few services that are not integrated in the objects listed above.
+
+The first is the extraction-to-datacolumn integrator. As mentioned above, this REST service works but is not integrated into the overall metadata extraction flow. It will be shortly.
+
+The second is a "reachback service" for variables that have seemingly-unreliable data. A TA-3 modeler may decide a particular variable-with-data is possibly not reliable --- perhaps the data failed a statistical test or perhaps the user read an article in the news about how certain COVID stats are becoming less reliable with the growth of home testing.  The user should be able to "reach back" for more support data from TA-1.
+
+Right now the system works by taking as input a particular variable name.  This is a set of data the user views as flawed (say, COVID infection numbers). The system then emits as output a list of other known datasets that might be relevant or correlated to the original questionable dataset. For example, the COVID infection data might be a query input, and the system might return datasets that are fairly closely correlated, such as wastewater data. The goal is to provide the user with data that might be useful as a proxy, or in predicting the variable's true value.
+
+This service works as of the end of Wednesday but has not yet been integrated into any user-facing system
+
 
