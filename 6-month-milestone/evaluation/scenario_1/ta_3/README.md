@@ -18,3 +18,20 @@ https://github.com/DARPA-ASKEM/program-milestones/blob/main/6-month-milestone/ev
 A cloud runnable version which allows for changing any plots interactively can be found via signing in at the link:
 
 https://juliahub.com/pluto/editor.html?id=2d701ac3-a284-4622-859f-a1ce8088855b
+
+## Using the Pluto Notebooks
+
+The Pluto notebooks are fully relocatable and download the dependencies and data on-demand, making them easy
+install and use. To do this, first install Julia v1.8.5 from https://julialang.org/downloads/. Then
+open up Julia and run:
+
+```julia
+using Pkg
+Pkg.add("Pluto")
+import Pluto
+Pluto.run()
+```
+
+When this window opens in your browser, navigate to the Pluto notebook. Opening it will start the download
+of all data and dependencies, along with the automatic installation and compilation of all dependencies.
+This may take awhile due to the complexity of the downloads.
