@@ -14,6 +14,9 @@ begin
 	using Base: splat
 end
 
+# ╔═╡ 445a3e17-4178-494d-9496-024ecc142dda
+using Downloads
+
 # ╔═╡ ff4d383f-daa6-4031-87dc-ef919206eac8
 using DataSets, JuliaHubData
 
@@ -287,42 +290,54 @@ md"""
 (JuliaHub-specific dataset loading:)
 """
 
-# ╔═╡ 01225dff-b793-4201-8ec8-e6099a497b6b
+# ╔═╡ 5658bb87-c20b-48ee-8b12-742a91fecf1f
 begin
-	juliahub_dataset_folder = open(BlobTree, 	dataset("panagiotis_georgakopoulos2/scenario1_data"))
+	base = "https://raw.githubusercontent.com/ChrisRackauckas/ASKEM_Evaluation_Staging/main/docs/src/Scenario1/data/"
+	files = [
+		"2016_belgium_population_by_age.csv",
+		"2016_india_population_by_age.csv",
+		"2021_population_by_age.csv",
+		"2022_%20Belgium_population_by_age.csv",
+		"MUestimates_all_locations_1.xlsx",
+		"MUestimates_all_locations_2.xlsx",
+		"MUestimates_home_1.xlsx",
+		"MUestimates_home_2.xlsx",
+		"MUestimates_other_locations_1.xlsx",
+		"MUestimates_other_locations_2.xlsx",
+		"MUestimates_school_1.xlsx",
+		"MUestimates_school_2.xlsx",
+		"MUestimates_work_1.xlsx",
+		"MUestimates_work_2.xlsx",
+		"belgium_all_locations_cm.txt",
+		"contact_matrix_data.txt",
+		"india_all_locations_cm.txt"
+	]
 	rm("./data"; force=true, recursive=true)
 	mkdir("./data")
-	write("data/MUestimates_all_locations_1.xlsx",
-		open(IO, juliahub_dataset_folder["MUestimates_all_locations_1.xlsx"]))
-	write("data/MUestimates_all_locations_2.xlsx", 
-		open(IO, juliahub_dataset_folder["MUestimates_all_locations_2.xlsx"]))
-	write("data/MUestimates_work_1.xlsx", open(IO, 	
-		juliahub_dataset_folder["MUestimates_work_1.xlsx"]))
-	write("data/MUestimates_work_2.xlsx", open(IO, 
-		juliahub_dataset_folder["MUestimates_work_2.xlsx"]))
-	write("data/MUestimates_school_1.xlsx", open(IO,
-		juliahub_dataset_folder["MUestimates_school_1.xlsx"]))
-	write("data/MUestimates_school_2.xlsx", open(IO, 
-		juliahub_dataset_folder["MUestimates_school_2.xlsx"]))
-	write("data/MUestimates_home_1.xlsx", open(IO, 
-		juliahub_dataset_folder["MUestimates_home_1.xlsx"]))
-	write("data/MUestimates_home_2.xlsx", open(IO,
-		juliahub_dataset_folder["MUestimates_home_2.xlsx"]))
-	write("data/MUestimates_other_locations_1.xlsx", open(IO, 
-		juliahub_dataset_folder["MUestimates_other_locations_1.xlsx"]))
-	write("data/MUestimates_other_locations_2.xlsx", open(IO, 
-		juliahub_dataset_folder["MUestimates_other_locations_2.xlsx"]))
-	
-	xf_all_locations1 = XLSX.readxlsx("data/MUestimates_all_locations_1.xlsx")
-	xf_all_locations2 = XLSX.readxlsx("data/MUestimates_all_locations_2.xlsx")
-	xf_work1 = XLSX.readxlsx("data/MUestimates_work_1.xlsx")
-	xf_work2 = XLSX.readxlsx("data/MUestimates_work_2.xlsx")
-	xf_school1 = XLSX.readxlsx("data/MUestimates_school_1.xlsx")
-	xf_school2 = XLSX.readxlsx("data/MUestimates_school_2.xlsx")
-	xf_home1 = XLSX.readxlsx("data/MUestimates_home_1.xlsx")
-	xf_home2 = XLSX.readxlsx("data/MUestimates_home_2.xlsx")
-	xf_other1 = XLSX.readxlsx("data/MUestimates_other_locations_1.xlsx")
-	xf_other2 = XLSX.readxlsx("data/MUestimates_other_locations_2.xlsx")
+	for file in files
+		sleep(0.25)
+		@info "./data/$file"
+		Downloads.download(joinpath(base, file), "./data/$file")
+	end
+	ok = true
+end
+
+# ╔═╡ 47855a24-60cf-4939-bbc1-5915fee2d184
+readdir("./data")
+
+# ╔═╡ 01225dff-b793-4201-8ec8-e6099a497b6b
+begin
+	ok
+	xf_all_locations1 = XLSX.readxlsx("./data/MUestimates_all_locations_1.xlsx")
+	xf_all_locations2 = XLSX.readxlsx("./data/MUestimates_all_locations_2.xlsx")
+	xf_work1 = XLSX.readxlsx("./data/MUestimates_work_1.xlsx")
+	xf_work2 = XLSX.readxlsx("./data/MUestimates_work_2.xlsx")
+	xf_school1 = XLSX.readxlsx("./data/MUestimates_school_1.xlsx")
+	xf_school2 = XLSX.readxlsx("./data/MUestimates_school_2.xlsx")
+	xf_home1 = XLSX.readxlsx("./data/MUestimates_home_1.xlsx")
+	xf_home2 = XLSX.readxlsx("./data/MUestimates_home_2.xlsx")
+	xf_other1 = XLSX.readxlsx("./data/MUestimates_other_locations_1.xlsx")
+	xf_other2 = XLSX.readxlsx("./data/MUestimates_other_locations_2.xlsx")
 
 xfs1 = (; all = xf_all_locations1, work = xf_work1, school = xf_school1,
         home = xf_home1, other = xf_other1)
@@ -351,7 +366,7 @@ Next we load the population distribution data.
 
 # ╔═╡ c7f3692b-97e5-49f7-a47e-22ff416f9413
 begin
-	pop_belg = collect(values(CSV.read(open(IO, juliahub_dataset_folder["2022_ Belgium_population_by_age.csv"]), DataFrame,
+	pop_belg = collect(values(CSV.read("./data/2022_%20Belgium_population_by_age.csv", DataFrame,
                            header = 3)[1, 2:17]))
 bar(1:length(pop_belg), collect(pop_belg), permute=(:x, :y), xlabel="Age (5 year buckets)", ylabel="Total # of people", leg=:none)
 end
@@ -381,7 +396,7 @@ begin
 	hm = heatmap(cm_india, yflip=true)
 	
 	# Load India population distribution
-	pop_india = collect(values(CSV.read(open(IO, juliahub_dataset_folder["2016_india_population_by_age.csv"]), DataFrame)[1, 3:18]))
+	pop_india = collect(values(CSV.read("./data/2016_india_population_by_age.csv", DataFrame)[1, 3:18]))
 	bar_india = bar(1:length(pop_india), collect(pop_india), permute=(:x, :y), xlabel="Age (5 year buckets)", ylabel="Total # of people", leg=:none)
 	plot(hm, bar_india)
 end
@@ -444,6 +459,7 @@ CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 Catlab = "134e5e36-593f-5add-ad60-77f754baafbe"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DataSets = "c9661210-8a83-48f0-b833-72e62abce419"
+Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 EasyModelAnalysis = "ef4b24a4-a090-4686-a932-e7e56a5a83bd"
 JuliaHubData = "e241c0f9-2941-4184-86f1-92558f4420e8"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
@@ -3016,6 +3032,9 @@ version = "1.4.1+0"
 # ╠═213b0b06-143c-4aac-9aad-5474fa5e564f
 # ╟─f0d7b892-7ac4-4dfc-8c99-3b9e55887099
 # ╟─689f59b9-fccb-4a80-bfae-f801efc1ef59
+# ╠═5658bb87-c20b-48ee-8b12-742a91fecf1f
+# ╠═445a3e17-4178-494d-9496-024ecc142dda
+# ╠═47855a24-60cf-4939-bbc1-5915fee2d184
 # ╠═ff4d383f-daa6-4031-87dc-ef919206eac8
 # ╠═01225dff-b793-4201-8ec8-e6099a497b6b
 # ╟─d4ca58a2-3504-4650-b6f6-f0e290748b4f

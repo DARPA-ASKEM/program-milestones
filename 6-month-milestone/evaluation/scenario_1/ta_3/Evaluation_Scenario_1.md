@@ -16,7 +16,8 @@ using EasyModelAnalysis, LinearAlgebra
 using EasyModelAnalysis.ModelingToolkit: toparam
 using EasyModelAnalysis.ModelingToolkit.Symbolics: FnType, variables
 using XLSX, CSV, DataFrames, Plots
-using Catlab, Catlab.CategoricalAlgebra, Catlab.Programs, AlgebraicPetri, AlgebraicPetri.TypedPetri
+using Catlab, Catlab.CategoricalAlgebra, Catlab.Programs, AlgebraicPetri,
+      AlgebraicPetri.TypedPetri
 using Base: splat
 ```
 
@@ -29,7 +30,7 @@ We begin by creating a basic function that manually creates a stratified SIR mod
 ```@example scenario1
 tf = 600
 const k = 1000
-const γ = 1/14
+const γ = 1 / 14
 const R₀ = 5
 const β = R₀ * γ
 
@@ -45,21 +46,22 @@ considered infected initially.
 """
 function make_stratified_model(pops, contactmat; infectedfrac = nothing)
     types = LabelledPetriNet([:Pop],
-                             :infect=>((:Pop, :Pop)=>(:Pop, :Pop)),
-                             :disease=>(:Pop=>:Pop),
-                             :strata=>(:Pop=>:Pop))
-    sir_uwd = @relation () where (S::Pop, I::Pop, R::Pop) begin
-        infect(S,I,I,I)
-        disease(I,R)
+                             :infect => ((:Pop, :Pop) => (:Pop, :Pop)),
+                             :disease => (:Pop => :Pop),
+                             :strata => (:Pop => :Pop))
+    sir_uwd = @relation () where {(S::Pop, I::Pop, R::Pop)} begin
+        infect(S, I, I, I)
+        disease(I, R)
     end
     sir_typed = oapply_typed(types, sir_uwd, [:inf, :rec])
     totalpop = sum(pops)
     n = length(pops)
     I₀ = something(infectedfrac, n / totalpop)
-    sir_paramd = add_params(sir_typed, Dict{Symbol,Float64}(:S => 1 - I₀, :I => I₀, :R => 0),
+    sir_paramd = add_params(sir_typed,
+                            Dict{Symbol, Float64}(:S => 1 - I₀, :I => I₀, :R => 0),
                             Dict(:inf => β, :rec => γ))
 
-    ages = pairwise_id_typed_petri(types, :Pop, :infect, [Symbol("A$i") for i = 1:n],
+    ages = pairwise_id_typed_petri(types, :Pop, :infect, [Symbol("A$i") for i in 1:n],
                                    pops, contactmat ./ pops,
                                    codom_net = codom(sir_paramd))
     ages = add_reflexives(ages, repeat([[:disease]], n), types)
@@ -92,6 +94,7 @@ end
 > Start with a simple stratification with three age groups: young, middle-aged, and old.
 
 ### Sub-question 1.a.
+
 > Begin with a situation where the population size across each age group is uniform: N_young = 2k, N_middle = 2k, N_old = 2k. Assume only one person in each age group is infectious at the beginning of the simulation. Let gamma = 1/14 days, and let R0 = 5. Assume gamma, beta, and R0 are the same for all age groups.
 
 > i. Simulate this model for the case where the 3x3 contact matrix is uniform (all values in matrix are 0.33)
@@ -99,7 +102,7 @@ end
 N.B.: Uniform `1/n_strata` is the default in our model creation function above.
 
 ```@example scenario1
-sol = scenario1([2k, 2k, 2k], fill(1/3, 3, 3), numinfected = 1)
+sol = scenario1([2k, 2k, 2k], fill(1 / 3, 3, 3), numinfected = 1)
 plt_a1 = plot(sol, leg = :topright)
 ```
 
@@ -112,9 +115,9 @@ and somewhat weak (but differening, to make the plots more interesting)
 off-diagonal interactions.
 
 ```@example scenario1
-contact_matrix = [0.4  0.05  0.1
-                  0.05 0.4   0.15          
-                  0.1  0.15  0.4]
+contact_matrix = [0.4 0.05 0.1
+                  0.05 0.4 0.15
+                  0.1 0.15 0.4]
 ```
 
 We now use this updated contact matrix to re-run the simulation.
@@ -160,7 +163,7 @@ plot(plt_a1, plt_a2, plt_a3, plt_a4, plt_a5, size = (1000, 500))
 > Repeat 1.a for a younger-skewing population: `N_young = 3k, N_middle = 2k, N_old = 1k`
 
 ```@example scenario1
-sol = scenario1([3k, 2k, 1k], fill(1/3, 3, 3), numinfected = 1)
+sol = scenario1([3k, 2k, 1k], fill(1 / 3, 3, 3), numinfected = 1)
 plt_b1 = plot(sol, leg = :topright, title = "i")
 
 sol = scenario1([3k, 2k, 1k], contact_matrix, numinfected = 1)
@@ -181,7 +184,7 @@ plot(plt_b1, plt_b2, plt_b3, plt_b4, plt_b5, size = (1000, 500))
 > Repeat 1.a for an older-skewing population: `N_young = 1k, N_middle = 2k, N_old = 3k`
 
 ```@example scenario1
-sol = scenario1([1k, 2k, 3k], fill(1/3, 3, 3), numinfected = 1)
+sol = scenario1([1k, 2k, 3k], fill(1 / 3, 3, 3), numinfected = 1)
 plt_c1 = plot(sol, leg = :topright, title = "i")
 
 sol = scenario1([1k, 2k, 3k], contact_matrix, numinfected = 1)
@@ -220,6 +223,7 @@ a data set of the sum of these locations). The data values in these
 excel files are raw, averaged survey results.
 
 !!! note
+    
     We make no attempt to normalize or otherwise adjust the contact matrices. The interpretation of the contact matrices needs to be
     consistent with the SIR parameter `β`, which is fixed in our the
     given scenario. In a real world case, care would need to be taken
@@ -252,15 +256,16 @@ and quickly visualizing the contract matrix.
 ```@example scenario1
 # Load Belgium contact matrix
 cm_belg = to_cm(xf_all_locations1["Belgium"])
-heatmap(cm_belg, yflip=true)
+heatmap(cm_belg, yflip = true)
 ```
 
 Next we load the population distribution data.
 
 ```@example scenario1
 pop_belg = collect(values(CSV.read("data/2022_ Belgium_population_by_age.csv", DataFrame,
-                           header = 3)[1, 2:17]))
-bar(1:length(pop_belg), collect(pop_belg), permute=(:x, :y), xlabel="Age (5 year buckets)", ylabel="Total # of people", leg=:none)
+                                   header = 3)[1, 2:17]))
+bar(1:length(pop_belg), collect(pop_belg), permute = (:x, :y),
+    xlabel = "Age (5 year buckets)", ylabel = "Total # of people", leg = :none)
 ```
 
 ```@example scenario1
@@ -277,11 +282,13 @@ TA1 advises that India has significant multi-generational contact, while Belgium
 ```@example scenario1
 # Load India contact matrix
 cm_india = to_cm(xf_all_locations1["India"])
-hm = heatmap(cm_india, yflip=true)
+hm = heatmap(cm_india, yflip = true)
 
 # Load India population distribution
-pop_india = collect(values(CSV.read("data/2016_india_population_by_age.csv", DataFrame)[1, 3:18]))
-bar_india = bar(1:length(pop_india), collect(pop_india), permute=(:x, :y), xlabel="Age (5 year buckets)", ylabel="Total # of people", leg=:none)
+pop_india = collect(values(CSV.read("data/2016_india_population_by_age.csv", DataFrame)[1,
+                                                                                        3:18]))
+bar_india = bar(1:length(pop_india), collect(pop_india), permute = (:x, :y),
+                xlabel = "Age (5 year buckets)", ylabel = "Total # of people", leg = :none)
 plot(hm, bar_india)
 ```
 
