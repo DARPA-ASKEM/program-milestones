@@ -1,0 +1,1659 @@
+{
+   "$schema": "https://vega.github.io/schema/vega/v5.json",
+   "width": 500,
+   "height": 300,
+   "scales": [
+      {
+         "name": "xscale",
+         "type": "linear",
+         "range": "width",
+         "zero": false,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "traces",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "points",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "markers",
+                  "field": "timepoint"
+               }
+            ]
+         }
+      },
+      {
+         "name": "yscale",
+         "type": "linear",
+         "range": "height",
+         "nice": true,
+         "zero": true,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "lower"
+               },
+               {
+                  "data": "distributions",
+                  "field": "upper"
+               },
+               {
+                  "data": "traces",
+                  "field": "value"
+               },
+               {
+                  "data": "points",
+                  "field": "value"
+               }
+            ]
+         }
+      },
+      {
+         "name": "color",
+         "type": "ordinal",
+         "range": "category",
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "trajectory"
+               },
+               {
+                  "data": "traces",
+                  "field": "trajectory"
+               },
+               {
+                  "data": "points",
+                  "field": "trajectory"
+               }
+            ],
+            "sort": {
+               "order": "ascending"
+            }
+         }
+      }
+   ],
+   "axes": [
+      {
+         "name": "x_axis",
+         "orient": "bottom",
+         "scale": "xscale",
+         "zindex": 100,
+         "title": "time (days)"
+      },
+      {
+         "name": "y_axis",
+         "orient": "left",
+         "scale": "yscale",
+         "zindex": 100
+      }
+   ],
+   "signals": [
+      {
+         "name": "clear",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "shift",
+         "value": false,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "event.shiftKey",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clicked",
+         "value": null,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "{value: datum.value}",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clearData",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clickedData",
+         "value": null,
+         "on": [
+            {
+               "events": "@area:click",
+               "update": "{value: datum.trajectory}",
+               "force": true
+            }
+         ]
+      }
+   ],
+   "legends": [
+      {
+         "name": "color_legend",
+         "stroke": "color",
+         "encode": {
+            "symbols": {
+               "name": "legendSymbol",
+               "interactive": true,
+               "update": {
+                  "fill": {
+                     "value": "transparent"
+                  },
+                  "strokeWidth": {
+                     "value": 2
+                  },
+                  "opacity": [
+                     {
+                        "test": "!length(data('selected')) || indata('selected', 'value', datum.value) || indata('selectedData', 'value', datum.value)",
+                        "value": 0.7
+                     },
+                     {
+                        "value": 0.15
+                     }
+                  ],
+                  "size": {
+                     "value": 64
+                  }
+               }
+            },
+            "labels": {
+               "name": "legendLabel",
+               "interactive": true,
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "!length(data('selectedData')) || indata('selectedData', 'value', datum.value)",
+                        "value": 1
+                     },
+                     {
+                        "value": 0.25
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   ],
+   "marks": [
+      {
+         "type": "group",
+         "zindex": 3,
+         "name": "_points",
+         "from": {
+            "facet": {
+               "name": "points_split",
+               "data": "points",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "symbol",
+               "name": "_points_symbol",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "size": {
+                        "value": 35
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "fill": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "tooltip": {
+                        "field": "value"
+                     }
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            },
+            {
+               "type": "line",
+               "name": "_points_line",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeDash": {
+                        "value": [
+                           5,
+                           3
+                        ]
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.3
+                        },
+                        {
+                           "value": 0.1
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "zindex": 2,
+         "name": "_traces",
+         "from": {
+            "facet": {
+               "name": "traces_split",
+               "data": "traces",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "line",
+               "name": "_traces_lines",
+               "from": {
+                  "data": "traces_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_distributions",
+         "zindex": 1,
+         "from": {
+            "facet": {
+               "name": "trajectory_split",
+               "data": "distributions",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "area",
+               "name": "area",
+               "interactive": true,
+               "from": {
+                  "data": "trajectory_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "upper"
+                     },
+                     "y2": {
+                        "scale": "yscale",
+                        "field": "lower"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "fill": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_markers",
+         "marks": [
+            {
+               "type": "rule",
+               "name": "_marker text",
+               "from": {
+                  "data": "markers"
+               },
+               "encode": {
+                  "enter": {
+                     "stroke": {
+                        "value": "lightgray"
+                     }
+                  },
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y2": {
+                        "value": 0
+                     },
+                     "y": {
+                        "signal": "height"
+                     },
+                     "opacity": {
+                        "value": 1
+                     }
+                  }
+               }
+            },
+            {
+               "type": "text",
+               "name": "_marker flags",
+               "from": {
+                  "data": "_marker text"
+               },
+               "encode": {
+                  "enter": {
+                     "text": {
+                        "field": "datum.label"
+                     },
+                     "y": {
+                        "value": 0
+                     },
+                     "fontSize": {
+                        "value": 8
+                     }
+                  }
+               },
+               "transform": [
+                  {
+                     "type": "label",
+                     "lineAnchor": "start",
+                     "as": [
+                        "x",
+                        "_y",
+                        "opacity",
+                        "align",
+                        "baseline"
+                     ],
+                     "offset": [
+                        1
+                     ],
+                     "size": {
+                        "signal": "[width, height]"
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "data": [
+      {
+         "name": "distributions",
+         "values": [
+            {
+               "trajectory": "Species 1",
+               "timepoint": 0,
+               "lower": 0.6488886475563049,
+               "upper": 0.6488886475563049
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 1,
+               "lower": 0.7715744376182556,
+               "upper": 0.7715744376182556
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 2,
+               "lower": 0.8673337697982788,
+               "upper": 0.8673337697982788
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 3,
+               "lower": 0.9350361227989197,
+               "upper": 0.9350361227989197
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 4,
+               "lower": 0.9795771837234497,
+               "upper": 0.9795771837234497
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 5,
+               "lower": 1.0074831247329712,
+               "upper": 1.0074831247329712
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 6,
+               "lower": 1.0244179964065552,
+               "upper": 1.0244179964065552
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 7,
+               "lower": 1.03448486328125,
+               "upper": 1.03448486328125
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 8,
+               "lower": 1.040384292602539,
+               "upper": 1.040384292602539
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 9,
+               "lower": 1.0438071489334106,
+               "upper": 1.0438071489334106
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 10,
+               "lower": 1.0457727909088135,
+               "upper": 1.0457727909088135
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 11,
+               "lower": 1.0468958616256714,
+               "upper": 1.0468958616256714
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 12,
+               "lower": 1.047528862953186,
+               "upper": 1.047528862953186
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 13,
+               "lower": 1.0478814840316772,
+               "upper": 1.0478814840316772
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 14,
+               "lower": 1.0480830669403076,
+               "upper": 1.0480830669403076
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 15,
+               "lower": 1.0481858253479004,
+               "upper": 1.0481858253479004
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 16,
+               "lower": 1.0482423305511475,
+               "upper": 1.0482423305511475
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 17,
+               "lower": 1.0482734441757202,
+               "upper": 1.0482734441757202
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 18,
+               "lower": 1.0482916831970215,
+               "upper": 1.0482916831970215
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 19,
+               "lower": 1.048302412033081,
+               "upper": 1.048302412033081
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 20,
+               "lower": 1.0483112335205078,
+               "upper": 1.0483112335205078
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 21,
+               "lower": 1.0483168363571167,
+               "upper": 1.0483168363571167
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 22,
+               "lower": 1.048323392868042,
+               "upper": 1.048323392868042
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 23,
+               "lower": 1.0483287572860718,
+               "upper": 1.0483287572860718
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 24,
+               "lower": 1.0483335256576538,
+               "upper": 1.0483335256576538
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 25,
+               "lower": 1.0483412742614746,
+               "upper": 1.0483412742614746
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 26,
+               "lower": 1.0483468770980835,
+               "upper": 1.0483468770980835
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 27,
+               "lower": 1.048353910446167,
+               "upper": 1.048353910446167
+            },
+            {
+               "trajectory": "Species 1",
+               "timepoint": 28,
+               "lower": 1.0483602285385132,
+               "upper": 1.0483602285385132
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 0,
+               "lower": 0.4495263695716858,
+               "upper": 0.4495263695716858
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 1,
+               "lower": 0.5036332607269287,
+               "upper": 0.5036332607269287
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 2,
+               "lower": 0.5506487488746643,
+               "upper": 0.5506487488746643
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 3,
+               "lower": 0.5900428891181946,
+               "upper": 0.5900428891181946
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 4,
+               "lower": 0.6221575736999512,
+               "upper": 0.6221575736999512
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 5,
+               "lower": 0.6478468179702759,
+               "upper": 0.6478468179702759
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 6,
+               "lower": 0.6681630611419678,
+               "upper": 0.6681630611419678
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 7,
+               "lower": 0.6841485500335693,
+               "upper": 0.6841485500335693
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 8,
+               "lower": 0.6967267990112305,
+               "upper": 0.6967267990112305
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 9,
+               "lower": 0.7066636681556702,
+               "upper": 0.7066636681556702
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 10,
+               "lower": 0.7145670652389526,
+               "upper": 0.7145670652389526
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 11,
+               "lower": 0.7209120988845825,
+               "upper": 0.7209120988845825
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 12,
+               "lower": 0.7260556221008301,
+               "upper": 0.7260556221008301
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 13,
+               "lower": 0.7302692532539368,
+               "upper": 0.7302692532539368
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 14,
+               "lower": 0.7337608337402344,
+               "upper": 0.7337608337402344
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 15,
+               "lower": 0.7366838455200195,
+               "upper": 0.7366838455200195
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 16,
+               "lower": 0.7391528487205505,
+               "upper": 0.7391528487205505
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 17,
+               "lower": 0.7412552237510681,
+               "upper": 0.7412552237510681
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 18,
+               "lower": 0.7430641651153564,
+               "upper": 0.7430641651153564
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 19,
+               "lower": 0.7446304559707642,
+               "upper": 0.7446304559707642
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 20,
+               "lower": 0.7459914684295654,
+               "upper": 0.7459914684295654
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 21,
+               "lower": 0.7471842169761658,
+               "upper": 0.7471842169761658
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 22,
+               "lower": 0.7482330799102783,
+               "upper": 0.7482330799102783
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 23,
+               "lower": 0.7491589784622192,
+               "upper": 0.7491589784622192
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 24,
+               "lower": 0.749979555606842,
+               "upper": 0.749979555606842
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 25,
+               "lower": 0.7507079839706421,
+               "upper": 0.7507079839706421
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 26,
+               "lower": 0.7513567805290222,
+               "upper": 0.7513567805290222
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 27,
+               "lower": 0.7519364356994629,
+               "upper": 0.7519364356994629
+            },
+            {
+               "trajectory": "Species 2",
+               "timepoint": 28,
+               "lower": 0.7524548768997192,
+               "upper": 0.7524548768997192
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 0,
+               "lower": 0.9044449329376221,
+               "upper": 0.9044449329376221
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 1,
+               "lower": 0.9258778691291809,
+               "upper": 0.9258778691291809
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 2,
+               "lower": 0.9451590776443481,
+               "upper": 0.9451590776443481
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 3,
+               "lower": 0.9625240564346313,
+               "upper": 0.9625240564346313
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 4,
+               "lower": 0.9775829911231995,
+               "upper": 0.9775829911231995
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 5,
+               "lower": 0.9898816347122192,
+               "upper": 0.9898816347122192
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 6,
+               "lower": 0.999324381351471,
+               "upper": 0.999324381351471
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 7,
+               "lower": 1.0061997175216675,
+               "upper": 1.0061997175216675
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 8,
+               "lower": 1.0109965801239014,
+               "upper": 1.0109965801239014
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 9,
+               "lower": 1.014233112335205,
+               "upper": 1.014233112335205
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 10,
+               "lower": 1.016355037689209,
+               "upper": 1.016355037689209
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 11,
+               "lower": 1.0177135467529297,
+               "upper": 1.0177135467529297
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 12,
+               "lower": 1.0185595750808716,
+               "upper": 1.0185595750808716
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 13,
+               "lower": 1.0190660953521729,
+               "upper": 1.0190660953521729
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 14,
+               "lower": 1.0193589925765991,
+               "upper": 1.0193589925765991
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 15,
+               "lower": 1.0195121765136719,
+               "upper": 1.0195121765136719
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 16,
+               "lower": 1.0195744037628174,
+               "upper": 1.0195744037628174
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 17,
+               "lower": 1.019584059715271,
+               "upper": 1.019584059715271
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 18,
+               "lower": 1.019562005996704,
+               "upper": 1.019562005996704
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 19,
+               "lower": 1.0195202827453613,
+               "upper": 1.0195202827453613
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 20,
+               "lower": 1.0194669961929321,
+               "upper": 1.0194669961929321
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 21,
+               "lower": 1.0194085836410522,
+               "upper": 1.0194085836410522
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 22,
+               "lower": 1.0193490982055664,
+               "upper": 1.0193490982055664
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 23,
+               "lower": 1.019289255142212,
+               "upper": 1.019289255142212
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 24,
+               "lower": 1.0192315578460693,
+               "upper": 1.0192315578460693
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 25,
+               "lower": 1.0191763639450073,
+               "upper": 1.0191763639450073
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 26,
+               "lower": 1.019124150276184,
+               "upper": 1.019124150276184
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 27,
+               "lower": 1.0190751552581787,
+               "upper": 1.0190751552581787
+            },
+            {
+               "trajectory": "Species 3",
+               "timepoint": 28,
+               "lower": 1.0190290212631226,
+               "upper": 1.0190290212631226
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 0,
+               "lower": 0.4023823142051697,
+               "upper": 0.4023823142051697
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 1,
+               "lower": 0.399036705493927,
+               "upper": 0.399036705493927
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 2,
+               "lower": 0.39175328612327576,
+               "upper": 0.39175328612327576
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 3,
+               "lower": 0.3820788860321045,
+               "upper": 0.3820788860321045
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 4,
+               "lower": 0.3712208867073059,
+               "upper": 0.3712208867073059
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 5,
+               "lower": 0.3600449860095978,
+               "upper": 0.3600449860095978
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 6,
+               "lower": 0.34912291169166565,
+               "upper": 0.34912291169166565
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 7,
+               "lower": 0.3387972414493561,
+               "upper": 0.3387972414493561
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 8,
+               "lower": 0.3292458653450012,
+               "upper": 0.3292458653450012
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 9,
+               "lower": 0.32053789496421814,
+               "upper": 0.32053789496421814
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 10,
+               "lower": 0.31267333030700684,
+               "upper": 0.31267333030700684
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 11,
+               "lower": 0.3056134581565857,
+               "upper": 0.3056134581565857
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 12,
+               "lower": 0.2992995083332062,
+               "upper": 0.2992995083332062
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 13,
+               "lower": 0.2936640679836273,
+               "upper": 0.2936640679836273
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 14,
+               "lower": 0.28863969445228577,
+               "upper": 0.28863969445228577
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 15,
+               "lower": 0.284160852432251,
+               "upper": 0.284160852432251
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 16,
+               "lower": 0.28016775846481323,
+               "upper": 0.28016775846481323
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 17,
+               "lower": 0.2766042947769165,
+               "upper": 0.2766042947769165
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 18,
+               "lower": 0.27342283725738525,
+               "upper": 0.27342283725738525
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 19,
+               "lower": 0.27057945728302,
+               "upper": 0.27057945728302
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 20,
+               "lower": 0.2680356502532959,
+               "upper": 0.2680356502532959
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 21,
+               "lower": 0.2657579481601715,
+               "upper": 0.2657579481601715
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 22,
+               "lower": 0.2637162208557129,
+               "upper": 0.2637162208557129
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 23,
+               "lower": 0.26188451051712036,
+               "upper": 0.26188451051712036
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 24,
+               "lower": 0.26023951172828674,
+               "upper": 0.26023951172828674
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 25,
+               "lower": 0.2587614059448242,
+               "upper": 0.2587614059448242
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 26,
+               "lower": 0.2574317157268524,
+               "upper": 0.2574317157268524
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 27,
+               "lower": 0.2562350928783417,
+               "upper": 0.2562350928783417
+            },
+            {
+               "trajectory": "Species 4",
+               "timepoint": 28,
+               "lower": 0.2551572918891907,
+               "upper": 0.2551572918891907
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 0,
+               "lower": 0.33271533250808716,
+               "upper": 0.33271533250808716
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 1,
+               "lower": 0.5089414715766907,
+               "upper": 0.5089414715766907
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 2,
+               "lower": 0.704526424407959,
+               "upper": 0.704526424407959
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 3,
+               "lower": 0.8827989101409912,
+               "upper": 0.8827989101409912
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 4,
+               "lower": 1.0181715488433838,
+               "upper": 1.0181715488433838
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 5,
+               "lower": 1.1070457696914673,
+               "upper": 1.1070457696914673
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 6,
+               "lower": 1.1595839262008667,
+               "upper": 1.1595839262008667
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 7,
+               "lower": 1.1883944272994995,
+               "upper": 1.1883944272994995
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 8,
+               "lower": 1.203244686126709,
+               "upper": 1.203244686126709
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 9,
+               "lower": 1.210387945175171,
+               "upper": 1.210387945175171
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 10,
+               "lower": 1.2134606838226318,
+               "upper": 1.2134606838226318
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 11,
+               "lower": 1.2144705057144165,
+               "upper": 1.2144705057144165
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 12,
+               "lower": 1.2144864797592163,
+               "upper": 1.2144864797592163
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 13,
+               "lower": 1.2140625715255737,
+               "upper": 1.2140625715255737
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 14,
+               "lower": 1.2134813070297241,
+               "upper": 1.2134813070297241
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 15,
+               "lower": 1.2128711938858032,
+               "upper": 1.2128711938858032
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 16,
+               "lower": 1.2122961282730103,
+               "upper": 1.2122961282730103
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 17,
+               "lower": 1.2117743492126465,
+               "upper": 1.2117743492126465
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 18,
+               "lower": 1.21131432056427,
+               "upper": 1.21131432056427
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 19,
+               "lower": 1.210911750793457,
+               "upper": 1.210911750793457
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 20,
+               "lower": 1.210562825202942,
+               "upper": 1.210562825202942
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 21,
+               "lower": 1.2102574110031128,
+               "upper": 1.2102574110031128
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 22,
+               "lower": 1.2099895477294922,
+               "upper": 1.2099895477294922
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 23,
+               "lower": 1.2097575664520264,
+               "upper": 1.2097575664520264
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 24,
+               "lower": 1.2095528841018677,
+               "upper": 1.2095528841018677
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 25,
+               "lower": 1.2093720436096191,
+               "upper": 1.2093720436096191
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 26,
+               "lower": 1.209213137626648,
+               "upper": 1.209213137626648
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 27,
+               "lower": 1.2090705633163452,
+               "upper": 1.2090705633163452
+            },
+            {
+               "trajectory": "Species 5",
+               "timepoint": 28,
+               "lower": 1.20894455909729,
+               "upper": 1.20894455909729
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 0,
+               "lower": 0.6994690895080566,
+               "upper": 0.6994690895080566
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 1,
+               "lower": 0.6346142888069153,
+               "upper": 0.6346142888069153
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 2,
+               "lower": 0.5897331237792969,
+               "upper": 0.5897331237792969
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 3,
+               "lower": 0.5571416020393372,
+               "upper": 0.5571416020393372
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 4,
+               "lower": 0.5326516628265381,
+               "upper": 0.5326516628265381
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 5,
+               "lower": 0.5137999057769775,
+               "upper": 0.5137999057769775
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 6,
+               "lower": 0.4990427494049072,
+               "upper": 0.4990427494049072
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 7,
+               "lower": 0.4873567223548889,
+               "upper": 0.4873567223548889
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 8,
+               "lower": 0.4780287742614746,
+               "upper": 0.4780287742614746
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 9,
+               "lower": 0.47054168581962585,
+               "upper": 0.47054168581962585
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 10,
+               "lower": 0.46450701355934143,
+               "upper": 0.46450701355934143
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 11,
+               "lower": 0.4596279561519623,
+               "upper": 0.4596279561519623
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 12,
+               "lower": 0.4556732773780823,
+               "upper": 0.4556732773780823
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 13,
+               "lower": 0.4524593651294708,
+               "upper": 0.4524593651294708
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 14,
+               "lower": 0.4498441219329834,
+               "upper": 0.4498441219329834
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 15,
+               "lower": 0.4477108418941498,
+               "upper": 0.4477108418941498
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 16,
+               "lower": 0.4459681212902069,
+               "upper": 0.4459681212902069
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 17,
+               "lower": 0.44454121589660645,
+               "upper": 0.44454121589660645
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 18,
+               "lower": 0.4433717131614685,
+               "upper": 0.4433717131614685
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 19,
+               "lower": 0.442411333322525,
+               "upper": 0.442411333322525
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 20,
+               "lower": 0.44162002205848694,
+               "upper": 0.44162002205848694
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 21,
+               "lower": 0.44096794724464417,
+               "upper": 0.44096794724464417
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 22,
+               "lower": 0.4404292404651642,
+               "upper": 0.4404292404651642
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 23,
+               "lower": 0.4399828612804413,
+               "upper": 0.4399828612804413
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 24,
+               "lower": 0.439612478017807,
+               "upper": 0.439612478017807
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 25,
+               "lower": 0.4393044710159302,
+               "upper": 0.4393044710159302
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 26,
+               "lower": 0.43904778361320496,
+               "upper": 0.43904778361320496
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 27,
+               "lower": 0.4388326406478882,
+               "upper": 0.4388326406478882
+            },
+            {
+               "trajectory": "Species 6",
+               "timepoint": 28,
+               "lower": 0.4386524558067322,
+               "upper": 0.4386524558067322
+            }
+         ],
+         "transform": [
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            }
+         ]
+      },
+      {
+         "name": "traces",
+         "values": [],
+         "transform": [
+            {
+               "type": "filter",
+               "expr": "isValid(datum.value)"
+            },
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            }
+         ]
+      },
+      {
+         "name": "points",
+         "values": []
+      },
+      {
+         "name": "markers",
+         "values": []
+      },
+      {
+         "name": "selected",
+         "on": [
+            {
+               "trigger": "clear",
+               "remove": true
+            },
+            {
+               "trigger": "!shift",
+               "remove": true
+            },
+            {
+               "trigger": "!shift && clicked",
+               "insert": "clicked"
+            },
+            {
+               "trigger": "shift && clicked",
+               "toggle": "clicked"
+            }
+         ]
+      },
+      {
+         "name": "selectedData",
+         "on": [
+            {
+               "trigger": "clearData",
+               "remove": true
+            },
+            {
+               "trigger": "clickedData",
+               "toggle": "clickedData"
+            }
+         ]
+      }
+   ],
+   "title": "Microbial Regnet"
+}
