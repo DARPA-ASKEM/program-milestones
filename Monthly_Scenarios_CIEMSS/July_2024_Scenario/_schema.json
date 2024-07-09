@@ -614,908 +614,908 @@
             {
                "trajectory": "Hospitalizations",
                "timepoint": 1.0,
-               "lower": 577.7316467285157,
-               "upper": 602.8122589111329
+               "lower": 568.667626953125,
+               "upper": 609.1886779785157
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 2.0,
-               "lower": 502.7177505493164,
-               "upper": 546.7196380615235
+               "lower": 489.31061096191405,
+               "upper": 560.1366882324219
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 3.0,
-               "lower": 444.12957153320315,
-               "upper": 501.8716812133789
+               "lower": 426.77518463134766,
+               "upper": 523.7432556152344
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 4.0,
-               "lower": 400.1973114013672,
-               "upper": 466.9647705078125
+               "lower": 380.48628997802734,
+               "upper": 495.7654083251953
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 5.0,
-               "lower": 368.18653564453126,
-               "upper": 441.21710510253905
+               "lower": 344.6978561401367,
+               "upper": 476.68695068359375
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 6.0,
-               "lower": 343.1659820556641,
-               "upper": 422.5283721923828
+               "lower": 318.44246978759764,
+               "upper": 463.6908813476563
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 7.0,
-               "lower": 325.14356231689453,
-               "upper": 406.7874481201172
+               "lower": 300.5123794555664,
+               "upper": 455.5500854492187
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 8.0,
-               "lower": 312.27071380615234,
-               "upper": 395.4700927734375
+               "lower": 288.5150451660156,
+               "upper": 451.3178436279297
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 9.0,
-               "lower": 303.6709213256836,
-               "upper": 388.166975402832
+               "lower": 281.25334014892576,
+               "upper": 450.26547088623045
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 10.0,
-               "lower": 300.38283081054686,
-               "upper": 384.87691497802734
+               "lower": 277.71828308105466,
+               "upper": 451.82645416259766
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 11.0,
-               "lower": 298.8749542236328,
-               "upper": 384.24097595214846
+               "lower": 276.9899368286133,
+               "upper": 455.5380661010742
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 12.0,
-               "lower": 299.6646423339844,
-               "upper": 386.1915908813477
+               "lower": 277.6622116088867,
+               "upper": 461.1064727783203
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 13.0,
-               "lower": 301.91844329833987,
-               "upper": 390.2217559814453
+               "lower": 280.28802795410155,
+               "upper": 468.26924896240234
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 14.0,
-               "lower": 305.80716705322266,
-               "upper": 395.9054122924805
+               "lower": 284.5038818359375,
+               "upper": 476.8319808959961
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 15.0,
-               "lower": 311.0533935546875,
-               "upper": 402.96905822753905
+               "lower": 290.06226043701173,
+               "upper": 486.6422180175781
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 16.0,
-               "lower": 317.43493804931643,
-               "upper": 411.23673553466796
+               "lower": 296.0463531494141,
+               "upper": 497.58460998535156
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 17.0,
-               "lower": 324.7809173583984,
-               "upper": 420.56958465576173
+               "lower": 302.5699798583984,
+               "upper": 509.57362060546876
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 18.0,
-               "lower": 332.95765380859376,
-               "upper": 430.86159667968747
+               "lower": 311.6810073852539,
+               "upper": 522.3649017333985
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 19.0,
-               "lower": 341.8635589599609,
-               "upper": 442.0319717407226
+               "lower": 321.2140594482422,
+               "upper": 535.8713684082031
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 20.0,
-               "lower": 351.42387237548826,
-               "upper": 454.02316131591795
+               "lower": 330.61790161132814,
+               "upper": 550.2353668212891
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 21.0,
-               "lower": 361.58331298828125,
-               "upper": 466.7936538696289
+               "lower": 340.5454986572266,
+               "upper": 565.8356292724609
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 22.0,
-               "lower": 372.3045593261719,
-               "upper": 480.3168304443359
+               "lower": 350.996760559082,
+               "upper": 583.1796997070312
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 23.0,
-               "lower": 383.5638671875,
-               "upper": 494.58258666992185
+               "lower": 361.9086517333984,
+               "upper": 601.1804840087891
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 24.0,
-               "lower": 395.23639526367185,
-               "upper": 509.58469390869135
+               "lower": 373.2819534301758,
+               "upper": 619.5979614257812
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 25.0,
-               "lower": 406.95191955566406,
-               "upper": 525.7970703125
+               "lower": 385.1134658813477,
+               "upper": 639.617953491211
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 26.0,
-               "lower": 419.14522552490234,
-               "upper": 543.4951446533203
+               "lower": 397.3852508544922,
+               "upper": 661.4998992919922
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 27.0,
-               "lower": 432.3333084106445,
-               "upper": 562.096304321289
+               "lower": 410.10345153808595,
+               "upper": 682.3713195800781
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 28.0,
-               "lower": 446.37873992919924,
-               "upper": 581.6278167724608
+               "lower": 423.2752624511719,
+               "upper": 704.0491607666015
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 29.0,
-               "lower": 461.0037078857422,
-               "upper": 602.1210815429687
+               "lower": 436.91662445068357,
+               "upper": 726.6023712158203
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 30.0,
-               "lower": 476.2309051513672,
-               "upper": 623.6078399658203
+               "lower": 451.0422760009766,
+               "upper": 752.1824035644531
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 31.0,
-               "lower": 492.08509674072263,
-               "upper": 646.1312713623046
+               "lower": 465.6708755493164,
+               "upper": 780.5475982666015
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 32.0,
-               "lower": 508.59394989013674,
-               "upper": 669.7298522949218
+               "lower": 481.02667846679685,
+               "upper": 807.6410949707031
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 33.0,
-               "lower": 525.787222290039,
-               "upper": 694.4503784179686
+               "lower": 497.62904205322263,
+               "upper": 835.8696502685547
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 34.0,
-               "lower": 543.6954956054688,
-               "upper": 720.3408447265624
+               "lower": 514.8996734619141,
+               "upper": 865.1803497314453
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 35.0,
-               "lower": 562.2191192626954,
-               "upper": 747.4459930419921
+               "lower": 532.8379364013672,
+               "upper": 895.6043060302734
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 36.0,
-               "lower": 581.428579711914,
-               "upper": 775.7355865478514
+               "lower": 551.4627258300782,
+               "upper": 927.2026824951172
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 37.0,
-               "lower": 601.4987060546875,
-               "upper": 805.3485198974608
+               "lower": 570.8224426269531,
+               "upper": 960.0990661621094
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 38.0,
-               "lower": 622.4427642822266,
-               "upper": 836.4713775634765
+               "lower": 590.9336059570312,
+               "upper": 994.3463897705078
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 39.0,
-               "lower": 644.2915313720703,
-               "upper": 869.213296508789
+               "lower": 611.8270446777344,
+               "upper": 1029.9976684570313
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 40.0,
-               "lower": 667.0865692138672,
-               "upper": 903.5175994873046
+               "lower": 633.536019897461,
+               "upper": 1067.966064453125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 41.0,
-               "lower": 690.8747680664062,
-               "upper": 939.457940673828
+               "lower": 656.3027709960937,
+               "upper": 1108.0304748535157
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 42.0,
-               "lower": 715.727896118164,
-               "upper": 977.1088439941406
+               "lower": 680.1623474121094,
+               "upper": 1149.7759643554687
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 43.0,
-               "lower": 741.6905975341797,
-               "upper": 1016.5488342285155
+               "lower": 703.8442962646484,
+               "upper": 1191.2649780273437
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 44.0,
-               "lower": 768.7924591064453,
-               "upper": 1057.863702392578
+               "lower": 729.0659942626953,
+               "upper": 1234.7233459472657
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 45.0,
-               "lower": 797.0906402587891,
-               "upper": 1101.136163330078
+               "lower": 755.3360260009765,
+               "upper": 1284.142626953125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 46.0,
-               "lower": 826.6376159667968,
-               "upper": 1146.458166503906
+               "lower": 782.6764221191406,
+               "upper": 1335.632861328125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 47.0,
-               "lower": 857.4905426025391,
-               "upper": 1193.9158020019531
+               "lower": 811.0997619628906,
+               "upper": 1389.1326110839843
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 48.0,
-               "lower": 889.7070556640625,
-               "upper": 1243.616650390625
+               "lower": 840.6505523681641,
+               "upper": 1446.0521423339844
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 49.0,
-               "lower": 923.3485717773438,
-               "upper": 1295.6589843749998
+               "lower": 871.3734466552735,
+               "upper": 1504.9075073242188
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 50.0,
-               "lower": 958.4792297363281,
-               "upper": 1350.153204345703
+               "lower": 903.3160858154297,
+               "upper": 1566.3314331054687
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 51.0,
-               "lower": 995.1635437011719,
-               "upper": 1407.2060607910155
+               "lower": 936.5265258789062,
+               "upper": 1630.4326049804688
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 52.0,
-               "lower": 1033.4703735351563,
-               "upper": 1466.9358520507812
+               "lower": 970.085336303711,
+               "upper": 1697.3239807128907
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 53.0,
-               "lower": 1073.470947265625,
-               "upper": 1529.461798095703
+               "lower": 1002.8740081787109,
+               "upper": 1767.1206787109375
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 54.0,
-               "lower": 1115.238916015625,
-               "upper": 1594.9125427246092
+               "lower": 1039.5593566894531,
+               "upper": 1839.9476501464844
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 55.0,
-               "lower": 1158.8508605957031,
-               "upper": 1663.4190063476562
+               "lower": 1077.8920288085938,
+               "upper": 1915.930108642578
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 56.0,
-               "lower": 1204.385760498047,
-               "upper": 1735.1190185546875
+               "lower": 1117.6058532714844,
+               "upper": 1994.8861999511719
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 57.0,
-               "lower": 1251.9309509277343,
-               "upper": 1810.1531249999998
+               "lower": 1157.8286010742188,
+               "upper": 2074.3824096679687
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 58.0,
-               "lower": 1301.5676208496093,
-               "upper": 1888.6729736328125
+               "lower": 1197.5919067382813,
+               "upper": 2152.373571777344
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 59.0,
-               "lower": 1353.2881164550781,
-               "upper": 1970.609240722656
+               "lower": 1236.1814819335937,
+               "upper": 2226.6076416015626
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 60.0,
-               "lower": 1406.070947265625,
-               "upper": 2053.6647338867188
+               "lower": 1272.0712524414062,
+               "upper": 2291.0640869140625
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 61.0,
-               "lower": 1458.5547302246093,
-               "upper": 2134.9517944335935
+               "lower": 1304.5141174316407,
+               "upper": 2350.269494628906
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 62.0,
-               "lower": 1508.78818359375,
-               "upper": 2212.5130737304685
+               "lower": 1334.948419189453,
+               "upper": 2403.9789916992186
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 63.0,
-               "lower": 1557.178076171875,
-               "upper": 2285.1071166992188
+               "lower": 1363.2677124023437,
+               "upper": 2452.188195800781
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 64.0,
-               "lower": 1603.0434265136719,
-               "upper": 2352.017895507812
+               "lower": 1389.417950439453,
+               "upper": 2495.033947753906
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 65.0,
-               "lower": 1645.4899536132812,
-               "upper": 2412.915576171875
+               "lower": 1413.4019287109375,
+               "upper": 2532.5224853515624
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 66.0,
-               "lower": 1684.7845520019532,
-               "upper": 2467.742919921875
+               "lower": 1435.2599975585938,
+               "upper": 2565.150219726562
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 67.0,
-               "lower": 1720.8769409179688,
-               "upper": 2516.63505859375
+               "lower": 1453.7301330566406,
+               "upper": 2598.0195556640624
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 68.0,
-               "lower": 1753.79765625,
-               "upper": 2559.8498901367184
+               "lower": 1466.5103393554687,
+               "upper": 2629.90517578125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 69.0,
-               "lower": 1783.6338195800781,
-               "upper": 2597.734240722656
+               "lower": 1477.29443359375,
+               "upper": 2657.9291137695313
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 70.0,
-               "lower": 1810.5111755371095,
-               "upper": 2630.6725585937497
+               "lower": 1486.2684753417968,
+               "upper": 2682.3609985351563
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 71.0,
-               "lower": 1834.5834167480468,
-               "upper": 2659.0737304687495
+               "lower": 1493.6107116699218,
+               "upper": 2703.4758544921874
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 72.0,
-               "lower": 1856.0203002929688,
-               "upper": 2683.3499389648437
+               "lower": 1499.4915405273437,
+               "upper": 2721.544299316406
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 73.0,
-               "lower": 1874.9994018554687,
-               "upper": 2706.112036132812
+               "lower": 1507.1897766113282,
+               "upper": 2731.2928955078123
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 74.0,
-               "lower": 1891.7017578125,
-               "upper": 2727.414111328125
+               "lower": 1514.7487487792969,
+               "upper": 2737.709716796875
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 75.0,
-               "lower": 1906.305810546875,
-               "upper": 2745.6259155273433
+               "lower": 1521.1081420898438,
+               "upper": 2742.115588378906
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 76.0,
-               "lower": 1918.9852233886718,
-               "upper": 2761.048937988281
+               "lower": 1526.3686950683593,
+               "upper": 2744.773693847656
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 77.0,
-               "lower": 1929.9067504882812,
-               "upper": 2773.9662597656247
+               "lower": 1529.5444213867188,
+               "upper": 2745.8939575195313
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 78.0,
-               "lower": 1939.2288146972655,
-               "upper": 2784.6403198242183
+               "lower": 1529.6345336914062,
+               "upper": 2745.6752075195313
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 79.0,
-               "lower": 1947.0992797851563,
-               "upper": 2793.313391113281
+               "lower": 1529.0592041015625,
+               "upper": 2744.293322753906
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 80.0,
-               "lower": 1953.6560791015625,
-               "upper": 2800.209289550781
+               "lower": 1527.9342041015625,
+               "upper": 2741.906506347656
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 81.0,
-               "lower": 1959.1323669433593,
-               "upper": 2805.516857910156
+               "lower": 1526.4179321289062,
+               "upper": 2738.6510498046873
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 82.0,
-               "lower": 1963.5646118164063,
-               "upper": 2809.4358886718746
+               "lower": 1524.4482849121093,
+               "upper": 2734.643041992187
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 83.0,
-               "lower": 1967.0291687011718,
-               "upper": 2812.1171264648433
+               "lower": 1522.0832641601562,
+               "upper": 2729.989953613281
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 84.0,
-               "lower": 1969.6282287597655,
-               "upper": 2813.7124999999996
+               "lower": 1519.3738403320312,
+               "upper": 2724.7832885742187
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 85.0,
-               "lower": 1971.4510498046875,
-               "upper": 2816.790344238281
+               "lower": 1516.361962890625,
+               "upper": 2719.1020385742186
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 86.0,
-               "lower": 1972.5825744628905,
-               "upper": 2819.4377319335936
+               "lower": 1513.0958923339845,
+               "upper": 2713.02197265625
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 87.0,
-               "lower": 1973.0921875,
-               "upper": 2821.0917846679686
+               "lower": 1509.6021850585937,
+               "upper": 2706.5944213867188
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 88.0,
-               "lower": 1973.0497009277344,
-               "upper": 2821.868701171875
+               "lower": 1505.9146240234375,
+               "upper": 2699.8785400390625
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 89.0,
-               "lower": 1972.5177490234375,
-               "upper": 2821.858801269531
+               "lower": 1502.2503234863282,
+               "upper": 2692.9172241210936
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 90.0,
-               "lower": 1971.549139404297,
-               "upper": 2821.147814941406
+               "lower": 1499.7135375976563,
+               "upper": 2685.7517333984374
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 91.0,
-               "lower": 1970.1953918457032,
-               "upper": 2819.813342285156
+               "lower": 1496.9677307128907,
+               "upper": 2678.414379882812
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 92.0,
-               "lower": 1968.49736328125,
-               "upper": 2817.925122070312
+               "lower": 1494.0342346191405,
+               "upper": 2670.935168457031
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 93.0,
-               "lower": 1966.4940795898438,
-               "upper": 2815.5523803710935
+               "lower": 1490.9385192871093,
+               "upper": 2663.3401123046874
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 94.0,
-               "lower": 1964.228271484375,
-               "upper": 2812.7333251953123
+               "lower": 1487.6978942871094,
+               "upper": 2655.647180175781
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 95.0,
-               "lower": 1961.7251953125,
-               "upper": 2809.539111328125
+               "lower": 1484.3242492675781,
+               "upper": 2647.884436035156
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 96.0,
-               "lower": 1959.0141174316407,
-               "upper": 2806.006469726562
+               "lower": 1480.8406005859374,
+               "upper": 2640.058715820312
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 97.0,
-               "lower": 1956.1207153320313,
-               "upper": 2802.1768920898435
+               "lower": 1477.2580627441407,
+               "upper": 2632.187573242187
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 98.0,
-               "lower": 1953.0672607421875,
-               "upper": 2798.085009765625
+               "lower": 1473.5882263183594,
+               "upper": 2624.282775878906
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 99.0,
-               "lower": 1949.8739868164062,
-               "upper": 2793.765148925781
+               "lower": 1469.843194580078,
+               "upper": 2616.353479003906
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 100.0,
-               "lower": 1946.5598937988282,
-               "upper": 2789.2459716796875
+               "lower": 1466.0332641601562,
+               "upper": 2608.4097045898434
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 101.0,
-               "lower": 1943.1392150878905,
-               "upper": 2784.5519409179688
+               "lower": 1462.1654663085938,
+               "upper": 2600.4572631835936
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 102.0,
-               "lower": 1939.62685546875,
-               "upper": 2779.7076416015625
+               "lower": 1458.2514770507812,
+               "upper": 2592.5058593749995
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 103.0,
-               "lower": 1936.0346130371095,
-               "upper": 2774.728430175781
+               "lower": 1454.29619140625,
+               "upper": 2584.5583007812497
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 104.0,
-               "lower": 1932.3753601074218,
-               "upper": 2769.6441284179687
+               "lower": 1450.3037231445312,
+               "upper": 2576.680187988281
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 105.0,
-               "lower": 1928.6572509765624,
-               "upper": 2764.4595092773434
+               "lower": 1446.2835510253906,
+               "upper": 2569.6413085937497
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 106.0,
-               "lower": 1924.8889892578125,
-               "upper": 2759.1902099609374
+               "lower": 1442.2385803222655,
+               "upper": 2562.5782226562496
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 107.0,
-               "lower": 1921.0787048339844,
-               "upper": 2753.850415039062
+               "lower": 1438.1747131347656,
+               "upper": 2555.4983154296874
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 108.0,
-               "lower": 1917.234307861328,
-               "upper": 2748.454553222656
+               "lower": 1434.097186279297,
+               "upper": 2548.4087280273434
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 109.0,
-               "lower": 1913.3608093261719,
-               "upper": 2743.0073608398434
+               "lower": 1430.0030212402344,
+               "upper": 2541.3107421874997
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 110.0,
-               "lower": 1909.462451171875,
-               "upper": 2737.5205444335934
+               "lower": 1425.9029846191406,
+               "upper": 2534.212939453125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 111.0,
-               "lower": 1905.5455078125,
-               "upper": 2731.999719238281
+               "lower": 1421.7961853027343,
+               "upper": 2527.1166259765623
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 112.0,
-               "lower": 1901.6140563964843,
-               "upper": 2726.453759765625
+               "lower": 1417.6865661621093,
+               "upper": 2520.02578125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 113.0,
-               "lower": 1897.6710266113282,
-               "upper": 2720.8869506835936
+               "lower": 1413.575701904297,
+               "upper": 2512.9427246093746
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 114.0,
-               "lower": 1893.7189453125,
-               "upper": 2715.3079833984375
+               "lower": 1409.4668090820312,
+               "upper": 2505.8762573242184
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 115.0,
-               "lower": 1889.4665161132812,
-               "upper": 2709.713354492187
+               "lower": 1405.3596252441407,
+               "upper": 2498.8201538085937
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 116.0,
-               "lower": 1885.0533447265625,
-               "upper": 2704.1158081054687
+               "lower": 1401.257794189453,
+               "upper": 2491.779833984375
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 117.0,
-               "lower": 1880.6380798339844,
-               "upper": 2698.513586425781
+               "lower": 1397.1613342285157,
+               "upper": 2484.756494140625
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 118.0,
-               "lower": 1876.2255004882813,
-               "upper": 2692.912805175781
+               "lower": 1393.07197265625,
+               "upper": 2477.751440429687
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 119.0,
-               "lower": 1871.8167724609375,
-               "upper": 2687.31240234375
+               "lower": 1388.9907958984375,
+               "upper": 2470.769348144531
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 120.0,
-               "lower": 1867.414532470703,
-               "upper": 2681.7234497070312
+               "lower": 1384.91875,
+               "upper": 2463.806799316406
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 121.0,
-               "lower": 1863.0192260742188,
-               "upper": 2676.138879394531
+               "lower": 1380.8576293945312,
+               "upper": 2456.865795898437
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 122.0,
-               "lower": 1858.6321411132812,
-               "upper": 2670.5628417968746
+               "lower": 1376.805517578125,
+               "upper": 2449.9486083984375
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 123.0,
-               "lower": 1854.2569519042968,
-               "upper": 2665.0006713867188
+               "lower": 1372.7657287597656,
+               "upper": 2443.0553710937497
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 124.0,
-               "lower": 1849.892315673828,
-               "upper": 2659.4496582031247
+               "lower": 1368.737353515625,
+               "upper": 2436.1874389648438
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 125.0,
-               "lower": 1845.5404479980468,
-               "upper": 2653.911865234375
+               "lower": 1364.720721435547,
+               "upper": 2429.346020507812
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 126.0,
-               "lower": 1841.1999084472657,
-               "upper": 2648.389807128906
+               "lower": 1360.7208190917968,
+               "upper": 2422.5201904296873
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 127.0,
-               "lower": 1836.8739624023438,
-               "upper": 2642.883349609375
+               "lower": 1356.7323303222656,
+               "upper": 2415.7253662109374
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 128.0,
-               "lower": 1832.5621520996094,
-               "upper": 2637.3942260742188
+               "lower": 1352.7578369140624,
+               "upper": 2408.9554077148437
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 129.0,
-               "lower": 1828.2649658203125,
-               "upper": 2631.923583984375
+               "lower": 1348.7965454101563,
+               "upper": 2402.2148803710934
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 130.0,
-               "lower": 1823.9858459472657,
-               "upper": 2626.464221191406
+               "lower": 1344.8501586914062,
+               "upper": 2395.4987304687497
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 131.0,
-               "lower": 1819.7213317871094,
-               "upper": 2621.027795410156
+               "lower": 1340.9185729980468,
+               "upper": 2388.8089355468746
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 132.0,
-               "lower": 1815.4735107421875,
-               "upper": 2615.6091064453126
+               "lower": 1337.002130126953,
+               "upper": 2382.1457397460936
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 133.0,
-               "lower": 1811.2407958984375,
-               "upper": 2610.2103637695313
+               "lower": 1333.0991516113281,
+               "upper": 2375.5079101562496
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 134.0,
-               "lower": 1807.0258483886719,
-               "upper": 2604.8309936523438
+               "lower": 1329.212158203125,
+               "upper": 2368.897705078125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 135.0,
-               "lower": 1802.8285766601562,
-               "upper": 2599.471301269531
+               "lower": 1325.3400390625,
+               "upper": 2362.315234375
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 136.0,
-               "lower": 1798.6493408203125,
-               "upper": 2594.1319946289063
+               "lower": 1321.4830200195313,
+               "upper": 2355.7610229492184
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 137.0,
-               "lower": 1794.4844787597656,
-               "upper": 2588.8111206054687
+               "lower": 1317.6422180175782,
+               "upper": 2349.225061035156
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 138.0,
-               "lower": 1790.3390319824218,
-               "upper": 2583.5116699218747
+               "lower": 1313.8163208007813,
+               "upper": 2342.72109375
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 139.0,
-               "lower": 1786.2111877441407,
-               "upper": 2578.233251953125
+               "lower": 1310.0058837890624,
+               "upper": 2336.243725585937
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 140.0,
-               "lower": 1782.1008178710938,
-               "upper": 2572.976330566406
+               "lower": 1306.2106506347657,
+               "upper": 2329.793176269531
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 141.0,
-               "lower": 1778.0090759277343,
-               "upper": 2567.734875488281
+               "lower": 1302.4308532714845,
+               "upper": 2323.3692626953125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 142.0,
-               "lower": 1773.9347839355469,
-               "upper": 2562.5167358398435
+               "lower": 1298.6677368164062,
+               "upper": 2316.96953125
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 143.0,
-               "lower": 1769.878436279297,
-               "upper": 2557.319384765625
+               "lower": 1294.9194946289062,
+               "upper": 2310.5978271484373
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 144.0,
-               "lower": 1765.8400451660157,
-               "upper": 2552.142346191406
+               "lower": 1291.1897094726562,
+               "upper": 2304.252197265625
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 145.0,
-               "lower": 1761.8196105957031,
-               "upper": 2546.985852050781
+               "lower": 1287.4882934570312,
+               "upper": 2297.933325195312
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 146.0,
-               "lower": 1757.8169921875,
-               "upper": 2541.850830078125
+               "lower": 1283.8020385742188,
+               "upper": 2291.6407592773435
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 147.0,
-               "lower": 1753.8322265625,
-               "upper": 2536.735400390625
+               "lower": 1280.1307556152344,
+               "upper": 2285.3716674804687
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 148.0,
-               "lower": 1749.8652038574219,
-               "upper": 2531.640490722656
+               "lower": 1276.4751281738281,
+               "upper": 2279.130480957031
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 149.0,
-               "lower": 1745.9158203125,
-               "upper": 2526.566064453125
+               "lower": 1272.8347778320312,
+               "upper": 2272.9148559570312
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 150.0,
-               "lower": 1741.984063720703,
-               "upper": 2521.5119018554688
+               "lower": 1269.2097045898438,
+               "upper": 2266.724523925781
             },
             {
                "trajectory": "Hospitalizations",
                "timepoint": 151.0,
-               "lower": 1738.0721313476563,
-               "upper": 2516.479357910156
+               "lower": 1265.6000061035156,
+               "upper": 2260.5594970703123
             }
          ],
          "transform": [

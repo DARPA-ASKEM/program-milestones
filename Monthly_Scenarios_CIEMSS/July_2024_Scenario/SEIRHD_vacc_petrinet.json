@@ -318,8 +318,8 @@
     },
     {
      "target": "t2",
-     "expression": "I_u*NPI_mult*S_v*beta/N",
-     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>NPI_mult</ci><ci>S_v</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+     "expression": "I_u*NPI_mult*S_v*beta*vacc_mult/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>NPI_mult</ci><ci>S_v</ci><ci>beta</ci><ci>vacc_mult</ci></apply><ci>N</ci></apply>"
     },
     {
      "target": "t3",
@@ -328,8 +328,8 @@
     },
     {
      "target": "t4",
-     "expression": "I_v*NPI_mult*S_v*beta/N",
-     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>NPI_mult</ci><ci>S_v</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+     "expression": "I_v*NPI_mult*S_v*beta*vacc_mult/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>NPI_mult</ci><ci>S_v</ci><ci>beta</ci><ci>vacc_mult</ci></apply><ci>N</ci></apply>"
     },
     {
      "target": "t5",
@@ -434,8 +434,8 @@
      "distribution": {
       "type": "StandardUniform1",
       "parameters": {
-       "minimum": 0.9999,
-       "maximum": 1.0001
+       "minimum": 0.999,
+       "maximum": 1.001
       }
      },
      "units": {
@@ -445,17 +445,25 @@
     },
     {
      "id": "beta",
-     "value": 0.071,
+     "value": 0.1,
      "distribution": {
       "type": "StandardUniform1",
       "parameters": {
-       "minimum": 0.07,
-       "maximum": 0.075
+       "minimum": 0.09,
+       "maximum": 0.11
       }
      },
      "units": {
       "expression": "1/day",
       "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "vacc_mult",
+     "value": 0.5,
+     "units": {
+      "expression": "1",
+      "expression_mathml": "<cn>1</cn>"
      }
     },
     {
@@ -475,11 +483,11 @@
     },
     {
      "id": "r_IH_u",
-     "value": 0.005,
+     "value": 0.0051,
      "distribution": {
       "type": "StandardUniform1",
       "parameters": {
-       "minimum": 0.0047,
+       "minimum": 0.005,
        "maximum": 0.0055
       }
      },
@@ -524,7 +532,7 @@
      "distribution": {
       "type": "StandardUniform1",
       "parameters": {
-       "minimum": 0.005,
+       "minimum": 0.007,
        "maximum": 0.015
       }
      },
