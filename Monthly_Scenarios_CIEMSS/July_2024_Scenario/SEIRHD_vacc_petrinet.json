@@ -106,20 +106,6 @@
     }
    },
    {
-    "id": "R",
-    "name": "R",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000592"
-     },
-     "modifiers": {}
-    },
-    "units": {
-     "expression": "person",
-     "expression_mathml": "<ci>person</ci>"
-    }
-   },
-   {
     "id": "H",
     "name": "H",
     "grounding": {
@@ -129,6 +115,20 @@
      "modifiers": {
       "property": "ncit:C25179"
      }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "R",
+    "name": "R",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {}
     },
     "units": {
      "expression": "person",
@@ -234,10 +234,10 @@
    {
     "id": "t6",
     "input": [
-     "R"
+     "S_v"
     ],
     "output": [
-     "S_v"
+     "S_u"
     ],
     "properties": {
      "name": "t6"
@@ -246,10 +246,10 @@
    {
     "id": "t7",
     "input": [
-     "S_v"
+     "E_u"
     ],
     "output": [
-     "S_u"
+     "I_u"
     ],
     "properties": {
      "name": "t7"
@@ -258,10 +258,10 @@
    {
     "id": "t8",
     "input": [
-     "E_u"
+     "E_v"
     ],
     "output": [
-     "I_u"
+     "I_v"
     ],
     "properties": {
      "name": "t8"
@@ -270,10 +270,10 @@
    {
     "id": "t9",
     "input": [
-     "E_v"
+     "I_u"
     ],
     "output": [
-     "I_v"
+     "H"
     ],
     "properties": {
      "name": "t9"
@@ -282,7 +282,7 @@
    {
     "id": "t10",
     "input": [
-     "I_u"
+     "I_v"
     ],
     "output": [
      "H"
@@ -294,10 +294,10 @@
    {
     "id": "t11",
     "input": [
-     "I_v"
+     "H"
     ],
     "output": [
-     "H"
+     "R"
     ],
     "properties": {
      "name": "t11"
@@ -309,7 +309,7 @@
      "H"
     ],
     "output": [
-     "R"
+     "D"
     ],
     "properties": {
      "name": "t12"
@@ -317,18 +317,6 @@
    },
    {
     "id": "t13",
-    "input": [
-     "H"
-    ],
-    "output": [
-     "D"
-    ],
-    "properties": {
-     "name": "t13"
-    }
-   },
-   {
-    "id": "t14",
     "input": [
      "E_u",
      "E_v"
@@ -339,7 +327,7 @@
      "Cumulative_cases"
     ],
     "properties": {
-     "name": "t14"
+     "name": "t13"
     }
    }
   ]
@@ -374,46 +362,41 @@
     },
     {
      "target": "t6",
-     "expression": "r_Sv",
-     "expression_mathml": "<ci>r_Sv</ci>"
-    },
-    {
-     "target": "t7",
      "expression": "S_v*r_SvSu",
      "expression_mathml": "<apply><times/><ci>S_v</ci><ci>r_SvSu</ci></apply>"
     },
     {
-     "target": "t8",
+     "target": "t7",
      "expression": "E_u*r_EI",
      "expression_mathml": "<apply><times/><ci>E_u</ci><ci>r_EI</ci></apply>"
     },
     {
-     "target": "t9",
+     "target": "t8",
      "expression": "E_v*r_EI",
      "expression_mathml": "<apply><times/><ci>E_v</ci><ci>r_EI</ci></apply>"
     },
     {
-     "target": "t10",
+     "target": "t9",
      "expression": "I_u*r_IH_u",
      "expression_mathml": "<apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply>"
     },
     {
-     "target": "t11",
+     "target": "t10",
      "expression": "I_v*r_IH_v",
      "expression_mathml": "<apply><times/><ci>I_v</ci><ci>r_IH_v</ci></apply>"
     },
     {
-     "target": "t12",
+     "target": "t11",
      "expression": "H*r_HR",
      "expression_mathml": "<apply><times/><ci>H</ci><ci>r_HR</ci></apply>"
     },
     {
-     "target": "t13",
+     "target": "t12",
      "expression": "H*r_HD",
      "expression_mathml": "<apply><times/><ci>H</ci><ci>r_HD</ci></apply>"
     },
     {
-     "target": "t14",
+     "target": "t13",
      "expression": "r_EI*(E_u + E_v)",
      "expression_mathml": "<apply><times/><ci>r_EI</ci><apply><plus/><ci>E_u</ci><ci>E_v</ci></apply></apply>"
     }
@@ -450,14 +433,14 @@
      "expression_mathml": "<cn>1729.3333333333333</cn>"
     },
     {
-     "target": "R",
-     "expression": "1484896",
-     "expression_mathml": "<cn>1484896</cn>"
-    },
-    {
      "target": "H",
      "expression": "673",
      "expression_mathml": "<cn>673</cn>"
+    },
+    {
+     "target": "R",
+     "expression": "1484896",
+     "expression_mathml": "<cn>1484896</cn>"
     },
     {
      "target": "D",
@@ -496,12 +479,12 @@
     },
     {
      "id": "beta",
-     "value": 0.12,
+     "value": 0.125,
      "distribution": {
       "type": "StandardUniform1",
       "parameters": {
-       "minimum": 0.11,
-       "maximum": 0.13
+       "minimum": 0.12,
+       "maximum": 0.135
       }
      },
      "units": {
@@ -534,7 +517,7 @@
     },
     {
      "id": "r_SvSu",
-     "value": 0.0027,
+     "value": 0.002,
      "units": {
       "expression": "1/day",
       "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
