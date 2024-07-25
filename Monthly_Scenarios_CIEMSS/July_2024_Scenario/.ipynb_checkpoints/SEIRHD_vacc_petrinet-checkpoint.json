@@ -1,0 +1,725 @@
+{
+ "header": {
+  "name": "SEIRHD vacc model for LA County t0 = 10/28/2021",
+  "schema": "https://raw.githubusercontent.com/DARPA-ASKEM/Model-Representations/petrinet_v0.6/petrinet/petrinet_schema.json",
+  "schema_name": "petrinet",
+  "description": "SEIRHD vacc model for LA County t0 = 10/28/2021",
+  "model_version": "0.1"
+ },
+ "properties": {},
+ "model": {
+  "states": [
+   {
+    "id": "S_u",
+    "name": "S_u",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000514"
+     },
+     "modifiers": {
+      "status": "unvaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "I_u",
+    "name": "I_u",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "status": "unvaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "E_u",
+    "name": "E_u",
+    "grounding": {
+     "identifiers": {
+      "apollosv": "00000154"
+     },
+     "modifiers": {
+      "status": "unvaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "S_v",
+    "name": "S_v",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000514"
+     },
+     "modifiers": {
+      "status": "vaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "E_v",
+    "name": "E_v",
+    "grounding": {
+     "identifiers": {
+      "apollosv": "00000154"
+     },
+     "modifiers": {
+      "status": "vaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "I_v",
+    "name": "I_v",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "status": "vaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "H_u",
+    "name": "H_u",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "status": "unvaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "H_v",
+    "name": "H_v",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "status": "vaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "R_u",
+    "name": "R_u",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "status": "unvaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "R_v",
+    "name": "R_v",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "status": "vaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "D_u",
+    "name": "D_u",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "status": "unvaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "D_v",
+    "name": "D_v",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "status": "vaccinated"
+     }
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "Cumulative_cases",
+    "name": "Cumulative_cases",
+    "grounding": {
+     "identifiers": {},
+     "modifiers": {}
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   }
+  ],
+  "transitions": [
+   {
+    "id": "t1",
+    "input": [
+     "I_u",
+     "S_u"
+    ],
+    "output": [
+     "I_u",
+     "E_u"
+    ],
+    "properties": {
+     "name": "t1"
+    }
+   },
+   {
+    "id": "t2",
+    "input": [
+     "I_u",
+     "S_v"
+    ],
+    "output": [
+     "I_u",
+     "E_v"
+    ],
+    "properties": {
+     "name": "t2"
+    }
+   },
+   {
+    "id": "t3",
+    "input": [
+     "I_v",
+     "S_u"
+    ],
+    "output": [
+     "I_v",
+     "E_u"
+    ],
+    "properties": {
+     "name": "t3"
+    }
+   },
+   {
+    "id": "t4",
+    "input": [
+     "I_v",
+     "S_v"
+    ],
+    "output": [
+     "I_v",
+     "E_v"
+    ],
+    "properties": {
+     "name": "t4"
+    }
+   },
+   {
+    "id": "t5",
+    "input": [
+     "E_u"
+    ],
+    "output": [
+     "I_u"
+    ],
+    "properties": {
+     "name": "t5"
+    }
+   },
+   {
+    "id": "t6",
+    "input": [
+     "E_v"
+    ],
+    "output": [
+     "I_v"
+    ],
+    "properties": {
+     "name": "t6"
+    }
+   },
+   {
+    "id": "t7",
+    "input": [
+     "I_u"
+    ],
+    "output": [
+     "H_u"
+    ],
+    "properties": {
+     "name": "t7"
+    }
+   },
+   {
+    "id": "t8",
+    "input": [
+     "I_v"
+    ],
+    "output": [
+     "H_v"
+    ],
+    "properties": {
+     "name": "t8"
+    }
+   },
+   {
+    "id": "t9",
+    "input": [
+     "H_u"
+    ],
+    "output": [
+     "R_u"
+    ],
+    "properties": {
+     "name": "t9"
+    }
+   },
+   {
+    "id": "t10",
+    "input": [
+     "H_v"
+    ],
+    "output": [
+     "R_v"
+    ],
+    "properties": {
+     "name": "t10"
+    }
+   },
+   {
+    "id": "t11",
+    "input": [
+     "H_u"
+    ],
+    "output": [
+     "D_u"
+    ],
+    "properties": {
+     "name": "t11"
+    }
+   },
+   {
+    "id": "t12",
+    "input": [
+     "H_v"
+    ],
+    "output": [
+     "D_v"
+    ],
+    "properties": {
+     "name": "t12"
+    }
+   },
+   {
+    "id": "t13",
+    "input": [
+     "E_u",
+     "E_v"
+    ],
+    "output": [
+     "E_u",
+     "E_v",
+     "Cumulative_cases"
+    ],
+    "properties": {
+     "name": "t13"
+    }
+   }
+  ]
+ },
+ "semantics": {
+  "ode": {
+   "rates": [
+    {
+     "target": "t1",
+     "expression": "I_u*S_u*beta/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>S_u</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+    },
+    {
+     "target": "t2",
+     "expression": "I_u*S_v*beta/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>S_v</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+    },
+    {
+     "target": "t3",
+     "expression": "I_v*S_u*beta/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>S_u</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+    },
+    {
+     "target": "t4",
+     "expression": "I_v*S_v*beta/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>S_v</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+    },
+    {
+     "target": "t5",
+     "expression": "E_u*r_EI",
+     "expression_mathml": "<apply><times/><ci>E_u</ci><ci>r_EI</ci></apply>"
+    },
+    {
+     "target": "t6",
+     "expression": "E_v*r_EI",
+     "expression_mathml": "<apply><times/><ci>E_v</ci><ci>r_EI</ci></apply>"
+    },
+    {
+     "target": "t7",
+     "expression": "I_u*r_IH_u",
+     "expression_mathml": "<apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply>"
+    },
+    {
+     "target": "t8",
+     "expression": "I_v*r_IH_v",
+     "expression_mathml": "<apply><times/><ci>I_v</ci><ci>r_IH_v</ci></apply>"
+    },
+    {
+     "target": "t9",
+     "expression": "H_u*r_HR_u",
+     "expression_mathml": "<apply><times/><ci>H_u</ci><ci>r_HR_u</ci></apply>"
+    },
+    {
+     "target": "t10",
+     "expression": "H_v*r_HR_v",
+     "expression_mathml": "<apply><times/><ci>H_v</ci><ci>r_HR_v</ci></apply>"
+    },
+    {
+     "target": "t11",
+     "expression": "H_u*r_HD_u",
+     "expression_mathml": "<apply><times/><ci>H_u</ci><ci>r_HD_u</ci></apply>"
+    },
+    {
+     "target": "t12",
+     "expression": "H_v*r_HD_v",
+     "expression_mathml": "<apply><times/><ci>H_v</ci><ci>r_HD_v</ci></apply>"
+    },
+    {
+     "target": "t13",
+     "expression": "r_EI*(E_u + E_v)",
+     "expression_mathml": "<apply><times/><ci>r_EI</ci><apply><plus/><ci>E_u</ci><ci>E_v</ci></apply></apply>"
+    }
+   ],
+   "initials": [
+    {
+     "target": "S_u",
+     "expression": "2324633.64",
+     "expression_mathml": "<cn>2324633.6400000001</cn>"
+    },
+    {
+     "target": "I_u",
+     "expression": "3458.66666666667",
+     "expression_mathml": "<cn>3458.6666666666665</cn>"
+    },
+    {
+     "target": "E_u",
+     "expression": "6917.33333333333",
+     "expression_mathml": "<cn>6917.333333333333</cn>"
+    },
+    {
+     "target": "S_v",
+     "expression": "5977629.36",
+     "expression_mathml": "<cn>5977629.3599999994</cn>"
+    },
+    {
+     "target": "E_v",
+     "expression": "3458.66666666667",
+     "expression_mathml": "<cn>3458.6666666666665</cn>"
+    },
+    {
+     "target": "I_v",
+     "expression": "1729.33333333333",
+     "expression_mathml": "<cn>1729.3333333333333</cn>"
+    },
+    {
+     "target": "H_u",
+     "expression": "448.666666666667",
+     "expression_mathml": "<cn>448.66666666666669</cn>"
+    },
+    {
+     "target": "H_v",
+     "expression": "224.333333333333",
+     "expression_mathml": "<cn>224.33333333333334</cn>"
+    },
+    {
+     "target": "R_u",
+     "expression": "742448.0",
+     "expression_mathml": "<cn>742448.0</cn>"
+    },
+    {
+     "target": "R_v",
+     "expression": "742448.0",
+     "expression_mathml": "<cn>742448.0</cn>"
+    },
+    {
+     "target": "D_u",
+     "expression": "13302.0",
+     "expression_mathml": "<cn>13302.0</cn>"
+    },
+    {
+     "target": "D_v",
+     "expression": "13302.0",
+     "expression_mathml": "<cn>13302.0</cn>"
+    },
+    {
+     "target": "Cumulative_cases",
+     "expression": "1490084",
+     "expression_mathml": "<cn>1490084</cn>"
+    }
+   ],
+   "parameters": [
+    {
+     "id": "N",
+     "value": 9830000.0,
+     "units": {
+      "expression": "person",
+      "expression_mathml": "<ci>person</ci>"
+     }
+    },
+    {
+     "id": "beta",
+     "value": 0.1,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.11,
+       "maximum": 0.08
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_EI",
+     "value": 0.1424,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.1,
+       "maximum": 0.25
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_IH_u",
+     "value": 0.02075,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.01,
+       "maximum": 0.03
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_IH_v",
+     "value": 0.0056,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.004,
+       "maximum": 0.006
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_HR_u",
+     "value": 0.15,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.12,
+       "maximum": 0.2
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_HR_v",
+     "value": 0.16,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.1,
+       "maximum": 0.2
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_HD_u",
+     "value": 0.01455,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.01,
+       "maximum": 0.02
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_HD_v",
+     "value": 0.00693,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.005,
+       "maximum": 0.008
+      }
+     },
+     "units": {
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_IR_u",
+     "value": 0.15,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.1,
+       "maximum": 0.2
+      }
+     }
+    },
+    {
+     "id": "r_IR_v",
+     "value": 0.162,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.15,
+       "maximum": 0.2
+      }
+     }
+    }
+   ],
+   "observables": [
+    {
+     "id": "cases",
+     "name": "cases",
+     "expression": "I_u + I_v",
+     "expression_mathml": "<apply><plus/><ci>I_u</ci><ci>I_v</ci></apply>"
+    },
+    {
+     "id": "hospitalized",
+     "name": "hospitalized",
+     "expression": "H_u + H_v",
+     "expression_mathml": "<apply><plus/><ci>H_u</ci><ci>H_v</ci></apply>"
+    },
+    {
+     "id": "deceased",
+     "name": "deceased",
+     "expression": "D_u + D_v",
+     "expression_mathml": "<apply><plus/><ci>D_u</ci><ci>D_v</ci></apply>"
+    },
+    {
+     "id": "cumulative_cases",
+     "name": "cumulative_cases",
+     "expression": "Cumulative_cases",
+     "expression_mathml": "<ci>Cumulative_cases</ci>"
+    }
+   ],
+   "time": {
+    "id": "t",
+    "units": {
+     "expression": "day",
+     "expression_mathml": "<ci>day</ci>"
+    }
+   }
+  }
+ },
+ "metadata": {
+  "annotations": {
+   "license": null,
+   "authors": [],
+   "references": [],
+   "time_scale": null,
+   "time_start": null,
+   "time_end": null,
+   "locations": [],
+   "pathogens": [],
+   "diseases": [],
+   "hosts": [],
+   "model_types": []
+  }
+ }
+}

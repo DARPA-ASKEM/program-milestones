@@ -1,0 +1,1173 @@
+{
+   "$schema": "https://vega.github.io/schema/vega/v5.json",
+   "width": 500,
+   "height": 300,
+   "scales": [
+      {
+         "name": "xscale",
+         "type": "linear",
+         "range": "width",
+         "zero": false,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "traces",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "points",
+                  "field": "timepoint"
+               }
+            ]
+         }
+      },
+      {
+         "name": "yscale",
+         "type": "linear",
+         "range": "height",
+         "nice": true,
+         "zero": true,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "lower"
+               },
+               {
+                  "data": "distributions",
+                  "field": "upper"
+               },
+               {
+                  "data": "traces",
+                  "field": "value"
+               },
+               {
+                  "data": "points",
+                  "field": "value"
+               }
+            ]
+         }
+      },
+      {
+         "name": "color",
+         "type": "ordinal",
+         "range": "category",
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "trajectory"
+               },
+               {
+                  "data": "traces",
+                  "field": "trajectory"
+               },
+               {
+                  "data": "points",
+                  "field": "trajectory"
+               }
+            ],
+            "sort": {
+               "order": "ascending"
+            }
+         }
+      }
+   ],
+   "axes": [
+      {
+         "name": "x_axis",
+         "orient": "bottom",
+         "scale": "xscale",
+         "zindex": 100
+      },
+      {
+         "name": "y_axis",
+         "orient": "left",
+         "scale": "yscale",
+         "zindex": 100
+      }
+   ],
+   "signals": [
+      {
+         "name": "clear",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "shift",
+         "value": false,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "event.shiftKey",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clicked",
+         "value": null,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "{value: datum.value}",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clearData",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clickedData",
+         "value": null,
+         "on": [
+            {
+               "events": "@area:click",
+               "update": "{value: datum.trajectory}",
+               "force": true
+            }
+         ]
+      }
+   ],
+   "legends": [
+      {
+         "name": "color_legend",
+         "stroke": "color",
+         "encode": {
+            "symbols": {
+               "name": "legendSymbol",
+               "interactive": true,
+               "update": {
+                  "fill": {
+                     "value": "transparent"
+                  },
+                  "strokeWidth": {
+                     "value": 2
+                  },
+                  "opacity": [
+                     {
+                        "test": "!length(data('selected')) || indata('selected', 'value', datum.value) || indata('selectedData', 'value', datum.value)",
+                        "value": 0.7
+                     },
+                     {
+                        "value": 0.15
+                     }
+                  ],
+                  "size": {
+                     "value": 64
+                  }
+               }
+            },
+            "labels": {
+               "name": "legendLabel",
+               "interactive": true,
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "!length(data('selectedData')) || indata('selectedData', 'value', datum.value)",
+                        "value": 1
+                     },
+                     {
+                        "value": 0.25
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   ],
+   "marks": [
+      {
+         "type": "group",
+         "zindex": 3,
+         "name": "_points",
+         "from": {
+            "facet": {
+               "name": "points_split",
+               "data": "points",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "symbol",
+               "name": "_points_symbol",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "size": {
+                        "value": 35
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "fill": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "tooltip": {
+                        "field": "value"
+                     }
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            },
+            {
+               "type": "line",
+               "name": "_points_line",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeDash": {
+                        "value": [
+                           5,
+                           3
+                        ]
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.3
+                        },
+                        {
+                           "value": 0.1
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "zindex": 2,
+         "name": "_traces",
+         "from": {
+            "facet": {
+               "name": "traces_split",
+               "data": "traces",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "line",
+               "name": "_traces_lines",
+               "from": {
+                  "data": "traces_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_distributions",
+         "zindex": 1,
+         "from": {
+            "facet": {
+               "name": "trajectory_split",
+               "data": "distributions",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "area",
+               "name": "area",
+               "interactive": true,
+               "from": {
+                  "data": "trajectory_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "upper"
+                     },
+                     "y2": {
+                        "scale": "yscale",
+                        "field": "lower"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "fill": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_markers_v",
+         "marks": [
+            {
+               "type": "rule",
+               "name": "_marker_v text",
+               "from": {
+                  "data": "markers_v"
+               },
+               "encode": {
+                  "enter": {
+                     "stroke": {
+                        "value": "lightgray"
+                     }
+                  },
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "axis_value"
+                     },
+                     "y2": {
+                        "value": 0
+                     },
+                     "y": {
+                        "signal": "height"
+                     },
+                     "opacity": {
+                        "value": 1
+                     }
+                  }
+               }
+            },
+            {
+               "type": "text",
+               "name": "_marker_v flags",
+               "from": {
+                  "data": "_marker_v text"
+               },
+               "encode": {
+                  "enter": {
+                     "text": {
+                        "field": "datum.label"
+                     },
+                     "y": {
+                        "value": 0
+                     },
+                     "fontSize": {
+                        "value": 8
+                     }
+                  }
+               },
+               "transform": [
+                  {
+                     "type": "label",
+                     "lineAnchor": "start",
+                     "as": [
+                        "x",
+                        "_y",
+                        "opacity",
+                        "align",
+                        "baseline"
+                     ],
+                     "offset": [
+                        1
+                     ],
+                     "size": {
+                        "signal": "[width, height]"
+                     }
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_markers_h",
+         "marks": [
+            {
+               "type": "rule",
+               "name": "_marker_h text",
+               "from": {
+                  "data": "markers_h"
+               },
+               "encode": {
+                  "enter": {
+                     "stroke": {
+                        "value": "lightgray"
+                     }
+                  },
+                  "update": {
+                     "y": {
+                        "scale": "yscale",
+                        "field": "axis_value"
+                     },
+                     "x2": {
+                        "value": 0
+                     },
+                     "x": {
+                        "signal": "width"
+                     },
+                     "opacity": {
+                        "value": 1
+                     }
+                  }
+               }
+            },
+            {
+               "type": "text",
+               "name": "_marker_h flags",
+               "from": {
+                  "data": "_marker_h text"
+               },
+               "encode": {
+                  "enter": {
+                     "text": {
+                        "field": "datum.label"
+                     },
+                     "x": {
+                        "signal": "width+20"
+                     },
+                     "fontSize": {
+                        "value": 8
+                     }
+                  }
+               },
+               "transform": [
+                  {
+                     "type": "label",
+                     "lineAnchor": "start",
+                     "as": [
+                        "_x",
+                        "y",
+                        "opacity",
+                        "align",
+                        "baseline"
+                     ],
+                     "offset": [
+                        1
+                     ],
+                     "size": {
+                        "signal": "[width, height]"
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "data": [
+      {
+         "name": "distributions",
+         "values": [
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 0.0,
+               "lower": 673.0,
+               "upper": 673.0
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 1.0,
+               "lower": 565.1045013427735,
+               "upper": 605.0235168457032
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 2.0,
+               "lower": 480.92613830566404,
+               "upper": 550.8452117919921
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 3.0,
+               "lower": 415.6734786987305,
+               "upper": 507.84080200195314
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 4.0,
+               "lower": 365.8418533325195,
+               "upper": 474.023095703125
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 5.0,
+               "lower": 328.3259902954102,
+               "upper": 448.1231979370117
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 6.0,
+               "lower": 299.0203796386719,
+               "upper": 429.08427581787106
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 7.0,
+               "lower": 277.9925018310547,
+               "upper": 416.55192718505856
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 8.0,
+               "lower": 263.24903106689453,
+               "upper": 408.5595458984375
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 9.0,
+               "lower": 253.38853607177734,
+               "upper": 404.3710662841797
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 10.0,
+               "lower": 247.4359489440918,
+               "upper": 403.3677505493164
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 11.0,
+               "lower": 244.619474029541,
+               "upper": 404.6683853149414
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 12.0,
+               "lower": 244.32947998046876,
+               "upper": 407.8301513671875
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 13.0,
+               "lower": 246.08582611083983,
+               "upper": 413.13430175781247
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 14.0,
+               "lower": 249.5280303955078,
+               "upper": 420.32989807128905
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 15.0,
+               "lower": 254.48690948486328,
+               "upper": 429.2566711425781
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 16.0,
+               "lower": 260.2395935058594,
+               "upper": 439.7721969604492
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 17.0,
+               "lower": 267.12877502441404,
+               "upper": 451.7634963989258
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 18.0,
+               "lower": 274.85300598144534,
+               "upper": 465.12975921630857
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 19.0,
+               "lower": 283.3096450805664,
+               "upper": 479.8022720336914
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 20.0,
+               "lower": 292.4210372924805,
+               "upper": 495.7507019042969
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 21.0,
+               "lower": 302.13084106445314,
+               "upper": 512.9422454833984
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 22.0,
+               "lower": 312.3986846923828,
+               "upper": 531.3543273925782
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 23.0,
+               "lower": 323.1989349365234,
+               "upper": 550.9783355712891
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 24.0,
+               "lower": 334.5140655517578,
+               "upper": 571.8138153076172
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 25.0,
+               "lower": 345.9731643676758,
+               "upper": 593.8682312011719
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 26.0,
+               "lower": 357.62353668212893,
+               "upper": 616.6772888183593
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 27.0,
+               "lower": 369.76747131347656,
+               "upper": 640.572378540039
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 28.0,
+               "lower": 382.4059265136719,
+               "upper": 665.7148712158203
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 29.0,
+               "lower": 395.6867156982422,
+               "upper": 692.134555053711
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 30.0,
+               "lower": 409.79509887695315,
+               "upper": 719.866000366211
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 31.0,
+               "lower": 424.43713836669923,
+               "upper": 748.9474578857422
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 32.0,
+               "lower": 439.6293258666992,
+               "upper": 779.4234161376953
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 33.0,
+               "lower": 455.39026947021483,
+               "upper": 811.3390167236328
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 34.0,
+               "lower": 471.73950653076173,
+               "upper": 844.747036743164
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 35.0,
+               "lower": 488.6991439819336,
+               "upper": 879.6704925537109
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 36.0,
+               "lower": 506.2922637939453,
+               "upper": 887.1446716308593
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 37.0,
+               "lower": 524.5425689697265,
+               "upper": 918.2128295898438
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 38.0,
+               "lower": 522.1715454101562,
+               "upper": 926.9676910400391
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 39.0,
+               "lower": 555.9662506103516,
+               "upper": 920.9821411132812
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 40.0,
+               "lower": 559.4630004882813,
+               "upper": 943.2825164794922
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 41.0,
+               "lower": 596.447378540039,
+               "upper": 981.3653564453125
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 42.0,
+               "lower": 590.4024841308594,
+               "upper": 986.3687927246094
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 43.0,
+               "lower": 582.9360595703125,
+               "upper": 994.223989868164
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 44.0,
+               "lower": 551.0191131591797,
+               "upper": 1046.5803527832031
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 45.0,
+               "lower": 525.2831939697265,
+               "upper": 1129.3376953124998
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 46.0,
+               "lower": 618.976675415039,
+               "upper": 1210.889239501953
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 47.0,
+               "lower": 599.5256622314453,
+               "upper": 1291.7869140624998
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 48.0,
+               "lower": 636.7448028564453,
+               "upper": 1372.5297973632812
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 49.0,
+               "lower": 634.3937561035157,
+               "upper": 1453.5717529296874
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 50.0,
+               "lower": 581.7335998535157,
+               "upper": 1535.3271972656248
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 51.0,
+               "lower": 679.6226745605469,
+               "upper": 1618.180810546875
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 52.0,
+               "lower": 642.2714447021484,
+               "upper": 1702.481799316406
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 53.0,
+               "lower": 620.7777465820312,
+               "upper": 1788.5644287109374
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 54.0,
+               "lower": 652.1203735351562,
+               "upper": 1876.7332580566406
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 55.0,
+               "lower": 601.0480743408203,
+               "upper": 1967.284649658203
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 56.0,
+               "lower": 714.5049468994141,
+               "upper": 2060.4938842773436
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 57.0,
+               "lower": 807.8560333251953,
+               "upper": 2156.6285888671873
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 58.0,
+               "lower": 836.1156555175781,
+               "upper": 2255.946533203125
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 59.0,
+               "lower": 926.823422241211,
+               "upper": 2358.6991088867185
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 60.0,
+               "lower": 1010.2271514892578,
+               "upper": 2465.1296630859374
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 61.0,
+               "lower": 1087.9627838134766,
+               "upper": 2575.482568359375
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 62.0,
+               "lower": 1161.3859985351562,
+               "upper": 2689.992749023437
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 63.0,
+               "lower": 1231.61904296875,
+               "upper": 2808.9016357421874
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 64.0,
+               "lower": 1299.6021484375,
+               "upper": 2932.445666503906
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 65.0,
+               "lower": 1366.11591796875,
+               "upper": 3060.8672729492187
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 66.0,
+               "lower": 1431.8186157226562,
+               "upper": 3194.4024291992187
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 67.0,
+               "lower": 1497.2613586425782,
+               "upper": 3333.297644042969
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 68.0,
+               "lower": 1562.9170227050781,
+               "upper": 3477.7983642578124
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 69.0,
+               "lower": 1629.1815124511718,
+               "upper": 3628.152844238281
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 70.0,
+               "lower": 1696.4066772460938,
+               "upper": 3784.6204467773437
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 71.0,
+               "lower": 1764.883282470703,
+               "upper": 3947.459033203125
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 72.0,
+               "lower": 1834.87578125,
+               "upper": 4116.930932617188
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 73.0,
+               "lower": 1906.6175537109375,
+               "upper": 4293.3109375
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 74.0,
+               "lower": 1980.3147338867188,
+               "upper": 4476.869702148438
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 75.0,
+               "lower": 2056.155340576172,
+               "upper": 4667.89501953125
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 76.0,
+               "lower": 2134.3142517089846,
+               "upper": 4866.67509765625
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 77.0,
+               "lower": 2214.9489501953126,
+               "upper": 5073.50439453125
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 78.0,
+               "lower": 2298.2149047851562,
+               "upper": 5288.683251953125
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 79.0,
+               "lower": 2384.25439453125,
+               "upper": 5512.5223388671875
+            },
+            {
+               "trajectory": "Hospitalizations",
+               "timepoint": 80.0,
+               "lower": 2473.206787109375,
+               "upper": 5745.3365478515625
+            }
+         ],
+         "transform": [
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            }
+         ]
+      },
+      {
+         "name": "traces",
+         "values": [],
+         "transform": [
+            {
+               "type": "filter",
+               "expr": "isValid(datum.value)"
+            },
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            }
+         ]
+      },
+      {
+         "name": "points",
+         "values": []
+      },
+      {
+         "name": "markers_v",
+         "values": []
+      },
+      {
+         "name": "markers_h",
+         "values": []
+      },
+      {
+         "name": "selected",
+         "on": [
+            {
+               "trigger": "clear",
+               "remove": true
+            },
+            {
+               "trigger": "!shift",
+               "remove": true
+            },
+            {
+               "trigger": "!shift && clicked",
+               "insert": "clicked"
+            },
+            {
+               "trigger": "shift && clicked",
+               "toggle": "clicked"
+            }
+         ]
+      },
+      {
+         "name": "selectedData",
+         "on": [
+            {
+               "trigger": "clearData",
+               "remove": true
+            },
+            {
+               "trigger": "clickedData",
+               "toggle": "clickedData"
+            }
+         ]
+      }
+   ]
+}
