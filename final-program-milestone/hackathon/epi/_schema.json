@@ -1,0 +1,1335 @@
+{
+   "$schema": "https://vega.github.io/schema/vega/v5.json",
+   "width": 500,
+   "height": 300,
+   "scales": [
+      {
+         "name": "xscale",
+         "type": "linear",
+         "range": "width",
+         "zero": false,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "traces",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "points",
+                  "field": "timepoint"
+               }
+            ]
+         }
+      },
+      {
+         "name": "yscale",
+         "type": "linear",
+         "range": "height",
+         "nice": true,
+         "zero": true,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "lower"
+               },
+               {
+                  "data": "distributions",
+                  "field": "upper"
+               },
+               {
+                  "data": "traces",
+                  "field": "value"
+               },
+               {
+                  "data": "points",
+                  "field": "value"
+               }
+            ]
+         }
+      },
+      {
+         "name": "color",
+         "type": "ordinal",
+         "range": "category",
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "trajectory"
+               },
+               {
+                  "data": "traces",
+                  "field": "trajectory"
+               },
+               {
+                  "data": "points",
+                  "field": "trajectory"
+               }
+            ],
+            "sort": {
+               "order": "ascending"
+            }
+         }
+      }
+   ],
+   "axes": [
+      {
+         "name": "x_axis",
+         "orient": "bottom",
+         "scale": "xscale",
+         "zindex": 100
+      },
+      {
+         "name": "y_axis",
+         "orient": "left",
+         "scale": "yscale",
+         "zindex": 100
+      }
+   ],
+   "signals": [
+      {
+         "name": "clear",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "shift",
+         "value": false,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "event.shiftKey",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clicked",
+         "value": null,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "{value: datum.value}",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clearData",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clickedData",
+         "value": null,
+         "on": [
+            {
+               "events": "@area:click",
+               "update": "{value: datum.trajectory}",
+               "force": true
+            }
+         ]
+      }
+   ],
+   "legends": [
+      {
+         "name": "color_legend",
+         "stroke": "color",
+         "encode": {
+            "symbols": {
+               "name": "legendSymbol",
+               "interactive": true,
+               "update": {
+                  "fill": {
+                     "value": "transparent"
+                  },
+                  "strokeWidth": {
+                     "value": 2
+                  },
+                  "opacity": [
+                     {
+                        "test": "!length(data('selected')) || indata('selected', 'value', datum.value) || indata('selectedData', 'value', datum.value)",
+                        "value": 0.7
+                     },
+                     {
+                        "value": 0.15
+                     }
+                  ],
+                  "size": {
+                     "value": 64
+                  }
+               }
+            },
+            "labels": {
+               "name": "legendLabel",
+               "interactive": true,
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "!length(data('selectedData')) || indata('selectedData', 'value', datum.value)",
+                        "value": 1
+                     },
+                     {
+                        "value": 0.25
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   ],
+   "marks": [
+      {
+         "type": "group",
+         "zindex": 3,
+         "name": "_points",
+         "from": {
+            "facet": {
+               "name": "points_split",
+               "data": "points",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "symbol",
+               "name": "_points_symbol",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "size": {
+                        "value": 35
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "fill": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "tooltip": {
+                        "field": "value"
+                     }
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            },
+            {
+               "type": "line",
+               "name": "_points_line",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeDash": {
+                        "value": [
+                           5,
+                           3
+                        ]
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.3
+                        },
+                        {
+                           "value": 0.1
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "zindex": 2,
+         "name": "_traces",
+         "from": {
+            "facet": {
+               "name": "traces_split",
+               "data": "traces",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "line",
+               "name": "_traces_lines",
+               "from": {
+                  "data": "traces_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_distributions",
+         "zindex": 1,
+         "from": {
+            "facet": {
+               "name": "trajectory_split",
+               "data": "distributions",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "area",
+               "name": "area",
+               "interactive": true,
+               "from": {
+                  "data": "trajectory_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "upper"
+                     },
+                     "y2": {
+                        "scale": "yscale",
+                        "field": "lower"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "fill": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_markers_v",
+         "marks": [
+            {
+               "type": "rule",
+               "name": "_marker_v text",
+               "from": {
+                  "data": "markers_v"
+               },
+               "encode": {
+                  "enter": {
+                     "stroke": {
+                        "value": "lightgray"
+                     }
+                  },
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "axis_value"
+                     },
+                     "y2": {
+                        "value": 0
+                     },
+                     "y": {
+                        "signal": "height"
+                     },
+                     "opacity": {
+                        "value": 1
+                     }
+                  }
+               }
+            },
+            {
+               "type": "text",
+               "name": "_marker_v flags",
+               "from": {
+                  "data": "_marker_v text"
+               },
+               "encode": {
+                  "enter": {
+                     "text": {
+                        "field": "datum.label"
+                     },
+                     "y": {
+                        "value": 0
+                     },
+                     "fontSize": {
+                        "value": 8
+                     }
+                  }
+               },
+               "transform": [
+                  {
+                     "type": "label",
+                     "lineAnchor": "start",
+                     "as": [
+                        "x",
+                        "_y",
+                        "opacity",
+                        "align",
+                        "baseline"
+                     ],
+                     "offset": [
+                        1
+                     ],
+                     "size": {
+                        "signal": "[width, height]"
+                     }
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_markers_h",
+         "marks": [
+            {
+               "type": "rule",
+               "name": "_marker_h text",
+               "from": {
+                  "data": "markers_h"
+               },
+               "encode": {
+                  "enter": {
+                     "stroke": {
+                        "value": "lightgray"
+                     }
+                  },
+                  "update": {
+                     "y": {
+                        "scale": "yscale",
+                        "field": "axis_value"
+                     },
+                     "x2": {
+                        "value": 0
+                     },
+                     "x": {
+                        "signal": "width"
+                     },
+                     "opacity": {
+                        "value": 1
+                     }
+                  }
+               }
+            },
+            {
+               "type": "text",
+               "name": "_marker_h flags",
+               "from": {
+                  "data": "_marker_h text"
+               },
+               "encode": {
+                  "enter": {
+                     "text": {
+                        "field": "datum.label"
+                     },
+                     "x": {
+                        "signal": "width+20"
+                     },
+                     "fontSize": {
+                        "value": 8
+                     }
+                  }
+               },
+               "transform": [
+                  {
+                     "type": "label",
+                     "lineAnchor": "start",
+                     "as": [
+                        "_x",
+                        "y",
+                        "opacity",
+                        "align",
+                        "baseline"
+                     ],
+                     "offset": [
+                        1
+                     ],
+                     "size": {
+                        "signal": "[width, height]"
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "data": [
+      {
+         "name": "distributions",
+         "values": [
+            {
+               "trajectory": "EP_state",
+               "timepoint": 0.0,
+               "lower": 800.0,
+               "upper": 800.0
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 1.0,
+               "lower": 821.735595703125,
+               "upper": 821.735595703125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 2.0,
+               "lower": 849.4354858398438,
+               "upper": 849.4354858398438
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 3.0,
+               "lower": 882.1233520507812,
+               "upper": 882.1233520507812
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 4.0,
+               "lower": 918.9530029296875,
+               "upper": 918.9530029296875
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 5.0,
+               "lower": 959.1981811523438,
+               "upper": 959.1981811523438
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 6.0,
+               "lower": 1002.2276611328125,
+               "upper": 1002.2276611328125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 7.0,
+               "lower": 1047.505859375,
+               "upper": 1047.505859375
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 8.0,
+               "lower": 1094.5615234375,
+               "upper": 1094.5615234375
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 9.0,
+               "lower": 1142.9869384765625,
+               "upper": 1142.9869384765625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 10.0,
+               "lower": 1192.444580078125,
+               "upper": 1192.444580078125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 11.0,
+               "lower": 1242.6341552734375,
+               "upper": 1242.6341552734375
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 12.0,
+               "lower": 1293.301025390625,
+               "upper": 1293.301025390625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 13.0,
+               "lower": 1344.2264404296875,
+               "upper": 1344.2264404296875
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 14.0,
+               "lower": 1395.2220458984375,
+               "upper": 1395.2220458984375
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 15.0,
+               "lower": 1446.1292724609375,
+               "upper": 1446.1292724609375
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 16.0,
+               "lower": 1496.811767578125,
+               "upper": 1496.811767578125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 17.0,
+               "lower": 1547.152587890625,
+               "upper": 1547.152587890625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 18.0,
+               "lower": 1597.0543212890625,
+               "upper": 1597.0543212890625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 19.0,
+               "lower": 1646.434326171875,
+               "upper": 1646.434326171875
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 20.0,
+               "lower": 1695.22265625,
+               "upper": 1695.22265625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 21.0,
+               "lower": 1743.361083984375,
+               "upper": 1743.361083984375
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 22.0,
+               "lower": 1790.8006591796875,
+               "upper": 1790.8006591796875
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 23.0,
+               "lower": 1837.50341796875,
+               "upper": 1837.50341796875
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 24.0,
+               "lower": 1883.4376220703125,
+               "upper": 1883.4376220703125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 25.0,
+               "lower": 1928.5684814453125,
+               "upper": 1928.5684814453125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 26.0,
+               "lower": 1972.884765625,
+               "upper": 1972.884765625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 27.0,
+               "lower": 2016.3673095703125,
+               "upper": 2016.3673095703125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 28.0,
+               "lower": 2059.00244140625,
+               "upper": 2059.00244140625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 29.0,
+               "lower": 2100.787353515625,
+               "upper": 2100.787353515625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 30.0,
+               "lower": 2141.710693359375,
+               "upper": 2141.710693359375
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 31.0,
+               "lower": 2181.7705078125,
+               "upper": 2181.7705078125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 32.0,
+               "lower": 2220.96728515625,
+               "upper": 2220.96728515625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 33.0,
+               "lower": 2259.29931640625,
+               "upper": 2259.29931640625
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 34.0,
+               "lower": 2296.7783203125,
+               "upper": 2296.7783203125
+            },
+            {
+               "trajectory": "EP_state",
+               "timepoint": 35.0,
+               "lower": 2333.399169921875,
+               "upper": 2333.399169921875
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 0.0,
+               "lower": 80.0,
+               "upper": 80.0
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 1.0,
+               "lower": 75.68170928955078,
+               "upper": 75.68170928955078
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 2.0,
+               "lower": 72.12759399414062,
+               "upper": 72.12759399414062
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 3.0,
+               "lower": 69.2786636352539,
+               "upper": 69.2786636352539
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 4.0,
+               "lower": 67.07650756835938,
+               "upper": 67.07650756835938
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 5.0,
+               "lower": 65.46492767333984,
+               "upper": 65.46492767333984
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 6.0,
+               "lower": 64.38945007324219,
+               "upper": 64.38945007324219
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 7.0,
+               "lower": 63.798606872558594,
+               "upper": 63.798606872558594
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 8.0,
+               "lower": 63.64360046386719,
+               "upper": 63.64360046386719
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 9.0,
+               "lower": 63.878822326660156,
+               "upper": 63.878822326660156
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 10.0,
+               "lower": 64.46192169189453,
+               "upper": 64.46192169189453
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 11.0,
+               "lower": 65.35364532470703,
+               "upper": 65.35364532470703
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 12.0,
+               "lower": 66.5176773071289,
+               "upper": 66.5176773071289
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 13.0,
+               "lower": 67.92082214355469,
+               "upper": 67.92082214355469
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 14.0,
+               "lower": 69.53266143798828,
+               "upper": 69.53266143798828
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 15.0,
+               "lower": 71.32542419433594,
+               "upper": 71.32542419433594
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 16.0,
+               "lower": 73.274169921875,
+               "upper": 73.274169921875
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 17.0,
+               "lower": 75.35543060302734,
+               "upper": 75.35543060302734
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 18.0,
+               "lower": 77.54923248291016,
+               "upper": 77.54923248291016
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 19.0,
+               "lower": 79.83670043945312,
+               "upper": 79.83670043945312
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 20.0,
+               "lower": 82.20117950439453,
+               "upper": 82.20117950439453
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 21.0,
+               "lower": 84.62753295898438,
+               "upper": 84.62753295898438
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 22.0,
+               "lower": 87.10252380371094,
+               "upper": 87.10252380371094
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 23.0,
+               "lower": 89.61395263671875,
+               "upper": 89.61395263671875
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 24.0,
+               "lower": 92.15119934082031,
+               "upper": 92.15119934082031
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 25.0,
+               "lower": 94.70502471923828,
+               "upper": 94.70502471923828
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 26.0,
+               "lower": 97.26664733886719,
+               "upper": 97.26664733886719
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 27.0,
+               "lower": 99.82882690429688,
+               "upper": 99.82882690429688
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 28.0,
+               "lower": 102.38484954833984,
+               "upper": 102.38484954833984
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 29.0,
+               "lower": 104.92919921875,
+               "upper": 104.92919921875
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 30.0,
+               "lower": 107.45648193359375,
+               "upper": 107.45648193359375
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 31.0,
+               "lower": 109.96255493164062,
+               "upper": 109.96255493164062
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 32.0,
+               "lower": 112.44342803955078,
+               "upper": 112.44342803955078
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 33.0,
+               "lower": 114.89585876464844,
+               "upper": 114.89585876464844
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 34.0,
+               "lower": 117.31654357910156,
+               "upper": 117.31654357910156
+            },
+            {
+               "trajectory": "IP_state",
+               "timepoint": 35.0,
+               "lower": 119.70352172851562,
+               "upper": 119.70352172851562
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 0.0,
+               "lower": 10.0,
+               "upper": 10.0
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 1.0,
+               "lower": 16.428810119628906,
+               "upper": 16.428810119628906
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 2.0,
+               "lower": 22.518817901611328,
+               "upper": 22.518817901611328
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 3.0,
+               "lower": 28.331581115722656,
+               "upper": 28.331581115722656
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 4.0,
+               "lower": 33.92376708984375,
+               "upper": 33.92376708984375
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 5.0,
+               "lower": 39.347049713134766,
+               "upper": 39.347049713134766
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 6.0,
+               "lower": 44.6484489440918,
+               "upper": 44.6484489440918
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 7.0,
+               "lower": 49.870567321777344,
+               "upper": 49.870567321777344
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 8.0,
+               "lower": 55.05165481567383,
+               "upper": 55.05165481567383
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 9.0,
+               "lower": 60.22600173950195,
+               "upper": 60.22600173950195
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 10.0,
+               "lower": 65.42422485351562,
+               "upper": 65.42422485351562
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 11.0,
+               "lower": 70.67346954345703,
+               "upper": 70.67346954345703
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 12.0,
+               "lower": 75.99772644042969,
+               "upper": 75.99772644042969
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 13.0,
+               "lower": 81.41796112060547,
+               "upper": 81.41796112060547
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 14.0,
+               "lower": 86.9526138305664,
+               "upper": 86.9526138305664
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 15.0,
+               "lower": 92.61750793457031,
+               "upper": 92.61750793457031
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 16.0,
+               "lower": 98.42646789550781,
+               "upper": 98.42646789550781
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 17.0,
+               "lower": 104.39080047607422,
+               "upper": 104.39080047607422
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 18.0,
+               "lower": 110.52080535888672,
+               "upper": 110.52080535888672
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 19.0,
+               "lower": 116.82440948486328,
+               "upper": 116.82440948486328
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 20.0,
+               "lower": 123.30829620361328,
+               "upper": 123.30829620361328
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 21.0,
+               "lower": 129.97816467285156,
+               "upper": 129.97816467285156
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 22.0,
+               "lower": 136.8377685546875,
+               "upper": 136.8377685546875
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 23.0,
+               "lower": 143.89071655273438,
+               "upper": 143.89071655273438
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 24.0,
+               "lower": 151.13902282714844,
+               "upper": 151.13902282714844
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 25.0,
+               "lower": 158.58355712890625,
+               "upper": 158.58355712890625
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 26.0,
+               "lower": 166.22540283203125,
+               "upper": 166.22540283203125
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 27.0,
+               "lower": 174.06483459472656,
+               "upper": 174.06483459472656
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 28.0,
+               "lower": 182.10092163085938,
+               "upper": 182.10092163085938
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 29.0,
+               "lower": 190.33189392089844,
+               "upper": 190.33189392089844
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 30.0,
+               "lower": 198.7570037841797,
+               "upper": 198.7570037841797
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 31.0,
+               "lower": 207.3739013671875,
+               "upper": 207.3739013671875
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 32.0,
+               "lower": 216.18045043945312,
+               "upper": 216.18045043945312
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 33.0,
+               "lower": 225.174072265625,
+               "upper": 225.174072265625
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 34.0,
+               "lower": 234.35142517089844,
+               "upper": 234.35142517089844
+            },
+            {
+               "trajectory": "RP_state",
+               "timepoint": 35.0,
+               "lower": 243.7100372314453,
+               "upper": 243.7100372314453
+            }
+         ],
+         "transform": [
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            }
+         ]
+      },
+      {
+         "name": "traces",
+         "values": [],
+         "transform": [
+            {
+               "type": "filter",
+               "expr": "isValid(datum.value)"
+            },
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            }
+         ]
+      },
+      {
+         "name": "points",
+         "values": []
+      },
+      {
+         "name": "markers_v",
+         "values": []
+      },
+      {
+         "name": "markers_h",
+         "values": []
+      },
+      {
+         "name": "selected",
+         "on": [
+            {
+               "trigger": "clear",
+               "remove": true
+            },
+            {
+               "trigger": "!shift",
+               "remove": true
+            },
+            {
+               "trigger": "!shift && clicked",
+               "insert": "clicked"
+            },
+            {
+               "trigger": "shift && clicked",
+               "toggle": "clicked"
+            }
+         ]
+      },
+      {
+         "name": "selectedData",
+         "on": [
+            {
+               "trigger": "clearData",
+               "remove": true
+            },
+            {
+               "trigger": "clickedData",
+               "toggle": "clickedData"
+            }
+         ]
+      }
+   ]
+}
