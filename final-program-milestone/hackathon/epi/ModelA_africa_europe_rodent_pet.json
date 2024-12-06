@@ -23,219 +23,6 @@
     }
    },
    {
-    "id": "IS_e",
-    "name": "IS_e",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000511"
-     },
-     "modifiers": {
-      "stage": "severe",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "P_a",
-    "name": "P_a",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000511"
-     },
-     "modifiers": {
-      "stage": "predromal",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "H_e",
-    "name": "H_e",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000511"
-     },
-     "modifiers": {
-      "hospitalization": "ncit:C25179",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "RR",
-    "name": "RR",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000592"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9989"
-     }
-    }
-   },
-   {
-    "id": "V_a",
-    "name": "V_a",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000592"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "SH_e",
-    "name": "SH_e",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000514"
-     },
-     "modifiers": {
-      "severity": "low",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "P_e",
-    "name": "P_e",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000511"
-     },
-     "modifiers": {
-      "stage": "predromal",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "ER",
-    "name": "ER",
-    "grounding": {
-     "identifiers": {
-      "apollosv": "00000154"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9989"
-     }
-    }
-   },
-   {
-    "id": "IM_a",
-    "name": "IM_a",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000511"
-     },
-     "modifiers": {
-      "stage": "mild",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "RH_e",
-    "name": "RH_e",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000592"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "SR",
-    "name": "SR",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000514"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9989"
-     }
-    }
-   },
-   {
-    "id": "SH_a",
-    "name": "SH_a",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000514"
-     },
-     "modifiers": {
-      "severity": "low",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "H_a",
-    "name": "H_a",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000511"
-     },
-     "modifiers": {
-      "hospitalization": "ncit:C25179",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "IS_a",
-    "name": "IS_a",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000511"
-     },
-     "modifiers": {
-      "stage": "severe",
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "V_e",
-    "name": "V_e",
-    "grounding": {
-     "identifiers": {
-      "ido": "0000592"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "EH_a",
-    "name": "EH_a",
-    "grounding": {
-     "identifiers": {
-      "apollosv": "00000154"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
-    "id": "EH_e",
-    "name": "EH_e",
-    "grounding": {
-     "identifiers": {
-      "apollosv": "00000154"
-     },
-     "modifiers": {
-      "species": "ncbitaxon:9606"
-     }
-    }
-   },
-   {
     "id": "RH_a",
     "name": "RH_a",
     "grounding": {
@@ -260,14 +47,26 @@
     }
    },
    {
-    "id": "IM_e",
-    "name": "IM_e",
+    "id": "H_a",
+    "name": "H_a",
     "grounding": {
      "identifiers": {
       "ido": "0000511"
      },
      "modifiers": {
-      "stage": "mild",
+      "hospitalization": "ncit:C25179",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "V_a",
+    "name": "V_a",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
       "species": "ncbitaxon:9606"
      }
     }
@@ -282,6 +81,207 @@
      "modifiers": {
       "severity": "high",
       "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "IS_a",
+    "name": "IS_a",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "stage": "severe",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "P_e",
+    "name": "P_e",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "stage": "predromal",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "H_e",
+    "name": "H_e",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "hospitalization": "ncit:C25179",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "EH_e",
+    "name": "EH_e",
+    "grounding": {
+     "identifiers": {
+      "apollosv": "00000154"
+     },
+     "modifiers": {
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "EH_a",
+    "name": "EH_a",
+    "grounding": {
+     "identifiers": {
+      "apollosv": "00000154"
+     },
+     "modifiers": {
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "SH_e",
+    "name": "SH_e",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000514"
+     },
+     "modifiers": {
+      "severity": "low",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "SH_a",
+    "name": "SH_a",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000514"
+     },
+     "modifiers": {
+      "severity": "low",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "IM_e",
+    "name": "IM_e",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "stage": "mild",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "IM_a",
+    "name": "IM_a",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "stage": "mild",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "RR",
+    "name": "RR",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "species": "ncbitaxon:9989"
+     }
+    }
+   },
+   {
+    "id": "P_a",
+    "name": "P_a",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "stage": "predromal",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "V_e",
+    "name": "V_e",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "ER",
+    "name": "ER",
+    "grounding": {
+     "identifiers": {
+      "apollosv": "00000154"
+     },
+     "modifiers": {
+      "species": "ncbitaxon:9989"
+     }
+    }
+   },
+   {
+    "id": "RH_e",
+    "name": "RH_e",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "IS_e",
+    "name": "IS_e",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000511"
+     },
+     "modifiers": {
+      "stage": "severe",
+      "species": "ncbitaxon:9606"
+     }
+    }
+   },
+   {
+    "id": "SR",
+    "name": "SR",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000514"
+     },
+     "modifiers": {
+      "species": "ncbitaxon:9989"
      }
     }
    },
@@ -348,51 +348,51 @@
    {
     "id": "t2",
     "input": [
-     "IS_e",
-     "P_a",
-     "H_e",
-     "RR",
-     "V_a",
-     "SH_e",
-     "P_e",
-     "ER",
-     "IM_a",
-     "RH_e",
-     "SR",
-     "SH_a",
-     "H_a",
-     "IS_a",
-     "V_e",
-     "EH_a",
-     "EH_e",
      "RH_a",
      "IR",
-     "IM_e",
+     "H_a",
+     "V_a",
      "SL_e",
+     "IS_a",
+     "P_e",
+     "H_e",
+     "EH_e",
+     "EH_a",
+     "SH_e",
+     "SH_a",
+     "IM_e",
+     "IM_a",
+     "RR",
+     "P_a",
+     "V_e",
+     "ER",
+     "RH_e",
+     "IS_e",
+     "SR",
      "SL_a"
     ],
     "output": [
-     "IS_e",
-     "P_a",
-     "H_e",
-     "RR",
-     "V_a",
-     "SH_e",
-     "P_e",
-     "ER",
-     "IM_a",
-     "RH_e",
-     "SR",
-     "SH_a",
-     "H_a",
-     "IS_a",
-     "V_e",
-     "EH_a",
-     "EH_e",
      "RH_a",
      "IR",
-     "IM_e",
+     "H_a",
+     "V_a",
      "SL_e",
+     "IS_a",
+     "P_e",
+     "H_e",
+     "EH_e",
+     "EH_a",
+     "SH_e",
+     "SH_a",
+     "IM_e",
+     "IM_a",
+     "RR",
+     "P_a",
+     "V_e",
+     "ER",
+     "RH_e",
+     "IS_e",
+     "SR",
      "EH_a"
     ],
     "properties": {
@@ -424,51 +424,51 @@
    {
     "id": "t5",
     "input": [
-     "IS_e",
-     "P_a",
-     "H_e",
-     "RR",
-     "V_a",
-     "SH_e",
-     "P_e",
-     "ER",
-     "IM_a",
-     "RH_e",
-     "SR",
-     "H_a",
-     "IS_a",
-     "SL_a",
-     "V_e",
-     "EH_a",
-     "EH_e",
      "RH_a",
      "IR",
-     "IM_e",
+     "H_a",
+     "V_a",
      "SL_e",
+     "IS_a",
+     "P_e",
+     "H_e",
+     "EH_e",
+     "EH_a",
+     "SH_e",
+     "SL_a",
+     "IM_e",
+     "IM_a",
+     "RR",
+     "P_a",
+     "V_e",
+     "ER",
+     "RH_e",
+     "IS_e",
+     "SR",
      "SH_a"
     ],
     "output": [
-     "IS_e",
-     "P_a",
-     "H_e",
-     "RR",
-     "V_a",
-     "SH_e",
-     "P_e",
-     "ER",
-     "IM_a",
-     "RH_e",
-     "SR",
-     "H_a",
-     "IS_a",
-     "SL_a",
-     "V_e",
-     "EH_a",
-     "EH_e",
      "RH_a",
      "IR",
-     "IM_e",
+     "H_a",
+     "V_a",
      "SL_e",
+     "IS_a",
+     "P_e",
+     "H_e",
+     "EH_e",
+     "EH_a",
+     "SH_e",
+     "SL_a",
+     "IM_e",
+     "IM_a",
+     "RR",
+     "P_a",
+     "V_e",
+     "ER",
+     "RH_e",
+     "IS_e",
+     "SR",
      "EH_a"
     ],
     "properties": {
@@ -642,15 +642,15 @@
    {
     "id": "t20",
     "input": [
+     "ER",
      "IR",
      "RR",
-     "ER",
      "SR"
     ],
     "output": [
+     "ER",
      "IR",
      "RR",
-     "ER",
      "ER"
     ],
     "properties": {
@@ -736,43 +736,43 @@
    {
     "id": "t28",
     "input": [
-     "IS_e",
-     "H_e",
-     "P_a",
-     "V_a",
-     "SH_e",
-     "P_e",
-     "IM_a",
-     "RH_e",
-     "SH_a",
+     "RH_a",
      "H_a",
-     "SL_a",
+     "V_a",
      "IS_a",
-     "V_e",
+     "P_e",
+     "H_e",
      "EH_e",
      "EH_a",
-     "RH_a",
+     "SH_e",
+     "SH_a",
+     "SL_a",
      "IM_e",
+     "IM_a",
+     "P_a",
+     "V_e",
+     "RH_e",
+     "IS_e",
      "SL_e"
     ],
     "output": [
-     "IS_e",
-     "H_e",
-     "P_a",
-     "V_a",
-     "SH_e",
-     "P_e",
-     "IM_a",
-     "RH_e",
-     "SH_a",
+     "RH_a",
      "H_a",
-     "SL_a",
+     "V_a",
      "IS_a",
-     "V_e",
+     "P_e",
+     "H_e",
      "EH_e",
      "EH_a",
-     "RH_a",
+     "SH_e",
+     "SH_a",
+     "SL_a",
      "IM_e",
+     "IM_a",
+     "P_a",
+     "V_e",
+     "RH_e",
+     "IS_e",
      "EH_e"
     ],
     "properties": {
@@ -804,43 +804,43 @@
    {
     "id": "t31",
     "input": [
-     "IS_e",
-     "H_e",
-     "P_a",
-     "V_a",
-     "P_e",
-     "IM_a",
-     "RH_e",
-     "SH_a",
+     "RH_a",
      "H_a",
-     "SL_a",
+     "V_a",
+     "SL_e",
      "IS_a",
-     "V_e",
+     "P_e",
+     "H_e",
      "EH_e",
      "EH_a",
-     "RH_a",
+     "SH_a",
+     "SL_a",
      "IM_e",
-     "SL_e",
+     "IM_a",
+     "P_a",
+     "V_e",
+     "RH_e",
+     "IS_e",
      "SH_e"
     ],
     "output": [
-     "IS_e",
-     "H_e",
-     "P_a",
-     "V_a",
-     "P_e",
-     "IM_a",
-     "RH_e",
-     "SH_a",
+     "RH_a",
      "H_a",
-     "SL_a",
+     "V_a",
+     "SL_e",
      "IS_a",
-     "V_e",
+     "P_e",
+     "H_e",
      "EH_e",
      "EH_a",
-     "RH_a",
+     "SH_a",
+     "SL_a",
      "IM_e",
-     "SL_e",
+     "IM_a",
+     "P_a",
+     "V_e",
+     "RH_e",
+     "IS_e",
      "EH_e"
     ],
     "properties": {
@@ -1014,17 +1014,17 @@
    {
     "id": "t46",
     "input": [
-     "IR",
      "SR",
-     "RR",
      "ER",
+     "IR",
+     "RR",
      "SP"
     ],
     "output": [
-     "IR",
      "SR",
-     "RR",
      "ER",
+     "IR",
+     "RR",
      "EP"
     ],
     "properties": {
@@ -1370,91 +1370,6 @@
      "expression_mathml": "<cn>120000000.0</cn>"
     },
     {
-     "target": "IS_e",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "P_a",
-     "expression": "5.0",
-     "expression_mathml": "<cn>5.0</cn>"
-    },
-    {
-     "target": "H_e",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "RR",
-     "expression": "2.0",
-     "expression_mathml": "<cn>2.0</cn>"
-    },
-    {
-     "target": "V_a",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "SH_e",
-     "expression": "30000000.0",
-     "expression_mathml": "<cn>30000000.0</cn>"
-    },
-    {
-     "target": "P_e",
-     "expression": "5.0",
-     "expression_mathml": "<cn>5.0</cn>"
-    },
-    {
-     "target": "ER",
-     "expression": "800.0",
-     "expression_mathml": "<cn>800.0</cn>"
-    },
-    {
-     "target": "IM_a",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "RH_e",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "SR",
-     "expression": "600000.0",
-     "expression_mathml": "<cn>600000.0</cn>"
-    },
-    {
-     "target": "SH_a",
-     "expression": "60000000.0",
-     "expression_mathml": "<cn>60000000.0</cn>"
-    },
-    {
-     "target": "H_a",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "IS_a",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "V_e",
-     "expression": "0.0",
-     "expression_mathml": "<cn>0.0</cn>"
-    },
-    {
-     "target": "EH_a",
-     "expression": "25.0",
-     "expression_mathml": "<cn>25.0</cn>"
-    },
-    {
-     "target": "EH_e",
-     "expression": "25.0",
-     "expression_mathml": "<cn>25.0</cn>"
-    },
-    {
      "target": "RH_a",
      "expression": "0.0",
      "expression_mathml": "<cn>0.0</cn>"
@@ -1465,7 +1380,12 @@
      "expression_mathml": "<cn>16.0</cn>"
     },
     {
-     "target": "IM_e",
+     "target": "H_a",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "V_a",
      "expression": "0.0",
      "expression_mathml": "<cn>0.0</cn>"
     },
@@ -1473,6 +1393,86 @@
      "target": "SL_e",
      "expression": "60000000.0",
      "expression_mathml": "<cn>60000000.0</cn>"
+    },
+    {
+     "target": "IS_a",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "P_e",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "H_e",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "EH_e",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "EH_a",
+     "expression": "25.0",
+     "expression_mathml": "<cn>25.0</cn>"
+    },
+    {
+     "target": "SH_e",
+     "expression": "30000000.0",
+     "expression_mathml": "<cn>30000000.0</cn>"
+    },
+    {
+     "target": "SH_a",
+     "expression": "60000000.0",
+     "expression_mathml": "<cn>60000000.0</cn>"
+    },
+    {
+     "target": "IM_e",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "IM_a",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "RR",
+     "expression": "2.0",
+     "expression_mathml": "<cn>2.0</cn>"
+    },
+    {
+     "target": "P_a",
+     "expression": "5.0",
+     "expression_mathml": "<cn>5.0</cn>"
+    },
+    {
+     "target": "V_e",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "ER",
+     "expression": "800.0",
+     "expression_mathml": "<cn>800.0</cn>"
+    },
+    {
+     "target": "RH_e",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "IS_e",
+     "expression": "0.0",
+     "expression_mathml": "<cn>0.0</cn>"
+    },
+    {
+     "target": "SR",
+     "expression": "600000.0",
+     "expression_mathml": "<cn>600000.0</cn>"
     },
     {
      "target": "SP",
@@ -1526,7 +1526,7 @@
     },
     {
      "id": "vpd_a",
-     "value": 100000.0
+     "value": 0.0
     },
     {
      "id": "sigma_h",
@@ -1598,11 +1598,7 @@
     },
     {
      "id": "vpd_e",
-     "value": 100000.0
-    },
-    {
-     "id": "pi_rp",
-     "value": 0.5
+     "value": 0.0
     },
     {
      "id": "rho",
@@ -1611,6 +1607,10 @@
     {
      "id": "pi_h",
      "value": 8100.0
+    },
+    {
+     "id": "pi_rp",
+     "value": 0.5
     }
    ],
    "observables": [
