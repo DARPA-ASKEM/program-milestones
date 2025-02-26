@@ -1,4 +1,4 @@
-This folder contains MITRE's hackathon and evaluation scenario and supplementary materials, for the 6-month program milestone. It also contains performer solutions from the in-person evaluation event.
+This folder contains MITRE's hackathon and evaluation scenarios and supplementary materials, for the 6-month program milestone. It also contains performer solutions from the in-person evaluation event.
 
 <h3 align=center>Release statement for any code provided by MITRE:</h3>
 <br>
