@@ -1,5 +1,7 @@
+This folder contains MITRE's hackathon and evaluation scenario and supplementary materials, for the final program milestone.
+
 <h3 align=center>Release statement for any code provided by MITRE:</h3>
-<br><br>
+<br>
 
 <p align=center>
 <b>
@@ -16,5 +18,4 @@ Clause 252.227-7014 (FEB 2014)
 Distribution Statement A.  Approved for public release: distribution is unlimited <br>
 MITRE Public Release Case Number 24-2089
 </b>
-
 </p>
