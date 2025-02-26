@@ -10,7 +10,7 @@ Clause 252.227-7014 (FEB 2014)
 
 &copy; 2025 The MITRE Corporation.
 
-Distribution Statement A.  Approved for public release: distribution is unlimited
+Distribution Statement A.  Approved for public release: distribution is unlimited <br>
 MITRE Public Release Case Number 24-2089
 </b>
 </p>
