@@ -452,8 +452,8 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -475,16 +475,16 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
      "id": "r_SvSu",
      "value": 0.002,
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -498,8 +498,8 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -513,8 +513,8 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -528,8 +528,8 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -543,8 +543,8 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -558,8 +558,8 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -573,8 +573,8 @@
       }
      },
      "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+      "expression": "1/day",
+      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
      }
     }
    ],
@@ -601,8 +601,8 @@
    "time": {
     "id": "t",
     "units": {
-     "expression": "week",
-     "expression_mathml": "<ci>week</ci>"
+     "expression": "day",
+     "expression_mathml": "<ci>day</ci>"
     }
    }
   }
