@@ -1,9 +1,9 @@
 {
  "header": {
-  "name": "SEIRH vacc model for Florida t0 = 04/22/2023",
+  "name": "SEIRH model with vaccination for Florida, t0 = 10/14/2023",
   "schema": "https://raw.githubusercontent.com/DARPA-ASKEM/Model-Representations/petrinet_v0.6/petrinet/petrinet_schema.json",
   "schema_name": "petrinet",
-  "description": "SEIRH vacc model for Florida t0 = 04/22/2023",
+  "description": "SEIRH model with vaccination for Florida, t0 = 10/14/2023",
   "model_version": "0.1"
  },
  "properties": {},
@@ -106,14 +106,29 @@
     }
    },
    {
-    "id": "H",
-    "name": "H",
+    "id": "R",
+    "name": "R",
+    "grounding": {
+     "identifiers": {
+      "ido": "0000592"
+     },
+     "modifiers": {}
+    },
+    "units": {
+     "expression": "person",
+     "expression_mathml": "<ci>person</ci>"
+    }
+   },
+   {
+    "id": "H_u",
+    "name": "H_u",
     "grounding": {
      "identifiers": {
       "ido": "0000511"
      },
      "modifiers": {
-      "property": "ncit:C25179"
+      "property": "ncit:C25179",
+      "status": "unvaccinated"
      }
     },
     "units": {
@@ -122,13 +137,16 @@
     }
    },
    {
-    "id": "R",
-    "name": "R",
+    "id": "H_v",
+    "name": "H_v",
     "grounding": {
      "identifiers": {
-      "ido": "0000592"
+      "ido": "0000511"
      },
-     "modifiers": {}
+     "modifiers": {
+      "property": "ncit:C25179",
+      "status": "vaccinated"
+     }
     },
     "units": {
      "expression": "person",
@@ -220,10 +238,10 @@
    {
     "id": "t6",
     "input": [
-     "S_v"
+     "E_u"
     ],
     "output": [
-     "S_u"
+     "I_u"
     ],
     "properties": {
      "name": "t6"
@@ -232,10 +250,10 @@
    {
     "id": "t7",
     "input": [
-     "E_u"
+     "E_v"
     ],
     "output": [
-     "I_u"
+     "I_v"
     ],
     "properties": {
      "name": "t7"
@@ -244,10 +262,10 @@
    {
     "id": "t8",
     "input": [
-     "E_v"
+     "I_u"
     ],
     "output": [
-     "I_v"
+     "R"
     ],
     "properties": {
      "name": "t8"
@@ -256,10 +274,10 @@
    {
     "id": "t9",
     "input": [
-     "I_u"
+     "I_v"
     ],
     "output": [
-     "H"
+     "R"
     ],
     "properties": {
      "name": "t9"
@@ -268,10 +286,10 @@
    {
     "id": "t10",
     "input": [
-     "I_v"
+     "H_u"
     ],
     "output": [
-     "H"
+     "R"
     ],
     "properties": {
      "name": "t10"
@@ -280,7 +298,7 @@
    {
     "id": "t11",
     "input": [
-     "H"
+     "H_v"
     ],
     "output": [
      "R"
@@ -292,12 +310,12 @@
    {
     "id": "t12",
     "input": [
-     "E_u",
-     "E_v"
+     "I_u",
+     "I_v"
     ],
     "output": [
-     "E_u",
-     "E_v",
+     "I_u",
+     "I_v",
      "Cumulative_hosp"
     ],
     "properties": {
@@ -311,23 +329,23 @@
    "rates": [
     {
      "target": "t1",
-     "expression": "I_u*NPI_mult*S_u*beta/N",
-     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>NPI_mult</ci><ci>S_u</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+     "expression": "I_u*S_u*beta/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>S_u</ci><ci>beta</ci></apply><ci>N</ci></apply>"
     },
     {
      "target": "t2",
-     "expression": "I_u*NPI_mult*S_v*beta*vacc_mult/N",
-     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>NPI_mult</ci><ci>S_v</ci><ci>beta</ci><ci>vacc_mult</ci></apply><ci>N</ci></apply>"
+     "expression": "I_u*S_v*beta*vacc_eff/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_u</ci><ci>S_v</ci><ci>beta</ci><ci>vacc_eff</ci></apply><ci>N</ci></apply>"
     },
     {
      "target": "t3",
-     "expression": "I_v*NPI_mult*S_u*beta/N",
-     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>NPI_mult</ci><ci>S_u</ci><ci>beta</ci></apply><ci>N</ci></apply>"
+     "expression": "I_v*S_u*beta/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>S_u</ci><ci>beta</ci></apply><ci>N</ci></apply>"
     },
     {
      "target": "t4",
-     "expression": "I_v*NPI_mult*S_v*beta*vacc_mult/N",
-     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>NPI_mult</ci><ci>S_v</ci><ci>beta</ci><ci>vacc_mult</ci></apply><ci>N</ci></apply>"
+     "expression": "I_v*S_v*beta*vacc_eff/N",
+     "expression_mathml": "<apply><divide/><apply><times/><ci>I_v</ci><ci>S_v</ci><ci>beta</ci><ci>vacc_eff</ci></apply><ci>N</ci></apply>"
     },
     {
      "target": "t5",
@@ -336,85 +354,90 @@
     },
     {
      "target": "t6",
-     "expression": "S_v*r_SvSu",
-     "expression_mathml": "<apply><times/><ci>S_v</ci><ci>r_SvSu</ci></apply>"
-    },
-    {
-     "target": "t7",
      "expression": "E_u*r_EI",
      "expression_mathml": "<apply><times/><ci>E_u</ci><ci>r_EI</ci></apply>"
     },
     {
-     "target": "t8",
+     "target": "t7",
      "expression": "E_v*r_EI",
      "expression_mathml": "<apply><times/><ci>E_v</ci><ci>r_EI</ci></apply>"
     },
     {
+     "target": "t8",
+     "expression": "I_u*r_IR_u",
+     "expression_mathml": "<apply><times/><ci>I_u</ci><ci>r_IR_u</ci></apply>"
+    },
+    {
      "target": "t9",
-     "expression": "I_u*r_IH_u",
-     "expression_mathml": "<apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply>"
+     "expression": "I_v*r_IR_v",
+     "expression_mathml": "<apply><times/><ci>I_v</ci><ci>r_IR_v</ci></apply>"
     },
     {
      "target": "t10",
-     "expression": "I_v*r_IH_v",
-     "expression_mathml": "<apply><times/><ci>I_v</ci><ci>r_IH_v</ci></apply>"
+     "expression": "H_u*r_HR_u",
+     "expression_mathml": "<apply><times/><ci>H_u</ci><ci>r_HR_u</ci></apply>"
     },
     {
      "target": "t11",
-     "expression": "H*r_HR",
-     "expression_mathml": "<apply><times/><ci>H</ci><ci>r_HR</ci></apply>"
+     "expression": "H_v*r_HR_v",
+     "expression_mathml": "<apply><times/><ci>H_v</ci><ci>r_HR_v</ci></apply>"
     },
     {
      "target": "t12",
-     "expression": "r_EI*(E_u + E_v)",
-     "expression_mathml": "<apply><times/><ci>r_EI</ci><apply><plus/><ci>E_u</ci><ci>E_v</ci></apply></apply>"
+     "expression": "E_v*r_IH_v + I_u*r_IH_u",
+     "expression_mathml": "<apply><plus/><apply><times/><ci>E_v</ci><ci>r_IH_v</ci></apply><apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply></apply>"
     }
    ],
    "initials": [
     {
      "target": "S_u",
-     "expression": "60.0",
-     "expression_mathml": "<cn>59.999999999999986</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     },
     {
      "target": "I_u",
-     "expression": "3.33333333333333",
-     "expression_mathml": "<cn>3.3333333333333335</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     },
     {
      "target": "E_u",
-     "expression": "14.6666666666667",
-     "expression_mathml": "<cn>14.666666666666666</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     },
     {
      "target": "S_v",
-     "expression": "240.0",
-     "expression_mathml": "<cn>240.0</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     },
     {
      "target": "E_v",
-     "expression": "7.33333333333333",
-     "expression_mathml": "<cn>7.333333333333333</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     },
     {
      "target": "I_v",
-     "expression": "1.66666666666667",
-     "expression_mathml": "<cn>1.6666666666666667</cn>"
-    },
-    {
-     "target": "H",
-     "expression": "2",
-     "expression_mathml": "<cn>2</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     },
     {
      "target": "R",
-     "expression": "0",
-     "expression_mathml": "<cn>0</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
+    },
+    {
+     "target": "H_u",
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
+    },
+    {
+     "target": "H_v",
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     },
     {
      "target": "Cumulative_hosp",
-     "expression": "7",
-     "expression_mathml": "<cn>7</cn>"
+     "expression": "1",
+     "expression_mathml": "<cn>1</cn>"
     }
    ],
    "parameters": [
@@ -424,21 +447,6 @@
      "units": {
       "expression": "person",
       "expression_mathml": "<ci>person</ci>"
-     }
-    },
-    {
-     "id": "NPI_mult",
-     "value": 1.0,
-     "distribution": {
-      "type": "StandardUniform1",
-      "parameters": {
-       "minimum": 0.999,
-       "maximum": 1.001
-      }
-     },
-     "units": {
-      "expression": "1",
-      "expression_mathml": "<cn>1</cn>"
      }
     },
     {
@@ -452,13 +460,13 @@
       }
      },
      "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
      }
     },
     {
-     "id": "vacc_mult",
-     "value": 0.75,
+     "id": "vacc_eff",
+     "value": 0.2,
      "units": {
       "expression": "1",
       "expression_mathml": "<cn>1</cn>"
@@ -466,25 +474,10 @@
     },
     {
      "id": "r_Sv",
-     "value": 10000.0,
-     "distribution": {
-      "type": "StandardUniform1",
-      "parameters": {
-       "minimum": "9999",
-       "maximum": "10001"
-      }
-     },
+     "value": 1.0,
      "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
-     }
-    },
-    {
-     "id": "r_SvSu",
-     "value": 0.002,
-     "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -498,53 +491,8 @@
       }
      },
      "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
-     }
-    },
-    {
-     "id": "r_IH_u",
-     "value": 0.0041,
-     "distribution": {
-      "type": "StandardUniform1",
-      "parameters": {
-       "minimum": 0.004,
-       "maximum": 0.0045
-      }
-     },
-     "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
-     }
-    },
-    {
-     "id": "r_IH_v",
-     "value": 0.0013,
-     "distribution": {
-      "type": "StandardUniform1",
-      "parameters": {
-       "minimum": 0.001,
-       "maximum": 0.0015
-      }
-     },
-     "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
-     }
-    },
-    {
-     "id": "r_HR",
-     "value": 0.155,
-     "distribution": {
-      "type": "StandardUniform1",
-      "parameters": {
-       "minimum": 0.12,
-       "maximum": 0.2
-      }
-     },
-     "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -558,8 +506,8 @@
       }
      },
      "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
      }
     },
     {
@@ -573,8 +521,68 @@
       }
      },
      "units": {
-      "expression": "1/day",
-      "expression_mathml": "<apply><power/><ci>day</ci><cn>-1</cn></apply>"
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_HR_u",
+     "value": 0.155,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.12,
+       "maximum": 0.2
+      }
+     },
+     "units": {
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_HR_v",
+     "value": 0.155,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.12,
+       "maximum": 0.2
+      }
+     },
+     "units": {
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_IH_u",
+     "value": 0.0041,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.004,
+       "maximum": 0.0045
+      }
+     },
+     "units": {
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_IH_v",
+     "value": 0.0013,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.001,
+       "maximum": 0.0015
+      }
+     },
+     "units": {
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
      }
     }
    ],
@@ -588,21 +596,15 @@
     {
      "id": "hospitalized",
      "name": "hospitalized",
-     "expression": "H",
-     "expression_mathml": "<ci>H</ci>"
-    },
-    {
-     "id": "cumulative_hosp",
-     "name": "cumulative_hosp",
-     "expression": "Cumulative_hosp",
-     "expression_mathml": "<ci>Cumulative_hosp</ci>"
+     "expression": "H_u + H_v",
+     "expression_mathml": "<apply><plus/><ci>H_u</ci><ci>H_v</ci></apply>"
     }
    ],
    "time": {
     "id": "t",
     "units": {
-     "expression": "day",
-     "expression_mathml": "<ci>day</ci>"
+     "expression": "week",
+     "expression_mathml": "<ci>week</ci>"
     }
    }
   }
