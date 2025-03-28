@@ -53,42 +53,106 @@
          }
       },
       {
+         "name": "markerscale_v",
+         "type": "ordinal",
+         "domain": {
+            "data": "markers_v",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_v",
+            "field": "new_color"
+         }
+      },
+      {
+         "name": "markerscale_h",
+         "type": "ordinal",
+         "domain": {
+            "data": "markers_h",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_h",
+            "field": "new_color"
+         }
+      },
+      {
+         "name": "fillScale",
+         "type": "ordinal",
+         "domain": [
+            "Cumulative_hosp_state",
+            "cumulative_hosp"
+         ],
+         "range": [
+            "#1f77b4",
+            "#ff7f0e"
+         ]
+      },
+      {
          "name": "color",
          "type": "ordinal",
-         "range": "category",
+         "range": [
+            "#1f77b4",
+            "#ff7f0e"
+         ],
+         "domain": [
+            "Cumulative_hosp_state",
+            "cumulative_hosp"
+         ]
+      },
+      {
+         "name": "lineStyle_v",
+         "type": "ordinal",
          "domain": {
-            "fields": [
-               {
-                  "data": "distributions",
-                  "field": "trajectory"
-               },
-               {
-                  "data": "traces",
-                  "field": "trajectory"
-               },
-               {
-                  "data": "points",
-                  "field": "trajectory"
-               }
-            ],
-            "sort": {
-               "order": "ascending"
-            }
+            "data": "markers_v",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_v",
+            "field": "type"
          }
+      },
+      {
+         "name": "lineStyle_h",
+         "type": "ordinal",
+         "domain": {
+            "data": "markers_h",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_h",
+            "field": "type"
+         }
+      },
+      {
+         "name": "trajectoryOrder",
+         "type": "ordinal",
+         "domain": [
+            "Cumulative_hosp_state",
+            "cumulative_hosp"
+         ],
+         "range": [
+            0,
+            1
+         ]
       }
    ],
    "axes": [
       {
-         "name": "x_axis",
          "orient": "bottom",
          "scale": "xscale",
-         "zindex": 100
+         "zindex": 100,
+         "title": {
+            "signal": "data('axis_labels')[0].xaxis_label"
+         }
       },
       {
-         "name": "y_axis",
          "orient": "left",
          "scale": "yscale",
-         "zindex": 100
+         "zindex": 100,
+         "title": {
+            "signal": "data('axis_labels')[0].yaxis_label"
+         }
       }
    ],
    "signals": [
@@ -146,48 +210,229 @@
                "force": true
             }
          ]
+      },
+      {
+         "name": "logLegendClick",
+         "value": null,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "{datum: datum}",
+               "force": true
+            }
+         ]
+      },
+      {
+         "description": "Active datapoint",
+         "name": "activated_datapoint",
+         "value": null,
+         "on": [
+            {
+               "events": "symbol:mouseover",
+               "update": "item()"
+            },
+            {
+               "events": "symbol:mouseout",
+               "update": "null"
+            }
+         ]
+      },
+      {
+         "name": "logAreaClick",
+         "value": null,
+         "on": [
+            {
+               "events": "@area:click",
+               "update": "{datum: datum}",
+               "force": true
+            }
+         ]
       }
    ],
+   "config": {
+      "logLevel": "warn"
+   },
    "legends": [
       {
          "name": "color_legend",
+         "fill": "fillScale",
          "stroke": "color",
+         "title": "Trajectory States",
+         "type": "symbol",
+         "symbolType": "square",
+         "symbolSize": 200,
          "encode": {
             "symbols": {
-               "name": "legendSymbol",
-               "interactive": true,
-               "update": {
+               "enter": {
+                  "shape": {
+                     "value": "square"
+                  },
+                  "size": {
+                     "value": 200
+                  },
                   "fill": {
-                     "value": "transparent"
+                     "scale": "fillScale",
+                     "field": "trajectory"
+                  },
+                  "stroke": {
+                     "scale": "color",
+                     "field": "trajectory"
                   },
                   "strokeWidth": {
                      "value": 2
-                  },
+                  }
+               },
+               "update": {
                   "opacity": [
                      {
-                        "test": "!length(data('selected')) || indata('selected', 'value', datum.value) || indata('selectedData', 'value', datum.value)",
+                        "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory) || indata('selectedData', 'value', datum.trajectory)",
                         "value": 0.7
                      },
                      {
                         "value": 0.15
                      }
-                  ],
-                  "size": {
-                     "value": 64
-                  }
+                  ]
                }
             },
             "labels": {
-               "name": "legendLabel",
-               "interactive": true,
                "update": {
                   "opacity": [
                      {
-                        "test": "!length(data('selectedData')) || indata('selectedData', 'value', datum.value)",
+                        "test": "!length(data('selectedData')) || indata('selectedData', 'value', datum.trajectory)",
                         "value": 1
                      },
                      {
                         "value": 0.25
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "name": "marker_color_legend_v",
+         "stroke": "markerscale_v",
+         "strokeDash": "lineStyle_v",
+         "title": {
+            "signal": "length(data('markers_v')) > 1 ? 'Vertical Markers' : ''"
+         },
+         "interactive": true,
+         "encode": {
+            "symbols": {
+               "enter": {
+                  "shape": {
+                     "value": "square"
+                  },
+                  "stroke": {
+                     "scale": "markerscale_v",
+                     "field": "label"
+                  },
+                  "strokeDash": {
+                     "scale": "lineStyle_v",
+                     "field": "type"
+                  },
+                  "strokeWidth": {
+                     "value": 1
+                  },
+                  "size": {
+                     "value": 200
+                  },
+                  "opacity": {
+                     "value": 1
+                  }
+               },
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_v')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
+                     }
+                  ]
+               }
+            },
+            "labels": {
+               "update": {
+                  "text": {
+                     "field": "label"
+                  },
+                  "fill": {
+                     "value": "black"
+                  },
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_v')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "name": "marker_color_legend_h",
+         "stroke": "markerscale_h",
+         "strokeDash": "lineStyle_h",
+         "title": {
+            "signal": "length(data('markers_h')) > 1 ? 'Vertical Markers' : ''"
+         },
+         "interactive": true,
+         "encode": {
+            "symbols": {
+               "enter": {
+                  "shape": {
+                     "value": "square"
+                  },
+                  "stroke": {
+                     "scale": "markerscale_v",
+                     "field": "label"
+                  },
+                  "strokeDash": {
+                     "scale": "lineStyle_h",
+                     "field": "type"
+                  },
+                  "strokeWidth": {
+                     "value": 1
+                  },
+                  "size": {
+                     "value": 200
+                  },
+                  "opacity": {
+                     "value": 1
+                  }
+               },
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_h')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
+                     }
+                  ]
+               }
+            },
+            "labels": {
+               "update": {
+                  "text": {
+                     "field": "label"
+                  },
+                  "fill": {
+                     "value": "black"
+                  },
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_h')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
                      }
                   ]
                }
@@ -230,10 +475,6 @@
                      },
                      "strokeWidth": {
                         "value": 2
-                     },
-                     "fill": {
-                        "scale": "color",
-                        "field": "trajectory"
                      },
                      "stroke": {
                         "scale": "color",
@@ -385,8 +626,12 @@
             "facet": {
                "name": "trajectory_split",
                "data": "distributions",
-               "groupby": "trajectory"
+               "groupby": "trajectory_order"
             }
+         },
+         "sort": {
+            "field": "datum.trajectory_order",
+            "order": "ascending"
          },
          "marks": [
             {
@@ -417,7 +662,7 @@
                         "value": 2
                      },
                      "fill": {
-                        "scale": "color",
+                        "scale": "fillScale",
                         "field": "trajectory"
                      },
                      "stroke": {
@@ -465,7 +710,12 @@
                "encode": {
                   "enter": {
                      "stroke": {
-                        "value": "lightgray"
+                        "scale": "markerscale_v",
+                        "field": "label"
+                     },
+                     "strokeDash": {
+                        "scale": "lineStyle_v",
+                        "field": "label"
                      }
                   },
                   "update": {
@@ -484,45 +734,6 @@
                      }
                   }
                }
-            },
-            {
-               "type": "text",
-               "name": "_marker_v flags",
-               "from": {
-                  "data": "_marker_v text"
-               },
-               "encode": {
-                  "enter": {
-                     "text": {
-                        "field": "datum.label"
-                     },
-                     "y": {
-                        "value": 0
-                     },
-                     "fontSize": {
-                        "value": 8
-                     }
-                  }
-               },
-               "transform": [
-                  {
-                     "type": "label",
-                     "lineAnchor": "start",
-                     "as": [
-                        "x",
-                        "_y",
-                        "opacity",
-                        "align",
-                        "baseline"
-                     ],
-                     "offset": [
-                        1
-                     ],
-                     "size": {
-                        "signal": "[width, height]"
-                     }
-                  }
-               ]
             }
          ]
       },
@@ -539,7 +750,12 @@
                "encode": {
                   "enter": {
                      "stroke": {
-                        "value": "lightgray"
+                        "scale": "markerscale_h",
+                        "field": "label"
+                     },
+                     "strokeDash": {
+                        "scale": "lineStyle_h",
+                        "field": "label"
                      }
                   },
                   "update": {
@@ -558,45 +774,6 @@
                      }
                   }
                }
-            },
-            {
-               "type": "text",
-               "name": "_marker_h flags",
-               "from": {
-                  "data": "_marker_h text"
-               },
-               "encode": {
-                  "enter": {
-                     "text": {
-                        "field": "datum.label"
-                     },
-                     "x": {
-                        "signal": "width+20"
-                     },
-                     "fontSize": {
-                        "value": 8
-                     }
-                  }
-               },
-               "transform": [
-                  {
-                     "type": "label",
-                     "lineAnchor": "start",
-                     "as": [
-                        "_x",
-                        "y",
-                        "opacity",
-                        "align",
-                        "baseline"
-                     ],
-                     "offset": [
-                        1
-                     ],
-                     "size": {
-                        "signal": "[width, height]"
-                     }
-                  }
-               ]
             }
          ]
       }
@@ -608,626 +785,80 @@
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 0.0,
-               "lower": 7.0,
-               "upper": 7.0
+               "lower": 292.0,
+               "upper": 292.0
             },
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 1.0,
-               "lower": 7.272507524490356,
-               "upper": 7.6464756488800045
+               "lower": 537.4684753417969,
+               "upper": 710.7214630126953
             },
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 2.0,
-               "lower": 7.084398555755615,
-               "upper": 7.812989521026611
+               "lower": 810.2137145996094,
+               "upper": 1311.23505859375
             },
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 3.0,
-               "lower": 6.8091754674911495,
-               "upper": 7.678043246269226
+               "lower": 1041.6539672851563,
+               "upper": 2127.9492065429686
             },
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 4.0,
-               "lower": 6.344069147109986,
-               "upper": 7.687021327018738
+               "lower": 1236.2826416015625,
+               "upper": 3302.922399902344
             },
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 5.0,
-               "lower": 5.833610701560974,
-               "upper": 7.5670653820037845
+               "lower": 1386.8961608886718,
+               "upper": 4922.150244140625
             },
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 6.0,
-               "lower": 5.253648853302002,
-               "upper": 7.31509792804718
+               "lower": 1520.5398193359374,
+               "upper": 7104.079443359375
             },
             {
                "trajectory": "Cumulative_hosp_state",
                "timepoint": 7.0,
-               "lower": 4.533008241653443,
-               "upper": 7.099531936645508
+               "lower": 1635.7840637207032,
+               "upper": 9960.71962890625
             },
             {
-               "trajectory": "E_u_state",
-               "timepoint": 0.0,
-               "lower": 14.666666984558105,
-               "upper": 14.666666984558105
+               "trajectory": "Cumulative_hosp_state",
+               "timepoint": 8.0,
+               "lower": 1737.9003967285157,
+               "upper": 13579.07021484375
             },
             {
-               "trajectory": "E_u_state",
-               "timepoint": 1.0,
-               "lower": -761.4615539550781,
-               "upper": 281.8967361450195
+               "trajectory": "Cumulative_hosp_state",
+               "timepoint": 9.0,
+               "lower": 1853.7775634765626,
+               "upper": 17914.21884765625
             },
             {
-               "trajectory": "E_u_state",
-               "timepoint": 2.0,
-               "lower": -787.3107116699218,
-               "upper": 617.4230255126953
+               "trajectory": "Cumulative_hosp_state",
+               "timepoint": 10.0,
+               "lower": 1929.0019226074219,
+               "upper": 23051.2494140625
             },
             {
-               "trajectory": "E_u_state",
-               "timepoint": 3.0,
-               "lower": -990.5756530761719,
-               "upper": 596.4541870117188
+               "trajectory": "Cumulative_hosp_state",
+               "timepoint": 11.0,
+               "lower": 1986.0260986328126,
+               "upper": 28599.605273437497
             },
             {
-               "trajectory": "E_u_state",
-               "timepoint": 4.0,
-               "lower": -892.7764038085937,
-               "upper": 772.927453613281
-            },
-            {
-               "trajectory": "E_u_state",
-               "timepoint": 5.0,
-               "lower": -797.4398040771484,
-               "upper": 711.0180114746091
-            },
-            {
-               "trajectory": "E_u_state",
-               "timepoint": 6.0,
-               "lower": -707.9341522216797,
-               "upper": 972.8169586181639
-            },
-            {
-               "trajectory": "E_u_state",
-               "timepoint": 7.0,
-               "lower": -785.6801574707031,
-               "upper": 803.1469421386716
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 0.0,
-               "lower": 7.333333492279053,
-               "upper": 7.333333492279053
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 1.0,
-               "lower": -144.3197769165039,
-               "upper": 678.9080444335938
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 2.0,
-               "lower": -396.7649185180664,
-               "upper": 658.5938598632812
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 3.0,
-               "lower": -394.4267776489258,
-               "upper": 816.6613647460937
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 4.0,
-               "lower": -518.2622985839844,
-               "upper": 732.6465698242187
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 5.0,
-               "lower": -508.85606689453124,
-               "upper": 651.0904510498046
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 6.0,
-               "lower": -684.1902923583984,
-               "upper": 583.878369140625
-            },
-            {
-               "trajectory": "E_v_state",
-               "timepoint": 7.0,
-               "lower": -587.1754089355469,
-               "upper": 641.0033966064452
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 0.0,
-               "lower": 1.0,
-               "upper": 1.0
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 1.0,
-               "lower": 0.8239059984683991,
-               "upper": 0.8803940206766129
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 2.0,
-               "lower": 0.6788211286067962,
-               "upper": 0.7750934839248658
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 3.0,
-               "lower": 0.5592850506305694,
-               "upper": 0.6823888391256332
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 4.0,
-               "lower": 0.4607980400323868,
-               "upper": 0.6007695943117142
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 5.0,
-               "lower": 0.3796543672680855,
-               "upper": 0.5289143145084381
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 6.0,
-               "lower": 0.31279940605163575,
-               "upper": 0.4656534314155579
-            },
-            {
-               "trajectory": "H_u_state",
-               "timepoint": 7.0,
-               "lower": 0.25771669298410416,
-               "upper": 0.4099583864212036
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 0.0,
-               "lower": 1.0,
-               "upper": 1.0
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 1.0,
-               "lower": 0.8233894020318985,
-               "upper": 0.8854529291391373
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 2.0,
-               "lower": 0.6779693603515625,
-               "upper": 0.784026888012886
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 3.0,
-               "lower": 0.5582327425479889,
-               "upper": 0.6942188769578934
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 4.0,
-               "lower": 0.4596431151032448,
-               "upper": 0.6146982192993165
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 5.0,
-               "lower": 0.3784651950001717,
-               "upper": 0.5442867040634155
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 6.0,
-               "lower": 0.3116244122385979,
-               "upper": 0.48194160163402555
-            },
-            {
-               "trajectory": "H_v_state",
-               "timepoint": 7.0,
-               "lower": 0.256588314473629,
-               "upper": 0.42673633247613907
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 0.0,
-               "lower": 3.3333332538604736,
-               "upper": 3.3333332538604736
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 1.0,
-               "lower": -90.48192901611328,
-               "upper": -57.74822578430176
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 2.0,
-               "lower": -124.3995132446289,
-               "upper": -69.94408340454102
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 3.0,
-               "lower": -170.0484992980957,
-               "upper": -63.4461597442627
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 4.0,
-               "lower": -190.1781105041504,
-               "upper": -75.6091079711914
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 5.0,
-               "lower": -202.55313720703126,
-               "upper": -74.56892890930176
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 6.0,
-               "lower": -213.75525512695313,
-               "upper": -69.80762214660645
-            },
-            {
-               "trajectory": "I_u_state",
-               "timepoint": 7.0,
-               "lower": -233.37616271972655,
-               "upper": -61.46678638458253
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 0.0,
-               "lower": 1.6666666269302368,
-               "upper": 1.6666666269302368
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 1.0,
-               "lower": 54.59088535308838,
-               "upper": 87.61172714233399
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 2.0,
-               "lower": 70.0032787322998,
-               "upper": 125.9269992828369
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 3.0,
-               "lower": 65.34255104064941,
-               "upper": 169.14397048950195
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 4.0,
-               "lower": 75.24841194152832,
-               "upper": 189.08693695068354
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 5.0,
-               "lower": 71.96515007019043,
-               "upper": 202.11668624877925
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 6.0,
-               "lower": 69.19541664123535,
-               "upper": 213.84066925048822
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 7.0,
-               "lower": 61.62811965942383,
-               "upper": 233.66038970947264
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 0.0,
-               "lower": 0.0,
-               "upper": 0.0
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 1.0,
-               "lower": -0.039925500564277135,
-               "upper": 3.0111736059188843
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 2.0,
-               "lower": -2.7959219455718993,
-               "upper": 9.129653358459473
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 3.0,
-               "lower": -6.824331593513489,
-               "upper": 16.448115348815918
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 4.0,
-               "lower": -11.836221837997435,
-               "upper": 23.973658752441406
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 5.0,
-               "lower": -17.465842533111573,
-               "upper": 31.146741008758543
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 6.0,
-               "lower": -23.950795078277586,
-               "upper": 37.6496618270874
-            },
-            {
-               "trajectory": "R_state",
-               "timepoint": 7.0,
-               "lower": -31.540112209320068,
-               "upper": 43.42525043487549
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 0.0,
-               "lower": 60.0,
-               "upper": 60.0
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 1.0,
-               "lower": -10111.29267578125,
-               "upper": -9101.215771484374
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 2.0,
-               "lower": -20454.87724609375,
-               "upper": -19011.058203125
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 3.0,
-               "lower": -30390.51826171875,
-               "upper": -28824.958984375
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 4.0,
-               "lower": -40579.541796875,
-               "upper": -38891.8990234375
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 5.0,
-               "lower": -50494.8103515625,
-               "upper": -48948.8806640625
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 6.0,
-               "lower": -60764.787109375,
-               "upper": -59001.6529296875
-            },
-            {
-               "trajectory": "S_u_state",
-               "timepoint": 7.0,
-               "lower": -70600.98203125,
-               "upper": -68889.026953125
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 0.0,
-               "lower": 240.0,
-               "upper": 240.0
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 1.0,
-               "lower": 9512.629052734375,
-               "upper": 10302.13251953125
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 2.0,
-               "lower": 19460.179296875,
-               "upper": 20553.82822265625
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 3.0,
-               "lower": 29314.003515625,
-               "upper": 30508.0716796875
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 4.0,
-               "lower": 39368.81484375,
-               "upper": 40640.916796875
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 5.0,
-               "lower": 49412.0169921875,
-               "upper": 50588.6720703125
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 6.0,
-               "lower": 59452.8484375,
-               "upper": 60777.4150390625
-            },
-            {
-               "trajectory": "S_v_state",
-               "timepoint": 7.0,
-               "lower": 69358.697265625,
-               "upper": 70664.862890625
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 0.0,
-               "lower": 5.0,
-               "upper": 5.0
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 1.0,
-               "lower": -4.046663856506347,
-               "upper": -2.3633296966552737
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 2.0,
-               "lower": -3.1473426818847656,
-               "upper": 2.82344970703125
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 3.0,
-               "lower": -2.1298191070556642,
-               "upper": 2.5560985565185543
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 4.0,
-               "lower": -2.1289878845214845,
-               "upper": 2.0636913299560544
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 5.0,
-               "lower": -2.1732036590576174,
-               "upper": 1.8565635681152335
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 6.0,
-               "lower": -1.6862068176269531,
-               "upper": 1.5541282653808588
-            },
-            {
-               "trajectory": "cases_observable_state",
-               "timepoint": 7.0,
-               "lower": -1.7816337585449218,
-               "upper": 1.3398113250732413
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 0.0,
-               "lower": 7.0,
-               "upper": 7.0
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 1.0,
-               "lower": 7.272507524490356,
-               "upper": 7.6464756488800045
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 2.0,
-               "lower": 7.084398555755615,
-               "upper": 7.812989521026611
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 3.0,
-               "lower": 6.8091754674911495,
-               "upper": 7.678043246269226
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 4.0,
-               "lower": 6.344069147109986,
-               "upper": 7.687021327018738
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 5.0,
-               "lower": 5.833610701560974,
-               "upper": 7.5670653820037845
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 6.0,
-               "lower": 5.253648853302002,
-               "upper": 7.31509792804718
-            },
-            {
-               "trajectory": "cumulative_hosp_observable_state",
-               "timepoint": 7.0,
-               "lower": 4.533008241653443,
-               "upper": 7.099531936645508
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 0.0,
-               "lower": 2.0,
-               "upper": 2.0
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 1.0,
-               "lower": 1.6681668043136597,
-               "upper": 1.7593058705329896
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 2.0,
-               "lower": 1.391522043943405,
-               "upper": 1.547610354423523
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 3.0,
-               "lower": 1.160865992307663,
-               "upper": 1.3614174008369446
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 4.0,
-               "lower": 0.9685351073741912,
-               "upper": 1.1976496160030365
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 5.0,
-               "lower": 0.80814688205719,
-               "upper": 1.0536057829856873
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 6.0,
-               "lower": 0.6743842840194703,
-               "upper": 0.9269069045782089
-            },
-            {
-               "trajectory": "hospitalized_observable_state",
-               "timepoint": 7.0,
-               "lower": 0.5628122448921203,
-               "upper": 0.815458071231842
+               "trajectory": "Cumulative_hosp_state",
+               "timepoint": 12.0,
+               "lower": 2041.513201904297,
+               "upper": 34709.7333984375
             }
          ],
          "transform": [
@@ -1239,6 +870,11 @@
                      "timepoint"
                   ]
                }
+            },
+            {
+               "type": "formula",
+               "expr": "scale('trajectoryOrder', datum.trajectory)",
+               "as": "trajectory_order"
             }
          ]
       },
@@ -1263,7 +899,62 @@
       },
       {
          "name": "points",
-         "values": []
+         "values": [
+            {
+               "timepoint": 0,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 292
+            },
+            {
+               "timepoint": 1,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 605
+            },
+            {
+               "timepoint": 2,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 1049
+            },
+            {
+               "timepoint": 3,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 1511
+            },
+            {
+               "timepoint": 4,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 2163
+            },
+            {
+               "timepoint": 5,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 2864
+            },
+            {
+               "timepoint": 6,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 3612
+            },
+            {
+               "timepoint": 7,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 4375
+            },
+            {
+               "timepoint": 8,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 5219
+            }
+         ]
       },
       {
          "name": "markers_v",
@@ -1272,6 +963,13 @@
       {
          "name": "markers_h",
          "values": []
+      },
+      {
+         "name": "axis_labels",
+         "values": {
+            "xaxis_label": "Time (weeks)",
+            "yaxis_label": "Population"
+         }
       },
       {
          "name": "selected",
