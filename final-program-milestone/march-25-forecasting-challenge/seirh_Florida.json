@@ -154,8 +154,8 @@
     }
    },
    {
-    "id": "Cumulative_hosp",
-    "name": "Cumulative_hosp",
+    "id": "cumulative_hosp",
+    "name": "cumulative_hosp",
     "grounding": {
      "identifiers": {},
      "modifiers": {}
@@ -316,7 +316,7 @@
     "output": [
      "I_u",
      "I_v",
-     "Cumulative_hosp"
+     "cumulative_hosp"
     ],
     "properties": {
      "name": "t12"
@@ -435,7 +435,7 @@
      "expression_mathml": "<cn>53.475000000000001</cn>"
     },
     {
-     "target": "Cumulative_hosp",
+     "target": "cumulative_hosp",
      "expression": "292.0",
      "expression_mathml": "<cn>292.0</cn>"
     }

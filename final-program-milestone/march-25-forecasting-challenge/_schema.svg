@@ -80,8 +80,8 @@
          "name": "fillScale",
          "type": "ordinal",
          "domain": [
-            "I_u_state",
-            "I_v_state"
+            "cumulative_hosp_state",
+            "cumulative_hosp"
          ],
          "range": [
             "#1f77b4",
@@ -96,8 +96,8 @@
             "#ff7f0e"
          ],
          "domain": [
-            "I_u_state",
-            "I_v_state"
+            "cumulative_hosp_state",
+            "cumulative_hosp"
          ]
       },
       {
@@ -128,8 +128,8 @@
          "name": "trajectoryOrder",
          "type": "ordinal",
          "domain": [
-            "I_u_state",
-            "I_v_state"
+            "cumulative_hosp_state",
+            "cumulative_hosp"
          ],
          "range": [
             0,
@@ -783,160 +783,82 @@
          "name": "distributions",
          "values": [
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 0.0,
-               "lower": 1785.0,
-               "upper": 1785.0
+               "lower": 42.999999809265134,
+               "upper": 43.000003814697266
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 1.0,
-               "lower": 3574.9467895507814,
-               "upper": 3937.2291870117188
+               "lower": 95.55200157165527,
+               "upper": 105.75295181274414
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 2.0,
-               "lower": 4049.7309448242186,
-               "upper": 4597.7215576171875
+               "lower": 154.7581443786621,
+               "upper": 174.1518669128418
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 3.0,
-               "lower": 4702.883276367187,
-               "upper": 5451.553491210937
+               "lower": 218.70819549560548,
+               "upper": 256.5973602294922
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 4.0,
-               "lower": 5494.178198242187,
-               "upper": 6528.274487304688
+               "lower": 302.6688735961914,
+               "upper": 365.9270584106445
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 5.0,
-               "lower": 6401.622875976563,
-               "upper": 7768.268383789063
+               "lower": 413.21424865722656,
+               "upper": 508.8488510131836
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 6.0,
-               "lower": 7429.1905517578125,
-               "upper": 9219.622216796875
+               "lower": 561.0612060546875,
+               "upper": 719.0323791503906
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 7.0,
-               "lower": 8602.925244140624,
-               "upper": 10960.947314453124
+               "lower": 768.6398681640625,
+               "upper": 1019.2787475585938
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 8.0,
-               "lower": 9934.012255859376,
-               "upper": 12982.72783203125
+               "lower": 1050.2483947753906,
+               "upper": 1458.3215637207031
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 9.0,
-               "lower": 11447.51376953125,
-               "upper": 15296.7208984375
+               "lower": 1433.2655944824219,
+               "upper": 2086.4052856445314
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 10.0,
-               "lower": 13126.370556640624,
-               "upper": 17866.965625
+               "lower": 1949.41337890625,
+               "upper": 2952.3056640625
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 11.0,
-               "lower": 14919.9490234375,
-               "upper": 20685.3630859375
+               "lower": 2617.2355712890626,
+               "upper": 4108.617260742188
             },
             {
-               "trajectory": "I_u_state",
+               "trajectory": "cumulative_hosp_state",
                "timepoint": 12.0,
-               "lower": 16891.8341796875,
-               "upper": 23721.6982421875
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 0.0,
-               "lower": 315.0,
-               "upper": 315.0
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 1.0,
-               "lower": 1091.0480590820312,
-               "upper": 1202.441229248047
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 2.0,
-               "lower": 1519.1450134277343,
-               "upper": 1725.5186340332032
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 3.0,
-               "lower": 2010.6148681640625,
-               "upper": 2332.284948730469
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 4.0,
-               "lower": 2627.500927734375,
-               "upper": 3116.8510498046876
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 5.0,
-               "lower": 3411.6436767578125,
-               "upper": 4133.573046875
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 6.0,
-               "lower": 4388.716479492187,
-               "upper": 5436.28095703125
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 7.0,
-               "lower": 5615.1431640625,
-               "upper": 7116.960839843749
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 8.0,
-               "lower": 7151.49912109375,
-               "upper": 9305.005615234375
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 9.0,
-               "lower": 9066.80146484375,
-               "upper": 12091.86611328125
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 10.0,
-               "lower": 11455.972900390625,
-               "upper": 15609.4640625
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 11.0,
-               "lower": 14386.86220703125,
-               "upper": 19949.7203125
-            },
-            {
-               "trajectory": "I_v_state",
-               "timepoint": 12.0,
-               "lower": 17902.39150390625,
-               "upper": 25270.905859374998
+               "lower": 3469.6220703125,
+               "upper": 5601.7550048828125
             }
          ],
          "transform": [
@@ -977,7 +899,62 @@
       },
       {
          "name": "points",
-         "values": []
+         "values": [
+            {
+               "timepoint": 0,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 43
+            },
+            {
+               "timepoint": 1,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 93
+            },
+            {
+               "timepoint": 2,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 132
+            },
+            {
+               "timepoint": 3,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 214
+            },
+            {
+               "timepoint": 4,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 303
+            },
+            {
+               "timepoint": 5,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 428
+            },
+            {
+               "timepoint": 6,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 645
+            },
+            {
+               "timepoint": 7,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 929
+            },
+            {
+               "timepoint": 8,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 1324
+            }
+         ]
       },
       {
          "name": "markers_v",
@@ -1031,7 +1008,7 @@
    ],
    "title": {
       "text": [
-         "Prior distribution Pennsylvania"
+         "Calibrated ensemble distribution"
       ]
    }
 }
