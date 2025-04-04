@@ -1,0 +1,1014 @@
+{
+   "$schema": "https://vega.github.io/schema/vega/v5.json",
+   "width": 500,
+   "height": 300,
+   "scales": [
+      {
+         "name": "xscale",
+         "type": "linear",
+         "range": "width",
+         "zero": false,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "traces",
+                  "field": "timepoint"
+               },
+               {
+                  "data": "points",
+                  "field": "timepoint"
+               }
+            ]
+         }
+      },
+      {
+         "name": "yscale",
+         "type": "linear",
+         "range": "height",
+         "nice": true,
+         "zero": true,
+         "domain": {
+            "fields": [
+               {
+                  "data": "distributions",
+                  "field": "lower"
+               },
+               {
+                  "data": "distributions",
+                  "field": "upper"
+               },
+               {
+                  "data": "traces",
+                  "field": "value"
+               },
+               {
+                  "data": "points",
+                  "field": "value"
+               }
+            ]
+         }
+      },
+      {
+         "name": "markerscale_v",
+         "type": "ordinal",
+         "domain": {
+            "data": "markers_v",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_v",
+            "field": "new_color"
+         }
+      },
+      {
+         "name": "markerscale_h",
+         "type": "ordinal",
+         "domain": {
+            "data": "markers_h",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_h",
+            "field": "new_color"
+         }
+      },
+      {
+         "name": "fillScale",
+         "type": "ordinal",
+         "domain": [
+            "cumulative_hosp_state",
+            "cumulative_hosp"
+         ],
+         "range": [
+            "#1f77b4",
+            "#ff7f0e"
+         ]
+      },
+      {
+         "name": "color",
+         "type": "ordinal",
+         "range": [
+            "#1f77b4",
+            "#ff7f0e"
+         ],
+         "domain": [
+            "cumulative_hosp_state",
+            "cumulative_hosp"
+         ]
+      },
+      {
+         "name": "lineStyle_v",
+         "type": "ordinal",
+         "domain": {
+            "data": "markers_v",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_v",
+            "field": "type"
+         }
+      },
+      {
+         "name": "lineStyle_h",
+         "type": "ordinal",
+         "domain": {
+            "data": "markers_h",
+            "field": "label"
+         },
+         "range": {
+            "data": "markers_h",
+            "field": "type"
+         }
+      },
+      {
+         "name": "trajectoryOrder",
+         "type": "ordinal",
+         "domain": [
+            "cumulative_hosp_state",
+            "cumulative_hosp"
+         ],
+         "range": [
+            0,
+            1
+         ]
+      }
+   ],
+   "axes": [
+      {
+         "orient": "bottom",
+         "scale": "xscale",
+         "zindex": 100,
+         "title": {
+            "signal": "data('axis_labels')[0].xaxis_label"
+         }
+      },
+      {
+         "orient": "left",
+         "scale": "yscale",
+         "zindex": 100,
+         "title": {
+            "signal": "data('axis_labels')[0].yaxis_label"
+         }
+      }
+   ],
+   "signals": [
+      {
+         "name": "clear",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "shift",
+         "value": false,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "event.shiftKey",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clicked",
+         "value": null,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "{value: datum.value}",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clearData",
+         "value": true,
+         "on": [
+            {
+               "events": "mouseup[!event.item]",
+               "update": "true",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "clickedData",
+         "value": null,
+         "on": [
+            {
+               "events": "@area:click",
+               "update": "{value: datum.trajectory}",
+               "force": true
+            }
+         ]
+      },
+      {
+         "name": "logLegendClick",
+         "value": null,
+         "on": [
+            {
+               "events": "@legendSymbol:click, @legendLabel:click",
+               "update": "{datum: datum}",
+               "force": true
+            }
+         ]
+      },
+      {
+         "description": "Active datapoint",
+         "name": "activated_datapoint",
+         "value": null,
+         "on": [
+            {
+               "events": "symbol:mouseover",
+               "update": "item()"
+            },
+            {
+               "events": "symbol:mouseout",
+               "update": "null"
+            }
+         ]
+      },
+      {
+         "name": "logAreaClick",
+         "value": null,
+         "on": [
+            {
+               "events": "@area:click",
+               "update": "{datum: datum}",
+               "force": true
+            }
+         ]
+      }
+   ],
+   "config": {
+      "logLevel": "warn"
+   },
+   "legends": [
+      {
+         "name": "color_legend",
+         "fill": "fillScale",
+         "stroke": "color",
+         "title": "Trajectory States",
+         "type": "symbol",
+         "symbolType": "square",
+         "symbolSize": 200,
+         "encode": {
+            "symbols": {
+               "enter": {
+                  "shape": {
+                     "value": "square"
+                  },
+                  "size": {
+                     "value": 200
+                  },
+                  "fill": {
+                     "scale": "fillScale",
+                     "field": "trajectory"
+                  },
+                  "stroke": {
+                     "scale": "color",
+                     "field": "trajectory"
+                  },
+                  "strokeWidth": {
+                     "value": 2
+                  }
+               },
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory) || indata('selectedData', 'value', datum.trajectory)",
+                        "value": 0.7
+                     },
+                     {
+                        "value": 0.15
+                     }
+                  ]
+               }
+            },
+            "labels": {
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "!length(data('selectedData')) || indata('selectedData', 'value', datum.trajectory)",
+                        "value": 1
+                     },
+                     {
+                        "value": 0.25
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "name": "marker_color_legend_v",
+         "stroke": "markerscale_v",
+         "strokeDash": "lineStyle_v",
+         "title": {
+            "signal": "length(data('markers_v')) > 1 ? 'Vertical Markers' : ''"
+         },
+         "interactive": true,
+         "encode": {
+            "symbols": {
+               "enter": {
+                  "shape": {
+                     "value": "square"
+                  },
+                  "stroke": {
+                     "scale": "markerscale_v",
+                     "field": "label"
+                  },
+                  "strokeDash": {
+                     "scale": "lineStyle_v",
+                     "field": "type"
+                  },
+                  "strokeWidth": {
+                     "value": 1
+                  },
+                  "size": {
+                     "value": 200
+                  },
+                  "opacity": {
+                     "value": 1
+                  }
+               },
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_v')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
+                     }
+                  ]
+               }
+            },
+            "labels": {
+               "update": {
+                  "text": {
+                     "field": "label"
+                  },
+                  "fill": {
+                     "value": "black"
+                  },
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_v')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "name": "marker_color_legend_h",
+         "stroke": "markerscale_h",
+         "strokeDash": "lineStyle_h",
+         "title": {
+            "signal": "length(data('markers_h')) > 1 ? 'Vertical Markers' : ''"
+         },
+         "interactive": true,
+         "encode": {
+            "symbols": {
+               "enter": {
+                  "shape": {
+                     "value": "square"
+                  },
+                  "stroke": {
+                     "scale": "markerscale_v",
+                     "field": "label"
+                  },
+                  "strokeDash": {
+                     "scale": "lineStyle_h",
+                     "field": "type"
+                  },
+                  "strokeWidth": {
+                     "value": 1
+                  },
+                  "size": {
+                     "value": 200
+                  },
+                  "opacity": {
+                     "value": 1
+                  }
+               },
+               "update": {
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_h')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
+                     }
+                  ]
+               }
+            },
+            "labels": {
+               "update": {
+                  "text": {
+                     "field": "label"
+                  },
+                  "fill": {
+                     "value": "black"
+                  },
+                  "opacity": [
+                     {
+                        "test": "length(data('markers_h')) > 1",
+                        "value": 1
+                     },
+                     {
+                        "value": 0
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   ],
+   "marks": [
+      {
+         "type": "group",
+         "zindex": 3,
+         "name": "_points",
+         "from": {
+            "facet": {
+               "name": "points_split",
+               "data": "points",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "symbol",
+               "name": "_points_symbol",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "size": {
+                        "value": 35
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "tooltip": {
+                        "field": "value"
+                     }
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            },
+            {
+               "type": "line",
+               "name": "_points_line",
+               "from": {
+                  "data": "points_split"
+               },
+               "zindex": 3,
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeDash": {
+                        "value": [
+                           5,
+                           3
+                        ]
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.3
+                        },
+                        {
+                           "value": 0.1
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "zindex": 2,
+         "name": "_traces",
+         "from": {
+            "facet": {
+               "name": "traces_split",
+               "data": "traces",
+               "groupby": "trajectory"
+            }
+         },
+         "marks": [
+            {
+               "type": "line",
+               "name": "_traces_lines",
+               "from": {
+                  "data": "traces_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "value"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_distributions",
+         "zindex": 1,
+         "from": {
+            "facet": {
+               "name": "trajectory_split",
+               "data": "distributions",
+               "groupby": "trajectory_order"
+            }
+         },
+         "sort": {
+            "field": "datum.trajectory_order",
+            "order": "ascending"
+         },
+         "marks": [
+            {
+               "type": "area",
+               "name": "area",
+               "interactive": true,
+               "from": {
+                  "data": "trajectory_split"
+               },
+               "encode": {
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "timepoint"
+                     },
+                     "y": {
+                        "scale": "yscale",
+                        "field": "upper"
+                     },
+                     "y2": {
+                        "scale": "yscale",
+                        "field": "lower"
+                     },
+                     "interpolate": {
+                        "value": "linear"
+                     },
+                     "strokeWidth": {
+                        "value": 2
+                     },
+                     "fill": {
+                        "scale": "fillScale",
+                        "field": "trajectory"
+                     },
+                     "stroke": {
+                        "scale": "color",
+                        "field": "trajectory"
+                     },
+                     "fillOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.5
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ],
+                     "strokeOpacity": [
+                        {
+                           "test": "!length(data('selected')) || indata('selected', 'value', datum.trajectory)",
+                           "value": 0.75
+                        },
+                        {
+                           "value": 0.15
+                        }
+                     ]
+                  },
+                  "hover": {
+                     "fillOpacity": {
+                        "value": 0.9
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_markers_v",
+         "marks": [
+            {
+               "type": "rule",
+               "name": "_marker_v text",
+               "from": {
+                  "data": "markers_v"
+               },
+               "encode": {
+                  "enter": {
+                     "stroke": {
+                        "scale": "markerscale_v",
+                        "field": "label"
+                     },
+                     "strokeDash": {
+                        "scale": "lineStyle_v",
+                        "field": "label"
+                     }
+                  },
+                  "update": {
+                     "x": {
+                        "scale": "xscale",
+                        "field": "axis_value"
+                     },
+                     "y2": {
+                        "value": 0
+                     },
+                     "y": {
+                        "signal": "height"
+                     },
+                     "opacity": {
+                        "value": 1
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      {
+         "type": "group",
+         "name": "_markers_h",
+         "marks": [
+            {
+               "type": "rule",
+               "name": "_marker_h text",
+               "from": {
+                  "data": "markers_h"
+               },
+               "encode": {
+                  "enter": {
+                     "stroke": {
+                        "scale": "markerscale_h",
+                        "field": "label"
+                     },
+                     "strokeDash": {
+                        "scale": "lineStyle_h",
+                        "field": "label"
+                     }
+                  },
+                  "update": {
+                     "y": {
+                        "scale": "yscale",
+                        "field": "axis_value"
+                     },
+                     "x2": {
+                        "value": 0
+                     },
+                     "x": {
+                        "signal": "width"
+                     },
+                     "opacity": {
+                        "value": 1
+                     }
+                  }
+               }
+            }
+         ]
+      }
+   ],
+   "data": [
+      {
+         "name": "distributions",
+         "values": [
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 0.0,
+               "lower": 42.999999809265134,
+               "upper": 43.000003814697266
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 1.0,
+               "lower": 95.55200157165527,
+               "upper": 105.75295181274414
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 2.0,
+               "lower": 154.7581443786621,
+               "upper": 174.1518669128418
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 3.0,
+               "lower": 218.70819549560548,
+               "upper": 256.5973602294922
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 4.0,
+               "lower": 302.6688735961914,
+               "upper": 365.9270584106445
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 5.0,
+               "lower": 413.21424865722656,
+               "upper": 508.8488510131836
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 6.0,
+               "lower": 561.0612060546875,
+               "upper": 719.0323791503906
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 7.0,
+               "lower": 768.6398681640625,
+               "upper": 1019.2787475585938
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 8.0,
+               "lower": 1050.2483947753906,
+               "upper": 1458.3215637207031
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 9.0,
+               "lower": 1433.2655944824219,
+               "upper": 2086.4052856445314
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 10.0,
+               "lower": 1949.41337890625,
+               "upper": 2952.3056640625
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 11.0,
+               "lower": 2617.2355712890626,
+               "upper": 4108.617260742188
+            },
+            {
+               "trajectory": "cumulative_hosp_state",
+               "timepoint": 12.0,
+               "lower": 3469.6220703125,
+               "upper": 5601.7550048828125
+            }
+         ],
+         "transform": [
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            },
+            {
+               "type": "formula",
+               "expr": "scale('trajectoryOrder', datum.trajectory)",
+               "as": "trajectory_order"
+            }
+         ]
+      },
+      {
+         "name": "traces",
+         "values": [],
+         "transform": [
+            {
+               "type": "filter",
+               "expr": "isValid(datum.value)"
+            },
+            {
+               "type": "collect",
+               "sort": {
+                  "field": [
+                     "trajectory",
+                     "timepoint"
+                  ]
+               }
+            }
+         ]
+      },
+      {
+         "name": "points",
+         "values": [
+            {
+               "timepoint": 0,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 43
+            },
+            {
+               "timepoint": 1,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 93
+            },
+            {
+               "timepoint": 2,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 132
+            },
+            {
+               "timepoint": 3,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 214
+            },
+            {
+               "timepoint": 4,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 303
+            },
+            {
+               "timepoint": 5,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 428
+            },
+            {
+               "timepoint": 6,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 645
+            },
+            {
+               "timepoint": 7,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 929
+            },
+            {
+               "timepoint": 8,
+               "sample_id": 0,
+               "trajectory": "cumulative_hosp",
+               "value": 1324
+            }
+         ]
+      },
+      {
+         "name": "markers_v",
+         "values": []
+      },
+      {
+         "name": "markers_h",
+         "values": []
+      },
+      {
+         "name": "axis_labels",
+         "values": {
+            "xaxis_label": "Time (weeks)",
+            "yaxis_label": "Population"
+         }
+      },
+      {
+         "name": "selected",
+         "on": [
+            {
+               "trigger": "clear",
+               "remove": true
+            },
+            {
+               "trigger": "!shift",
+               "remove": true
+            },
+            {
+               "trigger": "!shift && clicked",
+               "insert": "clicked"
+            },
+            {
+               "trigger": "shift && clicked",
+               "toggle": "clicked"
+            }
+         ]
+      },
+      {
+         "name": "selectedData",
+         "on": [
+            {
+               "trigger": "clearData",
+               "remove": true
+            },
+            {
+               "trigger": "clickedData",
+               "toggle": "clickedData"
+            }
+         ]
+      }
+   ],
+   "title": {
+      "text": [
+         "Calibrated ensemble distribution"
+      ]
+   }
+}
