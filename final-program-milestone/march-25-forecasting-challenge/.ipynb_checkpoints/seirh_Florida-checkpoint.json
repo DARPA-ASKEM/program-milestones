@@ -1,9 +1,9 @@
 {
  "header": {
-  "name": "SEIRH model with vaccination for Pennsylvania, t0 = 10/14/2023",
+  "name": "SEIRH model with vaccination for Florida, t0 = 10/14/2023",
   "schema": "https://raw.githubusercontent.com/DARPA-ASKEM/Model-Representations/petrinet_v0.6/petrinet/petrinet_schema.json",
   "schema_name": "petrinet",
-  "description": "SEIRH model with vaccination for Pennsylvania, t0 = 10/14/2023",
+  "description": "SEIRH model with vaccination for Florida, t0 = 10/14/2023",
   "model_version": "0.1"
  },
  "properties": {},
@@ -286,10 +286,10 @@
    {
     "id": "t10",
     "input": [
-     "I_u"
+     "H_u"
     ],
     "output": [
-     "H_u"
+     "R"
     ],
     "properties": {
      "name": "t10"
@@ -298,10 +298,10 @@
    {
     "id": "t11",
     "input": [
-     "I_v"
+     "H_v"
     ],
     "output": [
-     "H_v"
+     "R"
     ],
     "properties": {
      "name": "t11"
@@ -309,30 +309,6 @@
    },
    {
     "id": "t12",
-    "input": [
-     "H_u"
-    ],
-    "output": [
-     "R"
-    ],
-    "properties": {
-     "name": "t12"
-    }
-   },
-   {
-    "id": "t13",
-    "input": [
-     "H_v"
-    ],
-    "output": [
-     "R"
-    ],
-    "properties": {
-     "name": "t13"
-    }
-   },
-   {
-    "id": "t14",
     "input": [
      "I_u",
      "I_v"
@@ -343,7 +319,7 @@
      "cumulative_hosp"
     ],
     "properties": {
-     "name": "t14"
+     "name": "t12"
     }
    }
   ]
@@ -398,26 +374,16 @@
     },
     {
      "target": "t10",
-     "expression": "I_u*r_IH_u",
-     "expression_mathml": "<apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply>"
-    },
-    {
-     "target": "t11",
-     "expression": "I_v*r_IH_v",
-     "expression_mathml": "<apply><times/><ci>I_v</ci><ci>r_IH_v</ci></apply>"
-    },
-    {
-     "target": "t12",
      "expression": "H_u*r_HR",
      "expression_mathml": "<apply><times/><ci>H_u</ci><ci>r_HR</ci></apply>"
     },
     {
-     "target": "t13",
+     "target": "t11",
      "expression": "H_v*r_HR",
      "expression_mathml": "<apply><times/><ci>H_v</ci><ci>r_HR</ci></apply>"
     },
     {
-     "target": "t14",
+     "target": "t12",
      "expression": "E_v*r_IH_v + I_u*r_IH_u",
      "expression_mathml": "<apply><plus/><apply><times/><ci>E_v</ci><ci>r_IH_v</ci></apply><apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply></apply>"
     }
@@ -425,59 +391,59 @@
    "initials": [
     {
      "target": "S_u",
-     "expression": "9892397.74",
-     "expression_mathml": "<cn>9892397.7400000002</cn>"
+     "expression": "19240974.475",
+     "expression_mathml": "<cn>19240974.475000001</cn>"
     },
     {
      "target": "I_u",
-     "expression": "1785.0",
-     "expression_mathml": "<cn>1785.0</cn>"
+     "expression": "9137.5",
+     "expression_mathml": "<cn>9137.5</cn>"
     },
     {
      "target": "E_u",
-     "expression": "3570.0",
-     "expression_mathml": "<cn>3570.0</cn>"
+     "expression": "18275.0",
+     "expression_mathml": "<cn>18275.0</cn>"
     },
     {
      "target": "S_v",
-     "expression": "3138246.66",
-     "expression_mathml": "<cn>3138246.6600000001</cn>"
+     "expression": "3804419.025",
+     "expression_mathml": "<cn>3804419.0249999999</cn>"
     },
     {
      "target": "E_v",
-     "expression": "630.0",
-     "expression_mathml": "<cn>630.0</cn>"
+     "expression": "3225.0",
+     "expression_mathml": "<cn>3225.0</cn>"
     },
     {
      "target": "I_v",
-     "expression": "315.0",
-     "expression_mathml": "<cn>315.0</cn>"
+     "expression": "1612.5",
+     "expression_mathml": "<cn>1612.5</cn>"
     },
     {
      "target": "R",
-     "expression": "43000.0",
-     "expression_mathml": "<cn>43000.0</cn>"
+     "expression": "292000.0",
+     "expression_mathml": "<cn>292000.0</cn>"
     },
     {
      "target": "H_u",
-     "expression": "47.26",
-     "expression_mathml": "<cn>47.259999999999998</cn>"
+     "expression": "303.025",
+     "expression_mathml": "<cn>303.02499999999998</cn>"
     },
     {
      "target": "H_v",
-     "expression": "8.34",
-     "expression_mathml": "<cn>8.3399999999999999</cn>"
+     "expression": "53.475",
+     "expression_mathml": "<cn>53.475000000000001</cn>"
     },
     {
      "target": "cumulative_hosp",
-     "expression": "43.0",
-     "expression_mathml": "<cn>43.0</cn>"
+     "expression": "292.0",
+     "expression_mathml": "<cn>292.0</cn>"
     }
    ],
    "parameters": [
     {
      "id": "N",
-     "value": 13080000.0,
+     "value": 23370000.0,
      "units": {
       "expression": "person",
       "expression_mathml": "<ci>person</ci>"
@@ -485,11 +451,11 @@
     },
     {
      "id": "beta",
-     "value": 2.0,
+     "value": 2.5,
      "distribution": {
       "type": "StandardUniform1",
       "parameters": {
-       "minimum": 1.5,
+       "minimum": 2.0,
        "maximum": 3.0
       }
      },
@@ -508,7 +474,7 @@
     },
     {
      "id": "r_Sv",
-     "value": 294300.0,
+     "value": 299720.25,
      "units": {
       "expression": "1/week",
       "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
@@ -546,6 +512,21 @@
      }
     },
     {
+     "id": "r_HR",
+     "value": 0.9,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.7778,
+       "maximum": 1.1667
+      }
+     },
+     "units": {
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
      "id": "r_IH_u",
      "value": 0.018666666666666668,
      "units": {
@@ -556,21 +537,6 @@
     {
      "id": "r_IH_v",
      "value": 0.009706666666666667,
-     "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
-     }
-    },
-    {
-     "id": "r_HR",
-     "value": 0.9,
-     "distribution": {
-      "type": "StandardUniform1",
-      "parameters": {
-       "minimum": 0.7778,
-       "maximum": 1.1667
-      }
-     },
      "units": {
       "expression": "1/week",
       "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"

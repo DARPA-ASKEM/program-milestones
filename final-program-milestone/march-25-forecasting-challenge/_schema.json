@@ -608,80 +608,80 @@
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 0.0,
-               "lower": 291.99999847412107,
+               "lower": 292.0,
                "upper": 292.0
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 1.0,
-               "lower": 725.8081878662109,
-               "upper": 798.4838317871094
+               "lower": 609.4522521972656,
+               "upper": 659.9223815917968
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 2.0,
-               "lower": 1158.220556640625,
-               "upper": 1344.38974609375
+               "lower": 1006.6889678955079,
+               "upper": 1111.7722229003907
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 3.0,
-               "lower": 1582.0877075195312,
-               "upper": 1934.4207336425782
+               "lower": 1472.670477294922,
+               "upper": 1640.5537841796875
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 4.0,
-               "lower": 2019.2580810546874,
-               "upper": 2593.9937744140625
+               "lower": 2014.634295654297,
+               "upper": 2260.2246337890624
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 5.0,
-               "lower": 2512.8173583984376,
-               "upper": 3418.5039306640624
+               "lower": 2631.6473754882813,
+               "upper": 2985.098742675781
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 6.0,
-               "lower": 3079.8981201171873,
-               "upper": 4401.191748046875
+               "lower": 3315.0388671875,
+               "upper": 3833.686389160156
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 7.0,
-               "lower": 3706.7283447265627,
-               "upper": 5609.601879882813
+               "lower": 4100.201147460937,
+               "upper": 4819.363330078125
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 8.0,
-               "lower": 4420.8609619140625,
-               "upper": 7125.589404296875
+               "lower": 4969.923754882812,
+               "upper": 5936.71708984375
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 9.0,
-               "lower": 5285.3462890625,
-               "upper": 9130.39375
+               "lower": 5904.006884765625,
+               "upper": 7199.2293945312485
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 10.0,
-               "lower": 6162.6075439453125,
-               "upper": 11666.253808593749
+               "lower": 6931.714379882813,
+               "upper": 8666.199218749998
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 11.0,
-               "lower": 7248.9439453125,
-               "upper": 14677.58701171875
+               "lower": 8025.90439453125,
+               "upper": 10315.10615234375
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 12.0,
-               "lower": 8341.116552734375,
-               "upper": 18097.0453125
+               "lower": 9214.6951171875,
+               "upper": 12123.471142578124
             }
          ],
          "transform": [
