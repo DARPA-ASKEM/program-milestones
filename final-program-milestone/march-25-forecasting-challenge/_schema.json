@@ -608,80 +608,80 @@
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 0.0,
-               "lower": 291.99999847412107,
-               "upper": 292.0
+               "lower": 43.0,
+               "upper": 43.000003814697266
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 1.0,
-               "lower": 725.8081878662109,
-               "upper": 798.4838317871094
+               "lower": 87.87814254760742,
+               "upper": 100.94185905456543
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 2.0,
-               "lower": 1158.220556640625,
-               "upper": 1344.38974609375
+               "lower": 138.5337707519531,
+               "upper": 166.9136734008789
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 3.0,
-               "lower": 1582.0877075195312,
-               "upper": 1934.4207336425782
+               "lower": 196.2614402770996,
+               "upper": 248.19927825927732
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 4.0,
-               "lower": 2019.2580810546874,
-               "upper": 2593.9937744140625
+               "lower": 270.49718475341797,
+               "upper": 362.55421600341793
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 5.0,
-               "lower": 2512.8173583984376,
-               "upper": 3418.5039306640624
+               "lower": 365.7667602539062,
+               "upper": 519.8274475097655
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 6.0,
-               "lower": 3079.8981201171873,
-               "upper": 4401.191748046875
+               "lower": 496.65165252685546,
+               "upper": 752.8176605224609
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 7.0,
-               "lower": 3706.7283447265627,
-               "upper": 5609.601879882813
+               "lower": 677.5809753417968,
+               "upper": 1089.9675354003907
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 8.0,
-               "lower": 4420.8609619140625,
-               "upper": 7125.589404296875
+               "lower": 932.5539672851562,
+               "upper": 1590.3409606933594
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 9.0,
-               "lower": 5285.3462890625,
-               "upper": 9130.39375
+               "lower": 1281.0358947753907,
+               "upper": 2313.8955078125
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 10.0,
-               "lower": 6162.6075439453125,
-               "upper": 11666.253808593749
+               "lower": 1760.6541259765625,
+               "upper": 3362.289416503906
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 11.0,
-               "lower": 7248.9439453125,
-               "upper": 14677.58701171875
+               "lower": 2397.0089477539063,
+               "upper": 4770.754321289062
             },
             {
                "trajectory": "cumulative_hosp_state",
                "timepoint": 12.0,
-               "lower": 8341.116552734375,
-               "upper": 18097.0453125
+               "lower": 3235.881457519531,
+               "upper": 6583.977685546874
             }
          ],
          "transform": [
@@ -722,55 +722,55 @@
                "timepoint": 0,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 292
+               "value": 43
             },
             {
                "timepoint": 1,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 605
+               "value": 93
             },
             {
                "timepoint": 2,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 1049
+               "value": 132
             },
             {
                "timepoint": 3,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 1511
+               "value": 214
             },
             {
                "timepoint": 4,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 2163
+               "value": 303
             },
             {
                "timepoint": 5,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 2864
+               "value": 428
             },
             {
                "timepoint": 6,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 3612
+               "value": 645
             },
             {
                "timepoint": 7,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 4375
+               "value": 929
             },
             {
                "timepoint": 8,
                "sample_id": 0,
                "trajectory": "cumulative_hosp",
-               "value": 5219
+               "value": 1324
             }
          ]
       },
