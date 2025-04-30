@@ -286,10 +286,10 @@
    {
     "id": "t10",
     "input": [
-     "H_u"
+     "I_u"
     ],
     "output": [
-     "R"
+     "H_u"
     ],
     "properties": {
      "name": "t10"
@@ -298,10 +298,10 @@
    {
     "id": "t11",
     "input": [
-     "H_v"
+     "I_v"
     ],
     "output": [
-     "R"
+     "H_v"
     ],
     "properties": {
      "name": "t11"
@@ -309,6 +309,30 @@
    },
    {
     "id": "t12",
+    "input": [
+     "H_u"
+    ],
+    "output": [
+     "R"
+    ],
+    "properties": {
+     "name": "t12"
+    }
+   },
+   {
+    "id": "t13",
+    "input": [
+     "H_v"
+    ],
+    "output": [
+     "R"
+    ],
+    "properties": {
+     "name": "t13"
+    }
+   },
+   {
+    "id": "t14",
     "input": [
      "I_u",
      "I_v"
@@ -319,7 +343,7 @@
      "cumulative_hosp"
     ],
     "properties": {
-     "name": "t12"
+     "name": "t14"
     }
    }
   ]
@@ -374,16 +398,26 @@
     },
     {
      "target": "t10",
+     "expression": "I_u*r_IH_u",
+     "expression_mathml": "<apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply>"
+    },
+    {
+     "target": "t11",
+     "expression": "I_v*r_IH_v",
+     "expression_mathml": "<apply><times/><ci>I_v</ci><ci>r_IH_v</ci></apply>"
+    },
+    {
+     "target": "t12",
      "expression": "H_u*r_HR",
      "expression_mathml": "<apply><times/><ci>H_u</ci><ci>r_HR</ci></apply>"
     },
     {
-     "target": "t11",
+     "target": "t13",
      "expression": "H_v*r_HR",
      "expression_mathml": "<apply><times/><ci>H_v</ci><ci>r_HR</ci></apply>"
     },
     {
-     "target": "t12",
+     "target": "t14",
      "expression": "E_v*r_IH_v + I_u*r_IH_u",
      "expression_mathml": "<apply><plus/><apply><times/><ci>E_v</ci><ci>r_IH_v</ci></apply><apply><times/><ci>I_u</ci><ci>r_IH_u</ci></apply></apply>"
     }
@@ -512,21 +546,6 @@
      }
     },
     {
-     "id": "r_HR",
-     "value": 0.9,
-     "distribution": {
-      "type": "StandardUniform1",
-      "parameters": {
-       "minimum": 0.7778,
-       "maximum": 1.1667
-      }
-     },
-     "units": {
-      "expression": "1/week",
-      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
-     }
-    },
-    {
      "id": "r_IH_u",
      "value": 0.018666666666666668,
      "units": {
@@ -537,6 +556,21 @@
     {
      "id": "r_IH_v",
      "value": 0.009706666666666667,
+     "units": {
+      "expression": "1/week",
+      "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
+     }
+    },
+    {
+     "id": "r_HR",
+     "value": 0.9,
+     "distribution": {
+      "type": "StandardUniform1",
+      "parameters": {
+       "minimum": 0.7778,
+       "maximum": 1.1667
+      }
+     },
      "units": {
       "expression": "1/week",
       "expression_mathml": "<apply><power/><ci>week</ci><cn>-1</cn></apply>"
