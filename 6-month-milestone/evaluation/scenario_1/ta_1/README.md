@@ -51,9 +51,11 @@ https://doi.org/10.1371/journal.pcbi.1005697.s002 Zip file of multiple Excel spr
 4. The Excel spreadsheets include, for ~150 countries, result of contact surveys.  For survey participants, the average number of individuals in each age bin (each age bin is 5 years, up to X=16) reported having contact with. The surveys additionally broke down data by contact location (home, school, work, other). The supporting PDF suggested reweighting the different location datasets to simulate interventions (e.g., reweight to 0 for school contacts to represent school closer, reweight to 0.5 the work and other interactions to represent social distancing).
 
 5. We have uploaded data from USA (for all locations), India (as an example country with
-   multi-generational contact) and Belgium (as an example country with no multi-generational contact). These are in files belgium_all_locations_cm.csv, usa_*_cm.csv and india_all_locations_cm.csv.
+   multi-generational contact) and Belgium (as an example country with no multi-generational contact). These are in files `belgium_all_locations_cm.csv`, `usa_*_cm.csv` and `india_all_locations_cm.csv`.
 
-6. We stopped here.  Note that potentially the weights could be played with for the UK dataset to see how close one can get to the UK during-pandemic surveys. UK datasets from the "Prem, K and Cook A" paper are at uk_*_cm.csv
+6. We stopped here.  Note that potentially the weights could be played with for the UK dataset to see how close one can get to the UK during-pandemic surveys. UK datasets from the "Prem, K and Cook A" paper are at `uk_*_cm.csv`.
+
+For low-level details about how the xDD literature search was done, see <xDD-Scenario-1-raw-notes.pdf>
 
 ### Contact Matrix from UK
 
